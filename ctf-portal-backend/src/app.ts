@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import Controller from "./controllers/controller";
+import { validationError } from "./utils/validation/validateBody";
 import errorMiddleware from "./utils/exceptions/errorMiddleware";
 
 class App {
@@ -34,6 +35,7 @@ class App {
 	}
 
 	public initializeErrorHandling() {
+		this.app.use(validationError);
 		this.app.use(errorMiddleware);
 	}
 
