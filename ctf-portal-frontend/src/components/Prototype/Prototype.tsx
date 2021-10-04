@@ -69,7 +69,7 @@ const Prototype = () => (
                           </div>
                       </div>
                       <div className="bg-gray-300 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                          <h3 className="font-semibold text-lg mb-1 text-gray-400">Delivered</h3>
+                          <h3 className="font-semibold text-lg mb-1 text-gray-400">Flag 4</h3>
                           <p className="leading-tight text-justify">
 
                           </p>
@@ -79,7 +79,10 @@ const Prototype = () => (
               </div>
           </div>
       </div>
+
   </div>
+
+
 );
 
 export default Prototype;

@@ -10,6 +10,7 @@ import Prototype from "./components/Prototype/Prototype";
 
 ReactDOM.render(
   <React.StrictMode>
+
     <Provider store={store}>
       <App />
         <Prototype/>
