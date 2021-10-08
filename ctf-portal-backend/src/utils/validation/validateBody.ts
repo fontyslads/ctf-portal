@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import { ValidationError, validateSync } from "class-validator";
 import { toClass } from "class-converter";
+import BadRequestException from "../exceptions/httpExceptions/badRequestException";
 
 type Constructor<T> = { new (): T };
 
@@ -9,7 +10,6 @@ export function validate<T extends object>(
 ): express.RequestHandler {
 	return (req, res, next) => {
 		const input = toClass(req.body, type);
-
 		let errors = validateSync(input);
 		if (errors.length > 0) {
 			next(errors);
@@ -27,8 +27,11 @@ export function validationError(
 	next: NextFunction
 ) {
 	if (err instanceof Array && err[0] instanceof ValidationError) {
+		err.forEach((e) => {
+			delete e.target;
+		});
 		res.status(400).json({ errors: err }).end();
 	} else {
-		next(err);
+		next(new BadRequestException("provide all required fields"));
 	}
 }

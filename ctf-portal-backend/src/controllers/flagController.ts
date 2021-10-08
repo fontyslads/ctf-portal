@@ -2,10 +2,8 @@ import { Request, Response, NextFunction, Router } from "express";
 import Controller from "./controller";
 
 import FlagLogic from "../logic/flagLogic";
-import BadRequestException from "../utils/exceptions/httpExceptions/badRequestException";
-import SubmitFlag from "../models/viewmodels/SubmitFlag";
-
 import { validate } from "../utils/validation/validateBody";
+import SubmitFlag from "../models/viewmodels/SubmitFlag";
 
 class FlagController implements Controller {
 	path: string = "/flag";

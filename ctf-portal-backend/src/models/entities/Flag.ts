@@ -1,11 +1,4 @@
-import {
-	Entity,
-	Column,
-	PrimaryGeneratedColumn,
-	OneToMany,
-	OneToOne,
-	JoinColumn
-} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 import Team from "../enums/Team";
 
 @Entity()
@@ -21,9 +14,6 @@ export default class Flag {
 
 	@Column()
 	story!: string;
-
-	@Column()
-	storyPart!: string;
 
 	@Column({ default: false })
 	submitted!: boolean;
