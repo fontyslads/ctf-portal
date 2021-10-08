@@ -1,14 +1,17 @@
-import Prototype from "./components/Prototype/Prototype";
-import SubmitFlag from "./components/SubmitFlag/SubmitFlag";
-import "./App.css";
+import React from "react";
+import "./App.scss";
 
-function App() {
-  return (
-    <div className="App">
-      <Prototype />
-      <SubmitFlag />
-    </div>
-  );
+//components
+import FlagList from "./components/FlagList/FlagList";
+
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <FlagList />
+      </div>
+    );
+  }
 }
 
 export default App;

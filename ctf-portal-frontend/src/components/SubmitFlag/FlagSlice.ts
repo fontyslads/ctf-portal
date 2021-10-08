@@ -39,6 +39,10 @@ export const flagSlice = createSlice({
         const valid = action.payload;
         if (valid) state.flagStatus = "valid";
         else state.flagStatus = "invalid";
+      })
+      .addCase(submitFlagAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.flagStatus = "invalid";
       });
   },
 });
