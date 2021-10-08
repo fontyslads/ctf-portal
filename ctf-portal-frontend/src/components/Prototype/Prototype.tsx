@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './Prototype.module.scss';
-
+import { Button } from 'react-bootstrap';
 const Prototype = () => (
+
   <div className={styles.Prototype}>
+      <Button  variant="primary">Button #1</Button>
+      <Button  variant="success">Button #3</Button>
       <div className="p-4 mt-4">
           <h1 className="text-4xl text-center font-semibold mb-6">Package status</h1>
           <div className="container">
@@ -81,7 +84,7 @@ const Prototype = () => (
       </div>
 
   </div>
-
+    
 
 );
 
