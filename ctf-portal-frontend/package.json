@@ -13,6 +13,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.7",
+    "axios": "^0.22.0",
     "generate-react-cli": "^7.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "autoprefixer": "^9.8.7",
     "postcss": "^7.0.38",
+    "sass": "^1.42.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
   }
 }
