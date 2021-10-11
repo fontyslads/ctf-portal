@@ -1,8 +1,13 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from "react";
+import Flag from "../../models/Flag";
 
-const LazyFlagCard = lazy(() => import('./FlagCard'));
+const LazyFlagCard = lazy(() => import("./FlagCard"));
 
-const FlagCard = (props: JSX.IntrinsicAttributes & { children?: React.ReactNode; }) => (
+interface Props extends JSX.IntrinsicAttributes {
+  flag: Flag;
+}
+
+const FlagCard = (props: Props & { children?: React.ReactNode }) => (
   <Suspense fallback={null}>
     <LazyFlagCard {...props} />
   </Suspense>

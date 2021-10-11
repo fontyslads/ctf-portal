@@ -17,7 +17,7 @@ class AxiosRequestHandler {
         }),
       })
       .then((res: AxiosResponse<any>) => {
-        return res;
+        return res.data;
       })
       .catch((err: AxiosError) => {
         if (axios.isCancel(err)) return;

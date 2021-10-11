@@ -1,16 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
+import { listFlagsAsync } from "../SubmitFlag/FlagSlice";
 import styles from "./FlagList.module.scss";
-
-//components
+import Flag from "../../models/Flag";
 import FlagCard from "../FlagCard/FlagCard";
 
-class FlagList extends React.Component {
+class FlagList extends React.Component<{
+  listFlagsAsync: () => void;
+  flags: Flag[];
+}> {
+  constructor(props: any) {
+    super(props);
+    this.props.listFlagsAsync();
+  }
+
   getFlagCards() {
-    const flagCount = 6;
-    let html = [];
-    for (let i = 0; i < flagCount; i++) {
-      html.push(<FlagCard key={i} />);
-    }
+    const html: JSX.Element[] = [];
+    const flags = this.props.flags || [];
+    flags.forEach((flag, i) => {
+      html.push(<FlagCard key={i} flag={flag} />);
+    });
+
     return html;
   }
 
@@ -30,4 +40,10 @@ class FlagList extends React.Component {
   }
 }
 
-export default FlagList;
+const mapStateToProps = (state: { flag: { flags: any } }) => {
+  return {
+    flags: state.flag.flags,
+  };
+};
+
+export default connect(mapStateToProps, { listFlagsAsync })(FlagList);

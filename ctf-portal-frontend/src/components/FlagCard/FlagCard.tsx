@@ -4,18 +4,18 @@ import { Button, Collapse } from "react-bootstrap";
 //components
 import SubmitFlag from "../SubmitFlag/SubmitFlag";
 
-import { selectFlagStatus } from "../SubmitFlag/FlagSlice";
-import { useAppSelector } from "../../app/hooks";
+//models
+import Flag from "../../models/Flag";
+import FlagStatus from "../../models/enums/FlagStatus";
 
-const FlagCard = () => {
+const FlagCard = (props: { flag: Flag }) => {
   const [open, setOpen] = useState(false);
-  const flagStatus = useAppSelector(selectFlagStatus);
 
   function getBackgroundColor() {
-    switch (flagStatus) {
-      case "invalid":
+    switch (props.flag.status) {
+      case FlagStatus.Invalid:
         return "bg-red-500";
-      case "valid":
+      case FlagStatus.Valid:
         return "bg-green-500";
       default:
         return "bg-gray-300";
@@ -40,8 +40,10 @@ const FlagCard = () => {
         className={`${getBackgroundColor()} 
           col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full`}
       >
-        <h3 className="font-semibold text-lg mb-1">Flag 1</h3>
-        <p className="leading-tight text-justify w-full">{flagStatus}</p>
+        <h3 className="font-semibold text-lg mb-1">Flag {props.flag.id}</h3>
+        <p className="leading-tight text-justify w-full">
+          {props.flag.description}
+        </p>
         <Button
           onClick={() => setOpen(!open)}
           aria-controls="example-collapse-text"
@@ -60,6 +62,3 @@ const FlagCard = () => {
 };
 
 export default FlagCard;
-function getBackgroundColor() {
-  throw new Error("Function not implemented.");
-}

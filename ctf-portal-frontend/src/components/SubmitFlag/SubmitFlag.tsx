@@ -29,6 +29,7 @@ class SubmitFlag extends React.Component<
     return (
       <form className="flex gap-2" onSubmit={this.handleSubmit}>
         <div className="flex">
+          <div>TODO: CAPTCHA</div>
           <span className="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
             Flag:
           </span>

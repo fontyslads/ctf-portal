@@ -1,27 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { submitFlag } from "./FlagAPI";
+import Team from "../../models/enums/Team";
+import Flag from "../../models/Flag";
+import { submitFlag, listFlags } from "./FlagAPI";
 
 export interface FlagState {
-  id: number;
-  flag: string;
-  flagStatus: "valid" | "invalid" | "not-submitted";
-  status: "idle" | "loading" | "failed";
+  flags: Flag[];
 }
 
 const initialState: FlagState = {
-  id: 1,
-  flag: "",
-  flagStatus: "not-submitted",
-  status: "idle",
+  flags: [],
 };
+
+export const listFlagsAsync = createAsyncThunk(
+  "flag/listFlags",
+  async (team: Team = Team.Blue) => {
+    return await listFlags(team);
+  }
+);
 
 export const submitFlagAsync = createAsyncThunk(
   "flag/submitFlag",
   async (flag: string) => {
-    const response = await submitFlag(flag);
-    console.log(response);
-    return response;
+    return await submitFlag(flag);
   }
 );
 
@@ -31,22 +32,22 @@ export const flagSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(submitFlagAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(submitFlagAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        const valid = action.payload;
-        if (valid) state.flagStatus = "valid";
-        else state.flagStatus = "invalid";
-      })
-      .addCase(submitFlagAsync.rejected, (state, action) => {
-        state.status = "failed";
-        state.flagStatus = "invalid";
+      //listFlagsAsync
+      .addCase(listFlagsAsync.fulfilled, (state, action) => {
+        state.flags = action.payload;
       });
+    //submitFlagAsync
+    // .addCase(submitFlagAsync.fulfilled, (state, action) => {
+    //   const valid = action.payload;
+    //   if (valid) state.flagStatus = "valid";
+    //   else state.flagStatus = "invalid";
+    // })
+    // .addCase(submitFlagAsync.rejected, (state) => {
+    //   state.flagStatus = "invalid";
+    // });
   },
 });
 
-export const selectFlagStatus = (state: RootState) => state.flag.flagStatus;
+export const selectFlags = (state: RootState) => state.flag.flags;
 
 export default flagSlice.reducer;
