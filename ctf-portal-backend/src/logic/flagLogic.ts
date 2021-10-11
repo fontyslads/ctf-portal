@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import Flag from "../models/entities/Flag";
 import Team from "../models/enums/Team";
 import BadRequestException from "../utils/exceptions/httpExceptions/badRequestException";
+import FlagStatus from "../models/enums/FlagStatus";
 
 class FlagLogic {
 	private repository: Repository<Flag>;
@@ -26,7 +27,7 @@ class FlagLogic {
 		id: number,
 		hash: string,
 		team: Team = Team.Blue
-	): Promise<boolean> {
+	): Promise<Flag> {
 		let validFlag = null;
 
 		const flag: Flag = (await this.repository.findOne({
@@ -34,17 +35,20 @@ class FlagLogic {
 		})) as Flag;
 
 		if (!flag) throw new BadRequestException("Invalid id");
-		if (flag.submitted)
+		if (flag.status === FlagStatus.Valid)
 			throw new BadRequestException("Flag is already submitted");
 
 		if (bcrypt.compareSync(hash, flag.hash as string)) {
 			validFlag = flag;
-			flag.submitted = true;
+			flag.status = FlagStatus.Valid;
+			await this.repository.save(flag);
+		} else {
+			flag.status = FlagStatus.Invalid;
+			flag.attempts += 1;
 			await this.repository.save(flag);
 		}
 
-		if (validFlag) return true;
-		return false;
+		return validFlag || flag;
 	}
 }
 

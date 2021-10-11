@@ -53,7 +53,7 @@ const FlagCard = (props: { flag: Flag }) => {
         </Button>
         <Collapse in={open}>
           <div>
-            <SubmitFlag />
+            <SubmitFlag flag={props.flag} />
           </div>
         </Collapse>
       </div>

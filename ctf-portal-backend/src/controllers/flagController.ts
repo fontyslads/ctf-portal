@@ -7,6 +7,7 @@ import SubmitFlag from "../models/viewmodels/SubmitFlag";
 import { isEnum } from "class-validator";
 import Team from "../models/enums/Team";
 import BadRequestException from "../utils/exceptions/httpExceptions/badRequestException";
+import Flag from "../models/entities/Flag";
 
 class FlagController implements Controller {
 	path: string = "/flag";
@@ -44,8 +45,8 @@ class FlagController implements Controller {
 		const flagSubmit: SubmitFlag = req.body;
 		await this.flagLogic
 			.submitFlag(flagSubmit.id, flagSubmit.hash)
-			.then((flagValid: boolean) => {
-				return res.status(200).send(flagValid);
+			.then((flag: Flag) => {
+				return res.status(200).send(flag);
 			})
 			.catch((err) => next(err));
 	};

@@ -36,12 +36,9 @@ class AxiosRequestHandler {
         }),
       })
       .then((res: AxiosResponse<any>) => {
-        console.log(res);
         return res.data;
       })
       .catch((err: AxiosError) => {
-        console.log(err);
-
         if (axios.isCancel(err)) return;
         if (err.response) {
           throw err.response;

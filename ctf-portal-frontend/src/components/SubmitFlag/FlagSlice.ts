@@ -21,8 +21,8 @@ export const listFlagsAsync = createAsyncThunk(
 
 export const submitFlagAsync = createAsyncThunk(
   "flag/submitFlag",
-  async (flag: string) => {
-    return await submitFlag(flag);
+  async (test: { id: number; value: string }) => {
+    return await submitFlag(test.id, test.value);
   }
 );
 
@@ -35,16 +35,16 @@ export const flagSlice = createSlice({
       //listFlagsAsync
       .addCase(listFlagsAsync.fulfilled, (state, action) => {
         state.flags = action.payload;
+      })
+      //submitFlagAsync
+      .addCase(submitFlagAsync.fulfilled, (state, action) => {
+        state.flags = state.flags.map((flag) => {
+          if (flag.id === action.payload.id) {
+            flag = action.payload;
+          }
+          return flag;
+        });
       });
-    //submitFlagAsync
-    // .addCase(submitFlagAsync.fulfilled, (state, action) => {
-    //   const valid = action.payload;
-    //   if (valid) state.flagStatus = "valid";
-    //   else state.flagStatus = "invalid";
-    // })
-    // .addCase(submitFlagAsync.rejected, (state) => {
-    //   state.flagStatus = "invalid";
-    // });
   },
 });
 

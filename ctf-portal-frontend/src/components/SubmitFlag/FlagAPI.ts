@@ -12,8 +12,12 @@ export async function listFlags(team: Team) {
     });
 }
 
-export async function submitFlag(hash: string, team: string = "Blue") {
-  return AxiosRequestHandler.post("/flag/submit", { hash, team })
+export async function submitFlag(
+  id: number,
+  hash: string,
+  team: string = "Blue"
+) {
+  return AxiosRequestHandler.post("/flag/submit", { id, hash, team })
     .then((valid: boolean) => {
       return valid;
     })

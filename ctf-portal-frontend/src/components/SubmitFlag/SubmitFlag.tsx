@@ -1,10 +1,14 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import Flag from "../../models/Flag";
 import { submitFlagAsync } from "./FlagSlice";
 
 class SubmitFlag extends React.Component<
-  { submitFlagAsync: (arg0: string) => void },
+  {
+    submitFlagAsync: (arg0: { id: number; value: string }) => void;
+    flag: Flag;
+  },
   { value: string }
 > {
   constructor(props: any) {
@@ -21,7 +25,12 @@ class SubmitFlag extends React.Component<
   }
 
   handleSubmit(event: { preventDefault: () => void }) {
-    this.props.submitFlagAsync(this.state.value);
+    const test = {
+      id: this.props.flag.id,
+      value: this.state.value,
+    };
+
+    this.props.submitFlagAsync(test);
     event.preventDefault();
   }
 
