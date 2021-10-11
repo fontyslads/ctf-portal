@@ -4,6 +4,9 @@ import Controller from "./controller";
 import FlagLogic from "../logic/flagLogic";
 import { validate } from "../utils/validation/validateBody";
 import SubmitFlag from "../models/viewmodels/SubmitFlag";
+import { isEnum } from "class-validator";
+import Team from "../models/enums/Team";
+import BadRequestException from "../utils/exceptions/httpExceptions/badRequestException";
 
 class FlagController implements Controller {
 	path: string = "/flag";
@@ -16,8 +19,22 @@ class FlagController implements Controller {
 	}
 
 	private initializeRoutes() {
+		this.router.get("/:team", this.listFlags);
 		this.router.post("/submit", validate(SubmitFlag), this.submitFlag);
 	}
+
+	private listFlags = async (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) => {
+		const team = req.params.team;
+		if (!isEnum(team, Team))
+			return next(new BadRequestException("team is invalid"));
+
+		const flags = await this.flagLogic.listFlags(team as unknown as Team);
+		return res.status(200).send(flags);
+	};
 
 	private submitFlag = async (
 		req: Request,
@@ -25,8 +42,12 @@ class FlagController implements Controller {
 		next: NextFunction
 	) => {
 		const flagSubmit: SubmitFlag = req.body;
-		const flagValid = await this.flagLogic.submitFlag(flagSubmit.hash);
-		return res.status(200).send(flagValid);
+		await this.flagLogic
+			.submitFlag(flagSubmit.id, flagSubmit.hash)
+			.then((flagValid: boolean) => {
+				return res.status(200).send(flagValid);
+			})
+			.catch((err) => next(err));
 	};
 }
 

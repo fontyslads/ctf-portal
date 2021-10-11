@@ -1,8 +1,13 @@
 import { property } from "class-converter";
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsInt, IsNotEmpty, IsString, Min } from "class-validator";
 import Team from "../enums/Team";
 
 class SubmitFlag {
+	@IsInt()
+	@Min(0)
+	@property()
+	id!: number;
+
 	@IsString()
 	@IsNotEmpty()
 	@property()

@@ -32,6 +32,6 @@ export function validationError(
 		});
 		res.status(400).json({ errors: err }).end();
 	} else {
-		next(new BadRequestException("provide all required fields"));
+		next(new BadRequestException(err.message));
 	}
 }

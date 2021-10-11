@@ -10,11 +10,17 @@ export default class Flag {
 	team!: Team;
 
 	@Column()
-	hash!: string;
+	hash?: string;
 
 	@Column()
-	story!: string;
+	description!: string;
+
+	@Column()
+	story?: string;
 
 	@Column({ default: false })
 	submitted!: boolean;
+
+	@Column({ default: 0 })
+	attempts!: number;
 }
