@@ -43,7 +43,6 @@ class FlagCard extends React.Component<{
     if (
       props &&
       props.flag &&
-      props.flag.id === this.props.flag.id &&
       this.props.flag.status === FlagStatus.Valid &&
       props.flag.status !== FlagStatus.Valid
     ) {
@@ -59,7 +58,7 @@ class FlagCard extends React.Component<{
       useWorker: true,
     });
     myConfetti({
-      particleCount: 100,
+      particleCount: 500,
       spread: 160,
     });
   }
