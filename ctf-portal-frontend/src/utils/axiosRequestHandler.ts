@@ -5,8 +5,8 @@ class AxiosRequestHandler {
   private static cancel: Canceler;
 
   private static api = axios.create({
-    // baseURL: process.env.REACT_APP_API_HOST,
-    baseURL: "http://172.16.1.19:5000",
+    baseURL: process.env.REACT_APP_API_HOST,
+    // baseURL: "http://172.16.1.19:5000",
   });
 
   public static get(url: string): any {

@@ -10,12 +10,3 @@ export default interface Flag {
   submitted: boolean;
   status: FlagStatus;
 }
-
-// export default class Flag {
-//   id!: number;
-//   team!: Team;
-//   hash!: string;
-//   description!: string;
-//   story!: string;
-//   submitted!: boolean;
-// }

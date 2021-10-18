@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import FlagStatus from "../../models/enums/FlagStatus";
 import Flag from "../../models/Flag";
 import { submitFlagAsync } from "./FlagSlice";
 
@@ -25,12 +26,12 @@ class SubmitFlag extends React.Component<
   }
 
   handleSubmit(event: { preventDefault: () => void }) {
-    const test = {
+    const submittedFlag = {
       id: this.props.flag.id,
       value: this.state.value,
     };
 
-    this.props.submitFlagAsync(test);
+    this.props.submitFlagAsync(submittedFlag);
     event.preventDefault();
   }
 
@@ -38,21 +39,26 @@ class SubmitFlag extends React.Component<
     return (
       <form className="flex gap-2" onSubmit={this.handleSubmit}>
         <div className="flex">
-          <div>TODO: CAPTCHA</div>
-          <span className="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
+          <span className="text-sm text-black flex items-center rounded-l px-4 py-2 bg-yellow-300 whitespace-no-wrap">
             Flag:
           </span>
           <input
             name="field_name"
-            className="text-black border border-2 rounded-r px-4 py-2 w-full"
+            className="text-black rounded-r px-4 py-2 w-full"
             type="text"
-            placeholder="YoUr FlAg HeRe"
+            placeholder="Enter your flag..."
             onChange={this.handleChange}
             value={this.state.value}
           />
         </div>
-
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Validate</Button>
+        {this.props.flag.status === FlagStatus.Pending ? (
+          <div className="p-0 text-black">
+            <i className="fas fa-circle-notch fa-spin fa-2x"></i>
+          </div>
+        ) : (
+          ""
+        )}
       </form>
     );
   }
