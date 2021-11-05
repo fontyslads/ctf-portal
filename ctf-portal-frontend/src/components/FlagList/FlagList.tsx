@@ -5,6 +5,11 @@ import styles from "./FlagList.module.scss";
 import Flag from "../../models/Flag";
 import FlagCard from "../FlagCard/FlagCard";
 
+import Platform from "../Animation/Platform/Platform";
+import CommTower from "../Animation/CommTower/CommTower";
+import Crossover from "../Animation/Crossover/Crossover";
+import FlagStatus from "../../models/enums/FlagStatus";
+
 class FlagList extends React.Component<{
   listFlagsAsync: () => void;
   flags: Flag[];
@@ -24,17 +29,24 @@ class FlagList extends React.Component<{
     return html;
   }
 
+  getBackgroundStage() {
+    const flags = this.props.flags || [];
+
+    const numberSubmitted = flags.filter(
+      (flag) => flag.status === FlagStatus.Valid
+    ).length;
+
+    console.log(numberSubmitted);
+
+    if (numberSubmitted < 2) return <Platform />;
+    else if (numberSubmitted < 3) return <CommTower />;
+    else return <Crossover />;
+  }
+
   render() {
     return (
-      <div className={styles.FlagList}>
-        <div className="p-4 mt-4">
-          <h1 className="text-4xl text-center font-semibold mb-6">Blue Team</h1>
-          <div className="container">
-            <div className="flex flex-col md:grid grid-cols-12 text-gray-50">
-              {this.getFlagCards()}
-            </div>
-          </div>
-        </div>
+      <div className={styles.background_container}>
+        {this.getBackgroundStage()}
       </div>
     );
   }
