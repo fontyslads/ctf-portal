@@ -36,8 +36,6 @@ class FlagList extends React.Component<{
       (flag) => flag.status === FlagStatus.Valid
     ).length;
 
-    console.log(numberSubmitted);
-
     if (numberSubmitted < 2) return <Platform />;
     else if (numberSubmitted < 3) return <CommTower />;
     else return <Crossover />;
