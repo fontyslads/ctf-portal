@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="Add timeline">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="Animation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Prototype/Prototype.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Prototype/Prototype.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Animation/Platform/Platform.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Animation/Platform/Platform.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Animation/Platform/Platform.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Animation/Platform/Platform.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/FlagList/FlagList.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/FlagList/FlagList.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/FlagList/FlagList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/FlagList/FlagList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="development" />
+        <entry key="$PROJECT_DIR$" value="prototype" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,7 +42,12 @@
     <property name="nodejs_interpreter_path" value="$APPLICATION_CONFIG_DIR$/node/node-v14.15.0-win-x64/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="ts.external.directory.path" value="D:\Document\ctf-portal\ctf-portal-frontend\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Document\ctf-portal\ctf-portal-backend" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.start">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -110,6 +116,7 @@
       <workItem from="1633335589254" duration="1664000" />
       <workItem from="1633508771195" duration="325000" />
       <workItem from="1633678257550" duration="3091000" />
+      <workItem from="1636111795148" duration="9186000" />
     </task>
     <task id="LOCAL-00001" summary="Add timeline">
       <created>1633085736483</created>
@@ -145,7 +152,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add timeline" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add timeline" />
+    <MESSAGE value="Animation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Animation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
