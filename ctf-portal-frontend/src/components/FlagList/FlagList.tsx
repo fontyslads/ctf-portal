@@ -32,9 +32,6 @@ class FlagList extends React.Component<{
   getBackgroundStage() {
     const flags = this.props.flags || [];
 
-    console.log(flags);
-    console.log(typeof flags);
-
     const numberSubmitted = flags.filter(
       (flag) => flag.status === FlagStatus.Valid
     ).length;
