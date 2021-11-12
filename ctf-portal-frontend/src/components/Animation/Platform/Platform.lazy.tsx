@@ -1,10 +1,13 @@
 import React, { lazy, Suspense } from "react";
+import Flag from "../../../models/Flag";
 
 const LazyPlatform = lazy(() => import("./Platform"));
 
-const Platform = (
-  props: JSX.IntrinsicAttributes & { children?: React.ReactNode }
-) => (
+interface Props extends JSX.IntrinsicAttributes {
+  flags: Flag[];
+}
+
+const Platform = (props: Props & { children?: React.ReactNode }) => (
   <Suspense fallback={null}>
     <LazyPlatform {...props} />
   </Suspense>

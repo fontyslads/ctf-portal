@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { listFlagsAsync } from "../SubmitFlag/FlagSlice";
 import styles from "./FlagList.module.scss";
 import Flag from "../../models/Flag";
-import FlagCard from "../FlagCard/FlagCard";
 
 import Platform from "../Animation/Platform/Platform";
 import CommTower from "../Animation/CommTower/CommTower";
@@ -19,16 +18,6 @@ class FlagList extends React.Component<{
     this.props.listFlagsAsync();
   }
 
-  getFlagCards() {
-    const html: JSX.Element[] = [];
-    const flags = this.props.flags || [];
-    flags.forEach((flag, i) => {
-      html.push(<FlagCard key={i} flag={flag} />);
-    });
-
-    return html;
-  }
-
   getBackgroundStage() {
     const flags = this.props.flags || [];
 
@@ -36,7 +25,7 @@ class FlagList extends React.Component<{
       (flag) => flag.status === FlagStatus.Valid
     ).length;
 
-    if (numberSubmitted < 2) return <Platform />;
+    if (numberSubmitted < 2) return <Platform flags={flags} />;
     else if (numberSubmitted < 3) return <CommTower />;
     else return <Crossover />;
   }
