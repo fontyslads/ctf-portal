@@ -23,7 +23,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"mysql": "^2.18.1",
 		"reflect-metadata": "^0.1.13",
-		"typeorm": "^0.2.29"
+		"typeorm": "^0.2.38"
 	},
 	"devDependencies": {
 		"@types/cookie-parser": "^1.4.2",
