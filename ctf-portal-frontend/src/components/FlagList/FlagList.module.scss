@@ -2,3 +2,22 @@
   width: 100%;
   height: auto;
 }
+
+.stage_selectors {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.selector {
+  background-color: red;
+  pointer-events: initial;
+  cursor: pointer;
+}

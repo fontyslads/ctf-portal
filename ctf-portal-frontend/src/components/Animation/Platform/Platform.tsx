@@ -45,16 +45,20 @@ class Platform extends React.Component<
   }
 
   componentDidUpdate(props: { flags: Flag[] }): void {
-    if (
-      props &&
-      props.flags.length &&
-      this.isFlagValid(1) &&
-      props.flags[0].status !== FlagStatus.Valid
-    ) {
+    if (!props || !props.flags.length) return;
+
+    if (this.isFlagValid(1) && props.flags[0].status !== FlagStatus.Valid) {
       this.closeFlagSubmitModal();
       this.runConfetti();
       this.revertScreen();
       this.animateDoors();
+    } else if (
+      this.isFlagValid(2) &&
+      props.flags[1].status !== FlagStatus.Valid
+    ) {
+      this.closeFlagSubmitModal();
+      this.runConfetti();
+      this.revertDoors();
     }
   }
 
@@ -145,6 +149,11 @@ class Platform extends React.Component<
           opacity: 1,
         });
     }
+  }
+  revertDoors(): void {
+    this.tl.to(this.textBubble.current, {
+      opacity: 0,
+    });
   }
 
   getBackgroundColor(): string {

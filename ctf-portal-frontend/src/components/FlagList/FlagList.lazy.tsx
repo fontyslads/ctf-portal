@@ -1,10 +1,15 @@
 import React, { lazy, Suspense } from "react";
+import Flag from "../../models/Flag";
 
 const LazyFlagList = lazy(() => import("./FlagList"));
 
-const FlagList = (
-  props: JSX.IntrinsicAttributes & { children?: React.ReactNode }
-) => (
+interface Props extends JSX.IntrinsicAttributes {
+  listFlagsAsync: () => void;
+  initialized: boolean;
+  flags: Flag[];
+}
+
+const FlagList = (props: Props & { children?: React.ReactNode }) => (
   <Suspense fallback={null}>
     <LazyFlagList {...props} />
   </Suspense>
