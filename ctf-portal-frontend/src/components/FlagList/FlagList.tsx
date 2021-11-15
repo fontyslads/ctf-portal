@@ -13,6 +13,7 @@ import FlagStatus from "../../models/enums/FlagStatus";
 import Platform from "../Animation/Platform/Platform";
 import CommTower from "../Animation/CommTower/CommTower";
 import Crossover from "../Animation/Crossover/Crossover";
+import TrainCrash from "../Animation/TrainCrash/TrainCrash";
 
 class FlagList extends React.Component<
   {
@@ -63,10 +64,11 @@ class FlagList extends React.Component<
       case 0:
         return <Platform flags={flags} />;
       case 1:
-        return <CommTower />;
+        return <CommTower flags={flags} />;
       case 2:
-        return <Crossover />;
-      // case 3: return <TrainCrash />;
+        return <Crossover flags={flags} />;
+      case 3:
+        return <TrainCrash flags={flags} />;
       default:
         return <Platform flags={flags} />;
     }

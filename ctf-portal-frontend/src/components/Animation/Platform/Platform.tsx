@@ -1,5 +1,5 @@
-import gsap from "gsap";
 import React, { RefObject, createRef } from "react";
+import gsap from "gsap";
 import styles from "./Platform.module.scss";
 
 //components
@@ -47,14 +47,20 @@ class Platform extends React.Component<
   componentDidUpdate(props: { flags: Flag[] }): void {
     if (!props || !props.flags.length) return;
 
-    if (this.isFlagValid(1) && props.flags[0].status !== FlagStatus.Valid) {
+    const flagOne = 1;
+    const flagTwo = 2;
+
+    if (
+      this.isFlagValid(flagOne) &&
+      props.flags[flagOne - 1].status !== FlagStatus.Valid
+    ) {
       this.closeFlagSubmitModal();
       this.runConfetti();
       this.revertScreen();
       this.animateDoors();
     } else if (
-      this.isFlagValid(2) &&
-      props.flags[1].status !== FlagStatus.Valid
+      this.isFlagValid(flagTwo) &&
+      props.flags[flagTwo - 1].status !== FlagStatus.Valid
     ) {
       this.closeFlagSubmitModal();
       this.runConfetti();
@@ -1518,7 +1524,6 @@ class Platform extends React.Component<
                   height="47.581"
                   rx="9"
                   fill={`${this.getFillColor(1)}`}
-                  className={`${this.getBackgroundColor()}`}
                   stroke="white"
                   strokeWidth="2"
                 />
