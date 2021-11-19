@@ -102,19 +102,20 @@ class Crossover extends React.Component<
   }
 
   animateBariers(): void {
-    this.tl
-      .to(this.armFront.current, {
-        rotateZ: 80,
-        transformOrigin: "right",
-      })
-      .to(
-        this.armBack.current,
-        {
-          rotateZ: -80,
-          transformOrigin: "left",
-        },
-        "<"
-      );
+    if (!this.isFlagValid(4))
+      this.tl
+        .to(this.armFront.current, {
+          rotateZ: 80,
+          transformOrigin: "right",
+        })
+        .to(
+          this.armBack.current,
+          {
+            rotateZ: -80,
+            transformOrigin: "left",
+          },
+          "<"
+        );
     this.tl.to(this.flagFourButton.current, {
       opacity: 1,
     });
