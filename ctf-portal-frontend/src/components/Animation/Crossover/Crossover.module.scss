@@ -5,12 +5,16 @@
   margin: 0 auto;
 }
 
-// .train,
-// .train_shadow {
-//   transform: translateX(100%);
-// }
+.train,
+.train_shadow {
+  transform: translateX(100%);
+}
 
 .flag_button {
-  // opacity: 0;
+  opacity: 0;
   cursor: pointer;
+}
+
+.light {
+  fill: #abbd81;
 }
