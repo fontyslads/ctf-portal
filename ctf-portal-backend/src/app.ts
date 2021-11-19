@@ -5,6 +5,7 @@ import Controller from "./controllers/controller";
 import { validationError } from "./utils/validation/validateBody";
 import errorMiddleware from "./utils/exceptions/errorMiddleware";
 
+
 class App {
 	private app: Application;
 

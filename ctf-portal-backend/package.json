@@ -11,6 +11,7 @@
 	"author": "MrrrLuiigii <Nicky Janse>",
 	"license": "ISC",
 	"dependencies": {
+		"axios": "^0.24.0",
 		"bcrypt": "^5.0.1",
 		"class-converter": "^1.2.0",
 		"class-validator": "^0.13.1",

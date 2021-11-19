@@ -8,9 +8,11 @@ import FlagStatus from "../models/enums/FlagStatus";
 
 class FlagLogic {
 	private repository: Repository<Flag>;
+	// private axios = require('axios');
 
 	constructor() {
 		this.repository = getConnection(process.env.ORM_CONFIG).getRepository(Flag);
+		// this.test();
 	}
 
 	public async listFlags(team: Team = Team.Blue): Promise<Flag[]> {
@@ -50,6 +52,16 @@ class FlagLogic {
 
 		return validFlag || flag;
 	}
+
+	// public  test(): void{
+	// 	const YOUR_PRIVATE_KEY = `6LdeqJkcAAAAAGof_HmbQPjVZdkzWyGNWo0w64Vm`;
+	// 	const captchaToken = `03AGdBq26LYardnXLgueJHziSVMqL7vgoZZuoJOPPXRQuUljA8…VlyeeJ7NE6kVeJRZKrsDNUn_gIST6IqYVN_n8Hv8kZ64PH6ht`;
+	// 	const url = `https://www.google.com/recaptcha/api/siteverify?secret=${YOUR_PRIVATE_KEY}&response=${captchaToken}`;
+	// 	this.axios.post(url).then(( (resp:any) => {
+	// 		console.log(resp);
+	// 	} ));
+	// 	//res.status(200).send(google_resposice.data)).catch((error) => res.status(400).send(error)
+	// }
 }
 
 export default FlagLogic;
