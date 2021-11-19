@@ -18,13 +18,21 @@ class TrainCrash extends React.Component<
   private tl = gsap.timeline({ duration: 0.5, ease: "ease" });
 
   private train: RefObject<SVGGElement>;
+  private secondTrain: RefObject<SVGGElement>;
   private trainShadow: RefObject<SVGGElement>;
+  private secondTrainShadow: RefObject<SVGGElement>;
+  private track: RefObject<SVGGElement>;
+  private arm: RefObject<SVGGElement>;
   private flagSixButton: RefObject<SVGGElement>;
 
   constructor(props: any) {
     super(props);
     this.train = createRef();
+    this.secondTrain = createRef();
     this.trainShadow = createRef();
+    this.secondTrainShadow = createRef();
+    this.track = createRef();
+    this.arm = createRef();
     this.flagSixButton = createRef();
 
     this.state = { show: false, flag: 1 };
@@ -66,21 +74,43 @@ class TrainCrash extends React.Component<
   }
 
   animateTrain(): void {
-    this.tl
-      .to(this.train.current, {
-        x: 0,
-        ease: "easeOut",
-        duration: 3,
-      })
-      .to(
-        this.trainShadow.current,
-        {
+    if (!this.isFlagValid(6))
+      this.tl
+        .to(this.train.current, {
           x: 0,
-          ease: "easeOut",
-          duration: 3,
-        },
-        "<"
-      );
+          ease: "linear",
+          duration: 1,
+        })
+        .to(
+          this.trainShadow.current,
+          {
+            x: 0,
+            ease: "linear",
+            duration: 1,
+          },
+          "<"
+        )
+        .to(
+          this.secondTrain.current,
+          {
+            x: 0,
+            ease: "linear",
+            duration: 1,
+          },
+          "<"
+        )
+        .to(
+          this.secondTrainShadow.current,
+          {
+            x: 0,
+            ease: "linear",
+            duration: 1,
+          },
+          "<"
+        );
+    this.tl.to(this.flagSixButton.current, {
+      opacity: 1,
+    });
   }
 
   getBackgroundColor(): string {
@@ -151,7 +181,7 @@ class TrainCrash extends React.Component<
         />
         {this.renderFlagSubmit()}
         <svg className={styles.background} viewBox="0 0 1920 1080">
-          <g id="collision (6)" clipPath="url(#clip0_122_3315)">
+          <g id="collision (6)" clip-path="url(#clip0_122_3315)">
             <rect width="1920" height="1080" fill="white" />
             <g id="sky">
               <rect
@@ -170,73 +200,73 @@ class TrainCrash extends React.Component<
                   id="Vector_2"
                   d="M1010.07 29.3298H829.134C823.633 29.3298 819.174 33.7891 819.174 39.2898V41.0598C819.174 46.5606 823.633 51.0198 829.134 51.0198H1010.07C1015.57 51.0198 1020.03 46.5606 1020.03 41.0598V39.2898C1020.03 33.7891 1015.57 29.3298 1010.07 29.3298Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_3"
                   d="M1055.06 47.8098H874.124C868.623 47.8098 864.164 52.2691 864.164 57.7698V59.5398C864.164 65.0406 868.623 69.4998 874.124 69.4998H1055.06C1060.56 69.4998 1065.02 65.0406 1065.02 59.5398V57.7698C1065.02 52.2691 1060.56 47.8098 1055.06 47.8098Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_4"
                   d="M978.734 63.8799H797.794C792.293 63.8799 787.834 68.3391 787.834 73.8399V75.6099C787.834 81.1106 792.293 85.5699 797.794 85.5699H978.734C984.235 85.5699 988.694 81.1106 988.694 75.6099V73.8399C988.694 68.3391 984.235 63.8799 978.734 63.8799Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_5"
                   d="M666.194 277.6H485.254C479.753 277.6 475.294 282.059 475.294 287.56V289.33C475.294 294.831 479.753 299.29 485.254 299.29H666.194C671.695 299.29 676.154 294.831 676.154 289.33V287.56C676.154 282.059 671.695 277.6 666.194 277.6Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_6"
                   d="M1640.02 82.7646H1459.08C1453.58 82.7646 1449.12 87.2239 1449.12 92.7247V94.4947C1449.12 99.9954 1453.58 104.455 1459.08 104.455H1640.02C1645.52 104.455 1649.98 99.9954 1649.98 94.4947V92.7247C1649.98 87.2239 1645.52 82.7646 1640.02 82.7646Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_7"
                   d="M711.184 296.08H530.244C524.743 296.08 520.284 300.539 520.284 306.04V307.81C520.284 313.311 524.743 317.77 530.244 317.77H711.184C716.685 317.77 721.144 313.311 721.144 307.81V306.04C721.144 300.539 716.685 296.08 711.184 296.08Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_8"
                   d="M1685.01 101.245H1504.07C1498.57 101.245 1494.11 105.704 1494.11 111.205V112.975C1494.11 118.476 1498.57 122.935 1504.07 122.935H1685.01C1690.51 122.935 1694.97 118.476 1694.97 112.975V111.205C1694.97 105.704 1690.51 101.245 1685.01 101.245Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_9"
                   d="M634.854 312.14H453.914C448.413 312.14 443.954 316.599 443.954 322.1V323.87C443.954 329.371 448.413 333.83 453.914 333.83H634.854C640.355 333.83 644.814 329.371 644.814 323.87V322.1C644.814 316.599 640.355 312.14 634.854 312.14Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_10"
                   d="M1608.68 117.305H1427.74C1422.24 117.305 1417.78 121.764 1417.78 127.265V129.035C1417.78 134.535 1422.24 138.995 1427.74 138.995H1608.68C1614.18 138.995 1618.64 134.535 1618.64 129.035V127.265C1618.64 121.764 1614.18 117.305 1608.68 117.305Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_11"
                   d="M465.324 128.15H284.384C278.883 128.15 274.424 132.609 274.424 138.11V139.88C274.424 145.381 278.883 149.84 284.384 149.84H465.324C470.825 149.84 475.284 145.381 475.284 139.88V138.11C475.284 132.609 470.825 128.15 465.324 128.15Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_12"
                   d="M510.324 146.63H329.384C323.883 146.63 319.424 151.089 319.424 156.59V158.36C319.424 163.861 323.883 168.32 329.384 168.32H510.324C515.825 168.32 520.284 163.861 520.284 158.36V156.59C520.284 151.089 515.825 146.63 510.324 146.63Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <path
                   id="Vector_13"
                   d="M433.994 162.7H253.054C247.553 162.7 243.094 167.159 243.094 172.66V174.43C243.094 179.931 247.553 184.39 253.054 184.39H433.994C439.495 184.39 443.954 179.931 443.954 174.43V172.66C443.954 167.159 439.495 162.7 433.994 162.7Z"
                   fill="#F2F2F2"
-                  fillOpacity="0.7"
+                  fill-opacity="0.7"
                 />
                 <g id="Group" opacity="0.5">
                   <path
@@ -902,7 +932,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14"
                     d="M1686.87 723.497H1707.64L1711 797.216H1683.11L1686.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13"
@@ -915,7 +945,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_2"
                     d="M1398.87 723.497H1419.64L1423 797.216H1395.11L1398.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_2"
@@ -928,7 +958,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_3"
                     d="M1110.87 723.497H1131.64L1135 797.216H1107.11L1110.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_3"
@@ -941,7 +971,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_4"
                     d="M822.87 723.497H843.641L845 779H820.5L822.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_4"
@@ -954,7 +984,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_5"
                     d="M534.87 723.497H555.641L559 797.216H531.112L534.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_5"
@@ -967,7 +997,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_6"
                     d="M246.87 723.497H267.641L271 797.216H243.112L246.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_6"
@@ -980,7 +1010,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_7"
                     d="M1830.87 723.497H1851.64L1855 797.216H1827.11L1830.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_7"
@@ -993,7 +1023,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_8"
                     d="M1542.87 723.497H1563.64L1567 797.216H1539.11L1542.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_8"
@@ -1006,7 +1036,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_9"
                     d="M1254.87 723.497H1275.64L1279 797.216H1251.11L1254.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_9"
@@ -1019,7 +1049,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_10"
                     d="M966.87 723.497H987.641L991 797.216H963.112L966.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_10"
@@ -1032,7 +1062,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_11"
                     d="M894.87 723.92H915.641L919 822H891.112L894.87 723.92Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_11"
@@ -1045,7 +1075,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_12"
                     d="M678.87 723.497H699.641L703 797.216H675.112L678.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_12"
@@ -1058,7 +1088,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_13"
                     d="M390.87 723.497H411.641L415 797.216H387.112L390.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_13"
@@ -1071,7 +1101,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_14"
                     d="M102.87 723.497H123.641L127 797.216H99.1123L102.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_14"
@@ -1084,7 +1114,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_15"
                     d="M1902.87 723.497H1923.64L1927 797.216H1899.11L1902.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_15"
@@ -1097,7 +1127,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_16"
                     d="M1614.87 723.497H1635.64L1639 797.216H1611.11L1614.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_16"
@@ -1110,7 +1140,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_17"
                     d="M1326.87 723.497H1347.64L1351 797.216H1323.11L1326.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_17"
@@ -1123,7 +1153,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_18"
                     d="M1038.87 723.497H1059.64L1063 797.216H1035.11L1038.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_18"
@@ -1136,7 +1166,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_19"
                     d="M750.87 723.497H771.641L775 797.216H747.112L750.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_19"
@@ -1149,7 +1179,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_20"
                     d="M462.87 723.497H483.641L487 797.216H459.112L462.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_20"
@@ -1162,7 +1192,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_21"
                     d="M174.87 723.497H195.641L199 797.216H171.112L174.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_21"
@@ -1175,7 +1205,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_22"
                     d="M1758.87 723.497H1779.64L1783 797.216H1755.11L1758.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_22"
@@ -1188,7 +1218,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_23"
                     d="M1470.87 723.497H1491.64L1495 797.216H1467.11L1470.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_23"
@@ -1201,7 +1231,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_24"
                     d="M1182.87 723.497H1203.64L1207 797.216H1179.11L1182.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_24"
@@ -1214,7 +1244,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_25"
                     d="M606.87 723.497H627.641L631 797.216H603.112L606.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_25"
@@ -1227,7 +1257,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_26"
                     d="M318.87 723.497H339.641L343 797.216H315.112L318.87 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_26"
@@ -1240,7 +1270,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_27"
                     d="M30.8697 723.497H51.6412L55 797.216H27.1123L30.8697 723.497Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_27"
@@ -1253,7 +1283,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_28"
                     d="M727.177 820.466L746.002 811.688L780.201 877.081L754.927 888.866L727.177 820.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_28"
@@ -1266,7 +1296,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_29"
                     d="M664.177 850.466L683.002 841.688L717.201 907.081L691.927 918.866L664.177 850.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_29"
@@ -1279,7 +1309,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_30"
                     d="M790.177 793.466L809.002 784.688L843.201 850.081L817.927 861.866L790.177 793.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_30"
@@ -1292,7 +1322,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_31"
                     d="M606.177 876.466L625.002 867.688L659.201 933.081L633.927 944.866L606.177 876.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_31"
@@ -1305,7 +1335,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_32"
                     d="M542.177 904.466L561.002 895.688L595.201 961.081L569.927 972.866L542.177 904.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_32"
@@ -1318,7 +1348,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_33"
                     d="M478.177 934.466L497.002 925.688L531.201 991.081L505.927 1002.87L478.177 934.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_33"
@@ -1331,7 +1361,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_34"
                     d="M418.177 961.466L437.002 952.688L471.201 1018.08L445.927 1029.87L418.177 961.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_34"
@@ -1344,7 +1374,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_35"
                     d="M353.177 994.466L372.002 985.688L406.201 1051.08L380.927 1062.87L353.177 994.466Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_35"
@@ -1357,7 +1387,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_36"
                     d="M290.177 1024.47L309.002 1015.69L343.201 1081.08L317.927 1092.87L290.177 1024.47Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_36"
@@ -1370,7 +1400,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_37"
                     d="M227.177 1051.47L246.002 1042.69L280.201 1108.08L254.927 1119.87L227.177 1051.47Z"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                   <path
                     id="Rectangle 13_37"
@@ -1398,7 +1428,7 @@ class TrainCrash extends React.Component<
                     height="8"
                     transform="rotate(-25 190.44 1083.31)"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                 </g>
                 <g id="track_4">
@@ -1419,7 +1449,7 @@ class TrainCrash extends React.Component<
                     height="10"
                     transform="rotate(-25 280.524 1084.32)"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                 </g>
               </g>
@@ -1438,7 +1468,7 @@ class TrainCrash extends React.Component<
                     width="1920"
                     height="8"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                 </g>
                 <g id="track_7">
@@ -1457,7 +1487,7 @@ class TrainCrash extends React.Component<
                     width="1600.14"
                     height="10"
                     fill="black"
-                    fillOpacity="0.5"
+                    fill-opacity="0.5"
                   />
                 </g>
               </g>
@@ -1477,10 +1507,14 @@ class TrainCrash extends React.Component<
                   width="866"
                   height="10"
                   fill="black"
-                  fillOpacity="0.5"
+                  fill-opacity="0.5"
                 />
               </g>
-              <g id="switch_track">
+              <g
+                ref={this.track}
+                className={this.isFlagValid(6) ? styles.track : ""}
+                id="switch_track"
+              >
                 <rect
                   id="Rectangle 10_4"
                   x="850.185"
@@ -1496,12 +1530,16 @@ class TrainCrash extends React.Component<
                   width="85.0691"
                   height="10"
                   fill="black"
-                  fillOpacity="0.5"
+                  fill-opacity="0.5"
                 />
               </g>
             </g>
             <g id="switch">
-              <g id="arm">
+              <g
+                ref={this.arm}
+                className={this.isFlagValid(6) ? styles.arm : ""}
+                id="arm"
+              >
                 <path
                   id="Vector_138"
                   d="M1028.2 884.616C1049.76 863.063 1038.89 855.718 1019.1 875.512L954 940.61L963.193 949.803L1028.2 884.616Z"
@@ -1550,10 +1588,10 @@ class TrainCrash extends React.Component<
                 />
               </g>
               <g
-                id="submit_flag_6"
-                onClick={() => this.openFlagSubmitModal(6)}
                 ref={this.flagSixButton}
                 className={styles.flag_button}
+                onClick={() => this.openFlagSubmitModal(6)}
+                id="submit_flag_6"
               >
                 <rect
                   id="Rectangle 27"
@@ -1564,7 +1602,7 @@ class TrainCrash extends React.Component<
                   rx="9"
                   fill={`${this.getFillColor(6)}`}
                   stroke="white"
-                  strokeWidth="2"
+                  stroke-width="2"
                 />
                 <path
                   id="Vector_145"
@@ -1578,296 +1616,307 @@ class TrainCrash extends React.Component<
                 />
               </g>
             </g>
-            <g id="bush">
-              <path
-                id="Vector_146"
-                d="M457.147 927.279H297.538C297.538 927.279 294.303 879.827 313.445 879.288C332.587 878.749 330.43 900.318 354.426 870.66C378.421 841.003 407.539 842.621 411.313 860.146C415.088 877.67 404.034 891.69 424.255 887.376C444.475 883.063 473.593 894.386 457.147 927.279Z"
-                fill="#44A34E"
-              />
-              <path
-                id="Vector_147"
-                d="M374.648 927.29L374.11 927.268C375.366 896.026 381.909 875.953 387.177 864.616C392.896 852.305 398.408 847.322 398.463 847.273L398.821 847.676C398.767 847.724 393.319 852.658 387.646 864.885C382.407 876.175 375.9 896.166 374.648 927.29Z"
-                fill="#F2F2F2"
-              />
-              <path
-                id="Vector_148"
-                d="M432.415 927.354L431.897 927.203C438.13 905.809 452.809 892.301 452.956 892.167L453.319 892.566C453.172 892.699 438.604 906.111 432.415 927.354Z"
-                fill="#F2F2F2"
-              />
-              <path
-                id="Vector_149"
-                d="M322.677 927.316L322.143 927.241C324.258 911.989 320.438 900.156 316.861 892.915C312.988 885.075 308.568 880.793 308.524 880.75L308.897 880.361C308.942 880.404 313.43 884.752 317.344 892.676C320.955 899.985 324.811 911.928 322.677 927.316Z"
-                fill="#F2F2F2"
-              />
-              <path
-                id="Vector_150"
-                d="M478.809 928H280.323L280.277 927.328C280.163 925.655 277.631 886.201 290.415 872.124C293.272 868.977 296.715 867.325 300.646 867.214C308.979 866.977 314.216 870.099 318.439 872.604C326.4 877.327 331.659 880.447 350.781 856.813C371.496 831.21 393.846 825.702 406.694 828.765C414.996 830.744 420.718 836.338 422.392 844.113C423.978 851.475 423.473 858.392 423.067 863.95C422.633 869.897 422.29 874.595 424.732 876.723C426.771 878.499 430.841 878.661 437.539 877.231C451.164 874.325 470.174 876.812 479.716 889.141C484.85 895.773 488.894 907.83 479.008 927.601L478.809 928ZM281.677 926.557H477.916C485.282 911.612 485.512 898.987 478.575 890.024C469.822 878.714 451.457 875.737 437.84 878.642C430.563 880.195 426.226 879.939 423.785 877.811C420.798 875.209 421.165 870.194 421.628 863.845C422.027 858.379 422.524 851.576 420.982 844.416C419.429 837.207 414.1 832.013 406.36 830.168C393.921 827.201 372.195 832.639 351.902 857.72C331.997 882.323 326.001 878.767 317.704 873.845C313.428 871.309 308.573 868.433 300.687 868.656C297.163 868.756 294.066 870.249 291.482 873.094C279.993 885.745 281.396 921.223 281.677 926.557Z"
-                fill="#CFCCE0"
-              />
-            </g>
-            <g id="bush_2">
-              <path
-                id="Vector_151"
-                d="M229.576 1002.13H38.0456C38.0456 1002.13 34.1633 945.193 57.134 944.546C80.1048 943.899 77.5165 969.781 106.311 934.193C135.105 898.604 170.047 900.545 174.576 921.575C179.106 942.604 165.841 959.428 190.106 954.252C214.37 949.075 249.312 962.663 229.576 1002.13Z"
-                fill="#44A34E"
-              />
-              <path
-                id="Vector_152"
-                d="M130.578 1002.15L129.931 1002.12C131.439 964.632 139.291 940.544 145.612 926.939C152.475 912.166 159.089 906.186 159.155 906.127L159.585 906.611C159.52 906.669 152.983 912.59 146.175 927.262C139.889 940.81 132.08 964.799 130.578 1002.15Z"
-                fill="#F2F2F2"
-              />
-              <path
-                id="Vector_153"
-                d="M199.898 1002.22L199.277 1002.04C206.756 976.371 224.37 960.161 224.547 960L224.982 960.479C224.807 960.639 207.324 976.734 199.898 1002.22Z"
-                fill="#F2F2F2"
-              />
-              <path
-                id="Vector_154"
-                d="M68.2127 1002.18L67.5716 1002.09C70.1093 983.788 65.5254 969.587 61.2329 960.898C56.5851 951.49 51.2821 946.351 51.229 946.301L51.6767 945.833C51.7306 945.885 57.1156 951.103 61.813 960.612C66.1456 969.382 70.773 983.714 68.2127 1002.18Z"
-                fill="#F2F2F2"
-              />
-              <path
-                id="Vector_155"
-                d="M255.571 1003H17.3873L17.3324 1002.19C17.1954 1000.19 14.157 952.841 29.4974 935.949C32.9268 932.172 37.0578 930.19 41.7753 930.057C51.7748 929.773 58.0587 933.518 63.1271 936.525C72.6802 942.192 78.9912 945.936 101.937 917.576C126.795 886.852 153.615 880.242 169.033 883.918C178.995 886.293 185.861 893.006 187.871 902.335C189.773 911.17 189.167 919.47 188.681 926.14C188.159 933.277 187.748 938.913 190.679 941.468C193.126 943.599 198.009 943.793 206.047 942.078C222.396 938.59 245.209 941.574 256.659 956.369C262.82 964.328 267.673 978.796 255.81 1002.52L255.571 1003ZM19.0128 1001.27H254.499C263.339 983.335 263.615 968.184 255.29 957.428C244.786 943.857 222.749 940.285 206.408 943.771C197.675 945.634 192.472 945.327 189.542 942.773C185.958 939.651 186.397 933.633 186.954 926.014C187.433 919.455 188.029 911.291 186.179 902.7C184.315 894.048 177.92 887.816 168.632 885.602C153.706 882.041 127.635 888.567 103.283 918.664C79.3965 948.187 72.201 943.92 62.2442 938.014C57.1133 934.971 51.2875 931.519 41.8244 931.788C37.5954 931.907 33.8795 933.698 30.7789 937.112C16.9917 952.294 18.6751 994.868 19.0128 1001.27Z"
-                fill="#CFCCE0"
-              />
-            </g>
-            <g id="train-ns">
+            <g ref={this.train} className={styles.train} id="train-ns">
               <g id="front">
                 <path
                   id="path1178"
-                  d="M1691.1 744.56L1725.7 762.955H1828.25L1871.98 739.707L1891.83 706.225H1814.38V715.734H1735.96V706.225H1665.28L1691.1 744.56Z"
+                  d="M1505.1 744.56L1539.7 762.955H1642.25L1685.98 739.707L1705.83 706.225H1628.38V715.734H1549.96V706.225H1479.28L1505.1 744.56Z"
                   fill="#151515"
                 />
                 <path
                   id="path1049"
-                  d="M1627.64 698.082L1544.16 746.28V701.123"
+                  d="M1441.64 698.082L1358.16 746.28V701.123"
                   fill="#242424"
                 />
                 <path
                   id="path1891"
-                  d="M1544.18 711.128L1546 586.989L1571.56 508.49C1571.56 508.49 1611.72 461.025 1673.79 437.292C1735.86 413.56 1785.15 413.56 1785.15 413.56L3513.96 414.929V705.651H3181.71L3145.2 753.116H1927.55L1894.68 711.128H1544.18Z"
+                  d="M1358.18 711.128L1360 586.989L1385.56 508.49C1385.56 508.49 1425.72 461.025 1487.79 437.292C1549.86 413.56 1599.15 413.56 1599.15 413.56L3327.96 414.929V705.651H2995.71L2959.2 753.116H1741.55L1708.68 711.128H1358.18Z"
                   fill="#FFAE01"
                 />
                 <path
                   id="path1039"
-                  d="M1669.08 438.947H3514.13V414.854L1781.06 413C1756.84 415.27 1744.9 417.212 1725.2 421.361C1697.83 428.312 1686.62 432.152 1669.08 438.947Z"
+                  d="M1483.08 438.947H3328.13V414.854L1595.06 413C1570.84 415.27 1558.9 417.212 1539.2 421.361C1511.83 428.312 1500.62 432.152 1483.08 438.947Z"
                   fill="#4B4B4B"
                 />
                 <path
                   id="rect1062"
-                  d="M1747.57 521.977C1738.59 521.977 1731.36 529.207 1731.36 538.186V609.79C1731.36 618.769 1738.59 625.999 1747.57 625.999H1752.86H1875.43H1891.64V609.79V538.186V521.977H1875.43H1752.86H1747.57Z"
+                  d="M1561.57 521.977C1552.59 521.977 1545.36 529.207 1545.36 538.186V609.79C1545.36 618.769 1552.59 625.999 1561.57 625.999H1566.86H1689.43H1705.64V609.79V538.186V521.977H1689.43H1566.86H1561.57Z"
                   fill="#003674"
+                />
+                <path
+                  id="rect1154"
+                  d="M2921.6 466.903H1773.26C1766.76 466.903 1761.49 472.172 1761.49 478.671V513.191C1761.49 519.69 1766.76 524.959 1773.26 524.959H2921.6C2928.09 524.959 2933.36 519.69 2933.36 513.191V478.671C2933.36 472.172 2928.09 466.903 2921.6 466.903Z"
+                  fill="#003374"
+                />
+                <path
+                  id="rect1064"
+                  d="M2948.57 596.919H1751.77V698.679H2948.57V596.919Z"
+                  fill="#003674"
+                />
+                <path
+                  id="rect1893"
+                  d="M1822.95 474.035H1783.54C1776.53 474.035 1770.84 479.721 1770.84 486.735V505.148C1770.84 512.162 1776.53 517.849 1783.54 517.849H1822.95C1829.96 517.849 1835.65 512.162 1835.65 505.148V486.735C1835.65 479.721 1829.96 474.035 1822.95 474.035Z"
+                  fill="#5C7BA3"
+                  stroke="#4D4D4D"
+                  stroke-width="0.165"
+                />
+                <path
+                  id="rect1895"
+                  d="M1945.4 474.146H1878.71C1871.73 474.146 1866.08 479.802 1866.08 486.78V505.097C1866.08 512.074 1871.73 517.731 1878.71 517.731H1945.4C1952.38 517.731 1958.04 512.074 1958.04 505.097V486.78C1958.04 479.802 1952.38 474.146 1945.4 474.146Z"
+                  fill="#5C7BA3"
+                  stroke="#4D4D4D"
+                  stroke-width="0.196037"
                 />
                 <path
                   id="path1076"
-                  d="M1891.64 521.977L1937.75 596.928V698.689L1891.64 625.999V521.977Z"
+                  d="M1705.64 521.977L1751.75 596.928V698.689L1705.64 625.999V521.977Z"
                   fill="#003674"
                 />
                 <path
+                  id="rect1943"
+                  d="M1821.18 611.113H1785.27C1777.4 611.113 1771.02 617.492 1771.02 625.361V674.963C1771.02 682.831 1777.4 689.21 1785.27 689.21H1821.18C1829.05 689.21 1835.43 682.831 1835.43 674.963V625.361C1835.43 617.492 1829.05 611.113 1821.18 611.113Z"
+                  fill="#5C7BA3"
+                  stroke="#4D4D4D"
+                  stroke-width="0.219605"
+                />
+                <path
                   id="rect5637"
-                  d="M1868.32 515.668H1758.75V691.872H1868.32V515.668Z"
+                  d="M1682.32 515.668H1572.75V691.872H1682.32V515.668Z"
                   fill="#FFAE01"
                   stroke="#4D4D4D"
-                  strokeWidth="0.160927"
+                  stroke-width="0.160927"
                 />
                 <path
                   id="rect5641"
-                  d="M1707.6 517.384H1651.92V682.598H1707.6V517.384Z"
+                  d="M1521.6 517.384H1465.92V682.598H1521.6V517.384Z"
                   fill="#FFAE01"
                   stroke="#4D4D4D"
-                  strokeWidth="0.165"
+                  stroke-width="0.165"
                 />
                 <path
                   id="rect5647"
-                  d="M1707.81 680.379H1651.73V701.243H1707.81V680.379Z"
+                  d="M1521.81 680.379H1465.73V701.243H1521.81V680.379Z"
                   fill="#313131"
                   stroke="#4D4D4D"
-                  strokeWidth="0.0588466"
+                  stroke-width="0.0588466"
                 />
                 <path
                   id="path1140"
-                  d="M1544.19 708.564H1519.54V723.853H1556.05L1544.19 708.564Z"
+                  d="M1358.19 708.564H1333.54V723.853H1370.05L1358.19 708.564Z"
                   fill="#161616"
                   stroke="#161616"
-                  strokeWidth="0.264583"
+                  stroke-width="0.264583"
                 />
                 <path
                   id="path1142"
-                  d="M1519.83 700.971C1519.83 700.971 1518 709.643 1518 716.489C1518 723.335 1520.05 730.637 1520.05 730.637"
+                  d="M1333.83 700.971C1333.83 700.971 1332 709.643 1332 716.489C1332 723.335 1334.05 730.637 1334.05 730.637"
                   stroke="#141414"
-                  strokeWidth="0.165"
+                  stroke-width="0.165"
                 />
                 <path
                   id="rect1158"
-                  d="M1684.07 539.544H1675.47C1670.12 539.544 1665.79 543.876 1665.79 549.22V600.826C1665.79 606.17 1670.12 610.502 1675.47 610.502H1684.07C1689.41 610.502 1693.74 606.17 1693.74 600.826V549.22C1693.74 543.876 1689.41 539.544 1684.07 539.544Z"
+                  d="M1498.07 539.544H1489.47C1484.12 539.544 1479.79 543.876 1479.79 549.22V600.826C1479.79 606.17 1484.12 610.502 1489.47 610.502H1498.07C1503.41 610.502 1507.74 606.17 1507.74 600.826V549.22C1507.74 543.876 1503.41 539.544 1498.07 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  strokeWidth="0.165"
+                  stroke-width="0.165"
                 />
                 <g id="path1160">
-                  <path d="M1813.44 691.648V515.606Z" fill="#FFAE01" />
+                  <path d="M1627.44 691.648V515.606V691.648Z" fill="#FFAE01" />
                   <path
-                    d="M1813.44 691.648V515.606"
+                    d="M1627.44 691.648V515.606"
                     stroke="#4D4D4D"
-                    strokeWidth="0.160602"
+                    stroke-width="0.160602"
                   />
                 </g>
                 <path
                   id="rect1162"
-                  d="M1790.43 539.544H1781.83C1776.49 539.544 1772.16 543.876 1772.16 549.22V600.826C1772.16 606.17 1776.49 610.502 1781.83 610.502H1790.43C1795.78 610.502 1800.11 606.17 1800.11 600.826V549.22C1800.11 543.876 1795.78 539.544 1790.43 539.544Z"
+                  d="M1604.43 539.544H1595.83C1590.49 539.544 1586.16 543.876 1586.16 549.22V600.826C1586.16 606.17 1590.49 610.502 1595.83 610.502H1604.43C1609.78 610.502 1614.11 606.17 1614.11 600.826V549.22C1614.11 543.876 1609.78 539.544 1604.43 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  strokeWidth="0.165"
+                  stroke-width="0.165"
                 />
                 <path
                   id="rect1164"
-                  d="M1845.94 539.544H1837.34C1831.99 539.544 1827.66 543.876 1827.66 549.22V600.826C1827.66 606.17 1831.99 610.502 1837.34 610.502H1845.94C1851.28 610.502 1855.61 606.17 1855.61 600.826V549.22C1855.61 543.876 1851.28 539.544 1845.94 539.544Z"
+                  d="M1659.94 539.544H1651.34C1645.99 539.544 1641.66 543.876 1641.66 549.22V600.826C1641.66 606.17 1645.99 610.502 1651.34 610.502H1659.94C1665.28 610.502 1669.61 606.17 1669.61 600.826V549.22C1669.61 543.876 1665.28 539.544 1659.94 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  strokeWidth="0.165"
+                  stroke-width="0.165"
                 />
                 <path
                   id="circle1180"
-                  d="M1683.16 766.739C1699.27 766.739 1712.32 753.686 1712.32 737.585C1712.32 721.484 1699.27 708.432 1683.16 708.432C1667.06 708.432 1654.01 721.484 1654.01 737.585C1654.01 753.686 1667.06 766.739 1683.16 766.739Z"
+                  d="M1497.16 766.739C1513.27 766.739 1526.32 753.686 1526.32 737.585C1526.32 721.484 1513.27 708.432 1497.16 708.432C1481.06 708.432 1468.01 721.484 1468.01 737.585C1468.01 753.686 1481.06 766.739 1497.16 766.739Z"
                   fill="#2D2D2D"
                   stroke="#4B4B4B"
-                  strokeWidth="0.527318"
+                  stroke-width="0.527318"
                 />
                 <path
                   id="circle1182"
-                  d="M1875.02 766.739C1891.12 766.739 1904.17 753.686 1904.17 737.585C1904.17 721.484 1891.12 708.432 1875.02 708.432C1858.92 708.432 1845.87 721.484 1845.87 737.585C1845.87 753.686 1858.92 766.739 1875.02 766.739Z"
+                  d="M1689.02 766.739C1705.12 766.739 1718.17 753.686 1718.17 737.585C1718.17 721.484 1705.12 708.432 1689.02 708.432C1672.92 708.432 1659.87 721.484 1659.87 737.585C1659.87 753.686 1672.92 766.739 1689.02 766.739Z"
                   fill="#2D2D2D"
                   stroke="#4B4B4B"
-                  strokeWidth="0.527318"
+                  stroke-width="0.527318"
                 />
                 <path
                   id="rect1200"
-                  d="M1868.85 692.369H1758.07V703.689H1868.85V692.369Z"
+                  d="M1682.85 692.369H1572.07V703.689H1682.85V692.369Z"
                   fill="#282828"
                 />
                 <path
                   id="rect1080"
-                  d="M1546.68 658.258H1544.46C1543.08 658.258 1541.96 659.379 1541.96 660.761V672.859C1541.96 674.242 1543.08 675.363 1544.46 675.363H1546.68C1548.06 675.363 1549.18 674.242 1549.18 672.859V660.761C1549.18 659.379 1548.06 658.258 1546.68 658.258Z"
+                  d="M1360.68 658.258H1358.46C1357.08 658.258 1355.96 659.379 1355.96 660.761V672.859C1355.96 674.242 1357.08 675.363 1358.46 675.363H1360.68C1362.06 675.363 1363.18 674.242 1363.18 672.859V660.761C1363.18 659.379 1362.06 658.258 1360.68 658.258Z"
                   fill="#FFAE01"
                 />
                 <path
+                  id="rect1100"
+                  d="M1944.2 611.268H1880.15C1872.69 611.268 1866.64 617.315 1866.64 624.775V675.555C1866.64 683.015 1872.69 689.062 1880.15 689.062H1944.2C1951.66 689.062 1957.71 683.015 1957.71 675.555V624.775C1957.71 617.315 1951.66 611.268 1944.2 611.268Z"
+                  fill="#5C7BA3"
+                  stroke="#4D4D4D"
+                  stroke-width="0.260628"
+                />
+                <path
+                  id="1"
+                  d="M1841.33 606.016H1840.88V603.043L1839.98 603.373V602.968L1841.26 602.488H1841.33V606.016Z"
+                  fill="white"
+                />
+                <path
+                  id="1_2"
+                  d="M1840.8 469.477H1840.36V466.504L1839.46 466.834V466.429L1840.73 465.949H1840.8V469.477Z"
+                  fill="white"
+                />
+                <path
                   id="path1132"
-                  d="M1828.69 610.652L1814.11 596.073V625.231L1828.69 610.652Z"
+                  d="M1642.69 610.652L1628.11 596.073V625.231L1642.69 610.652Z"
                   fill="white"
                 />
                 <path
                   id="path1134"
-                  d="M1798.33 610.652L1812.91 596.073V625.231L1798.33 610.652Z"
+                  d="M1612.33 610.652L1626.91 596.073V625.231L1612.33 610.652Z"
                   fill="white"
                 />
                 <path
                   id="circle1136"
-                  d="M1878.86 615.092C1881.09 615.092 1882.9 613.286 1882.9 611.058C1882.9 608.83 1881.09 607.024 1878.86 607.024C1876.64 607.024 1874.83 608.83 1874.83 611.058C1874.83 613.286 1876.64 615.092 1878.86 615.092Z"
+                  d="M1692.86 615.092C1695.09 615.092 1696.9 613.286 1696.9 611.058C1696.9 608.83 1695.09 607.024 1692.86 607.024C1690.64 607.024 1688.83 608.83 1688.83 611.058C1688.83 613.286 1690.64 615.092 1692.86 615.092Z"
                   fill="#4B4B4B"
                 />
                 <path
                   id="circle1138"
-                  d="M1878.89 614.45C1880.77 614.45 1882.28 612.933 1882.28 611.061C1882.28 609.19 1880.77 607.673 1878.89 607.673C1877.02 607.673 1875.51 609.19 1875.51 611.061C1875.51 612.933 1877.02 614.45 1878.89 614.45Z"
+                  d="M1692.89 614.45C1694.77 614.45 1696.28 612.933 1696.28 611.061C1696.28 609.19 1694.77 607.673 1692.89 607.673C1691.02 607.673 1689.51 609.19 1689.51 611.061C1689.51 612.933 1691.02 614.45 1692.89 614.45Z"
                   fill="#E7E7E7"
                 />
                 <path
                   id="circle1140"
-                  d="M1878.92 612.228C1879.56 612.228 1880.09 611.704 1880.09 611.058C1880.09 610.412 1879.56 609.888 1878.92 609.888C1878.27 609.888 1877.75 610.412 1877.75 611.058C1877.75 611.704 1878.27 612.228 1878.92 612.228Z"
+                  d="M1692.92 612.228C1693.56 612.228 1694.09 611.704 1694.09 611.058C1694.09 610.412 1693.56 609.888 1692.92 609.888C1692.27 609.888 1691.75 610.412 1691.75 611.058C1691.75 611.704 1692.27 612.228 1692.92 612.228Z"
                   fill="#000D58"
                 />
                 <path
                   id="path1151"
-                  d="M1645.99 659.674V578.665"
+                  d="M1459.99 659.674V578.665"
                   stroke="#4B4B4B"
-                  strokeWidth="0.165"
+                  stroke-width="0.165"
                 />
                 <path
                   id="path1153"
-                  d="M1712.95 659.674V578.665"
+                  d="M1526.95 659.674V578.665"
                   stroke="#4B4B4B"
-                  strokeWidth="0.165"
+                  stroke-width="0.165"
                 />
                 <path
                   id="rect1146"
-                  d="M3161.78 731.695H1910.57L1927 753.811H3145.91L3161.78 731.695Z"
+                  d="M2975.78 731.695H1724.57L1741 753.811H2959.91L2975.78 731.695Z"
                   fill="#4B4B4B"
                 />
               </g>
             </g>
-            <path
-              id="path1891_2"
-              d="M1551.49 759.68L1576.56 846.707L1613.13 913.751C1613.13 913.751 1611.45 933.23 1673.52 949.931C1735.59 966.631 1784.88 966.631 1784.88 966.631L3649.6 966.632L3502.55 727.681H3144.93H1927.28H1543.91L1551.49 759.68Z"
-              fill="url(#paint5_linear_122_3315)"
-            />
+            <g
+              ref={this.trainShadow}
+              className={styles.train_shadow}
+              id="train-shadow"
+            >
+              <path
+                id="path1891_2"
+                d="M1365.49 759.68L1390.56 846.707L1427.13 913.751C1427.13 913.751 1425.45 933.23 1487.52 949.931C1549.59 966.631 1598.88 966.631 1598.88 966.631L3463.6 966.632L3316.55 727.681H2958.93H1741.28H1357.91L1365.49 759.68Z"
+                fill="url(#paint5_linear_122_3315)"
+              />
+            </g>
+            <g
+              ref={this.secondTrainShadow}
+              className={styles.second_train_shadow}
+              id="train-shadow"
+            >
+              <path
+                id="path1891_3"
+                d="M369.103 760.006L344.037 847.05L307.467 914.108C307.467 914.108 309.144 933.591 247.075 950.295C185.006 967 135.715 967 135.715 967L-1729 967L-1581.95 728H-1224.33H-6.67864H376.69L369.103 760.006Z"
+                fill="url(#paint6_linear_122_3315)"
+              />
+            </g>
             <g id="trees">
               <g id="tree" filter="url(#filter1_d_122_3315)">
                 <path
-                  id="Vector_156"
+                  id="Vector_146"
                   d="M1769.03 702.41C1768.32 701.619 1767.62 700.828 1766.9 700.037C1761.27 693.808 1755.23 687.652 1747.49 684.081C1743.81 682.324 1739.78 681.391 1735.7 681.346C1731.47 681.359 1727.35 682.467 1723.45 684.017C1721.6 684.754 1719.8 685.59 1718.02 686.481C1715.99 687.502 1714 688.592 1712.01 689.69C1708.29 691.751 1704.61 693.903 1700.99 696.145C1693.77 700.607 1686.77 705.409 1680.01 710.551C1676.5 713.218 1673.06 715.972 1669.7 718.814C1666.57 721.454 1663.51 724.165 1660.51 726.946C1659.86 727.538 1658.91 726.58 1659.55 725.988C1660.34 725.251 1661.14 724.519 1661.94 723.795C1664.2 721.752 1666.5 719.748 1668.83 717.783C1673.08 714.194 1677.45 710.744 1681.92 707.432C1688.88 702.279 1696.07 697.476 1703.51 693.022C1707.22 690.798 1710.99 688.667 1714.81 686.63C1715.96 686.015 1717.13 685.414 1718.31 684.845C1720.98 683.494 1723.77 682.362 1726.62 681.459C1730.67 680.149 1734.96 679.728 1739.19 680.225C1743.27 680.819 1747.2 682.179 1750.78 684.234C1758.37 688.479 1764.26 695.042 1769.99 701.447C1770.57 702.098 1769.62 703.061 1769.03 702.41Z"
                   fill="#E4E4E4"
                 />
                 <path
-                  id="Vector_157"
+                  id="Vector_147"
                   d="M1745.1 691.918C1735.85 687.165 1724.01 688.096 1715.51 694.034C1731.72 696.83 1747.75 700.572 1763.52 705.24C1756.97 701.402 1751.85 695.388 1745.1 691.918Z"
                   fill="#F2F2F2"
                 />
                 <path
-                  id="Vector_158"
+                  id="Vector_148"
                   d="M1715.42 694.018L1713.64 695.465C1714.24 694.958 1714.87 694.484 1715.51 694.034C1715.48 694.029 1715.45 694.023 1715.42 694.018Z"
                   fill="#F2F2F2"
                 />
                 <path
-                  id="Vector_159"
+                  id="Vector_149"
                   d="M1671.57 968.366C1672.02 968.581 1672.51 968.68 1673.01 968.654C1673.51 968.629 1674 968.48 1674.42 968.221C1674.64 968.088 1674.82 968.444 1674.6 968.576C1674.13 968.86 1673.59 969.024 1673.04 969.053C1672.49 969.082 1671.94 968.976 1671.44 968.744C1671.39 968.726 1671.35 968.69 1671.33 968.643C1671.3 968.597 1671.3 968.543 1671.31 968.493C1671.33 968.443 1671.37 968.402 1671.41 968.378C1671.46 968.354 1671.52 968.35 1671.57 968.366Z"
                   fill="white"
                 />
                 <path
-                  id="Vector_160"
+                  id="Vector_150"
                   d="M1869.84 714.672C1867.93 711.143 1867.67 706.517 1870.01 703.259C1871.17 707.465 1873.77 711.126 1877.37 713.594C1878.76 714.54 1880.41 715.449 1880.88 717.062C1881.13 718.091 1880.98 719.176 1880.45 720.095C1879.93 721.001 1879.29 721.837 1878.55 722.58L1878.48 722.833C1875.03 720.788 1871.75 718.201 1869.84 714.672Z"
                   fill="#9AB967"
                 />
                 <path
-                  id="Vector_161"
+                  id="Vector_151"
                   d="M1700.29 899.261C1683.78 899.261 1667.81 893.364 1655.26 882.632C1651.08 879.049 1646.61 872.819 1642 864.117C1639.06 858.511 1637.41 852.318 1637.18 845.991C1636.95 839.665 1638.14 833.367 1640.66 827.561C1638.23 830.035 1635.54 832.241 1632.64 834.142L1631.17 835.118L1631.09 833.359C1631.03 832.215 1631 831.075 1631 829.97C1631 823.5 1631.89 817.061 1633.65 810.837C1641.66 782.698 1643.03 752.479 1637.72 721.021C1636.81 715.607 1636.36 710.127 1636.36 704.637C1636.36 650.8 1680.16 607 1734.01 607C1754.54 606.971 1774.56 613.424 1791.21 625.438C1807.86 637.452 1820.29 654.415 1826.73 673.909L1827.02 674.799L1826.15 675.15C1821.71 677.017 1817.03 678.261 1812.25 678.848C1817.35 679.888 1822.55 680.324 1827.75 680.147L1828.56 680.119L1828.76 680.903C1830.69 688.666 1831.67 696.637 1831.67 704.637L1831.66 705.502C1831.65 711.579 1832.91 717.591 1835.37 723.148C1837.83 728.704 1841.44 733.679 1845.95 737.748C1853.08 744.248 1858.78 752.162 1862.68 760.985C1866.58 769.808 1868.6 779.347 1868.61 788.995C1868.61 800.408 1860.85 815.39 1854.34 825.949C1852.69 828.638 1850.46 830.919 1847.8 832.621C1845.14 834.323 1842.14 835.401 1839 835.774C1836.04 836.148 1833.02 835.866 1830.18 834.946C1827.33 834.027 1824.72 832.493 1822.53 830.454C1825.61 836.647 1829.63 842.33 1834.44 847.303L1835.32 848.218L1834.22 848.86C1823.63 855.038 1811.58 858.291 1799.32 858.286L1798.6 858.284C1779.98 858.284 1762.31 865.498 1750.11 878.075C1743.64 884.745 1735.89 890.055 1727.34 893.693C1718.78 897.332 1709.59 899.224 1700.29 899.261Z"
                   fill="#9AB967"
                 />
                 <path
-                  id="Vector_162"
+                  id="Vector_152"
                   d="M1675.86 1007.8C1675.56 1007.8 1675.27 1007.69 1675.04 1007.5C1674.81 1007.3 1674.67 1007.03 1674.62 1006.73C1674.57 1006.36 1669.39 968.961 1674.04 919.255C1678.34 873.351 1692.16 807.233 1733.53 752.931C1733.63 752.8 1733.76 752.691 1733.9 752.608C1734.04 752.526 1734.2 752.472 1734.36 752.45C1734.52 752.428 1734.69 752.438 1734.84 752.479C1735 752.521 1735.15 752.594 1735.28 752.693C1735.41 752.793 1735.52 752.917 1735.6 753.058C1735.69 753.2 1735.74 753.356 1735.76 753.519C1735.78 753.681 1735.77 753.846 1735.73 754.005C1735.69 754.163 1735.61 754.311 1735.52 754.441C1694.5 808.274 1680.79 873.908 1676.52 919.488C1671.89 968.904 1677.04 1006.01 1677.09 1006.38C1677.12 1006.56 1677.1 1006.74 1677.05 1006.91C1677 1007.08 1676.92 1007.24 1676.8 1007.37C1676.68 1007.51 1676.54 1007.62 1676.37 1007.69C1676.21 1007.76 1676.03 1007.8 1675.86 1007.8H1675.86Z"
                   fill="#3F3D56"
                 />
                 <path
-                  id="Vector_163"
+                  id="Vector_153"
                   d="M1696.54 824.733C1696.28 824.733 1696.02 824.65 1695.81 824.496C1695.6 824.341 1695.44 824.123 1695.36 823.873C1695.27 823.622 1695.27 823.353 1695.35 823.102C1695.44 822.852 1695.59 822.634 1695.81 822.479C1695.96 822.37 1711.09 811.463 1733.72 803.178C1754.64 795.519 1786.45 788.576 1819.2 798.999C1819.36 799.048 1819.5 799.127 1819.63 799.232C1819.76 799.338 1819.86 799.467 1819.94 799.613C1820.01 799.758 1820.06 799.917 1820.07 800.081C1820.09 800.245 1820.07 800.41 1820.02 800.566C1819.97 800.723 1819.89 800.868 1819.78 800.993C1819.68 801.119 1819.55 801.222 1819.4 801.297C1819.25 801.372 1819.09 801.417 1818.93 801.43C1818.77 801.443 1818.6 801.424 1818.45 801.373C1786.37 791.165 1755.13 797.993 1734.58 805.518C1712.27 813.685 1697.42 824.388 1697.27 824.495C1697.06 824.65 1696.8 824.733 1696.54 824.733Z"
                   fill="#3F3D56"
                 />
                 <path
-                  id="Vector_164"
+                  id="Vector_154"
                   d="M1641.55 933.107C1639.64 929.578 1639.37 924.952 1641.71 921.694C1642.87 925.9 1645.48 929.561 1649.08 932.029C1650.47 932.975 1652.11 933.884 1652.59 935.497C1652.84 936.526 1652.68 937.611 1652.16 938.53C1651.63 939.436 1650.99 940.272 1650.25 941.016L1650.19 941.268C1646.73 939.223 1643.45 936.636 1641.55 933.107Z"
                   fill="#9AB967"
                 />
               </g>
-              <g id="bush_3" filter="url(#filter2_d_122_3315)">
+              <g id="bush" filter="url(#filter2_d_122_3315)">
                 <path
-                  id="Vector_165"
+                  id="Vector_155"
                   d="M1863.64 931.685C1863.67 988.171 1830.1 1007.91 1788.68 1007.93C1787.71 1007.93 1786.76 1007.92 1785.8 1007.9C1783.88 1007.86 1781.98 1007.77 1780.11 1007.64C1742.72 1005.01 1713.66 984.29 1713.64 931.758C1713.61 877.394 1783.06 808.754 1788.27 803.679C1788.27 803.679 1788.27 803.679 1788.28 803.674C1788.48 803.481 1788.58 803.384 1788.58 803.384C1788.58 803.384 1863.61 875.204 1863.64 931.685Z"
                   fill="#BEDD8C"
                 />
                 <path
-                  id="Vector_166"
+                  id="Vector_156"
                   d="M1785.94 999.289L1813.35 960.949L1785.88 1003.5L1785.8 1007.9C1783.88 1007.86 1781.99 1007.77 1780.11 1007.64L1783.03 951.127L1783.01 950.689L1783.06 950.607L1783.34 945.267L1755.75 902.641L1783.42 941.266L1783.49 942.399L1785.7 899.703L1762.08 855.653L1785.99 892.2L1788.27 803.679L1788.28 803.384L1788.28 803.674L1787.93 873.482L1811.4 845.796L1787.83 879.494L1787.22 917.724L1809.15 881.026L1787.14 923.344L1786.8 944.602L1818.62 893.519L1786.68 952.018L1785.94 999.289Z"
                   fill="#3F3D56"
                 />
               </g>
-              <g id="bush_4" filter="url(#filter3_d_122_3315)">
+              <g id="bush_2" filter="url(#filter3_d_122_3315)">
                 <path
-                  id="Vector_167"
+                  id="Vector_157"
                   d="M1681 958.21C1681.02 995.868 1658.64 1009.03 1631.02 1009.04C1630.38 1009.04 1629.75 1009.03 1629.11 1009.02C1627.83 1008.99 1626.56 1008.93 1625.31 1008.85C1600.39 1007.09 1581.02 993.28 1581 958.259C1580.98 922.016 1627.28 876.257 1630.75 872.873C1630.76 872.873 1630.76 872.873 1630.76 872.87C1630.89 872.741 1630.96 872.677 1630.96 872.677C1630.96 872.677 1680.98 920.556 1681 958.21Z"
                   fill="#BEDD8C"
                 />
                 <path
-                  id="Vector_168"
+                  id="Vector_158"
                   d="M1629.2 1003.28L1647.48 977.72L1629.16 1006.08L1629.11 1009.02C1627.83 1008.99 1626.57 1008.93 1625.31 1008.85L1627.26 971.172L1627.25 970.88L1627.28 970.825L1627.47 967.265L1609.07 938.848L1627.52 964.598L1627.57 965.353L1629.04 936.889L1613.29 907.522L1629.23 931.887L1630.75 872.873L1630.76 872.677L1630.76 872.87L1630.53 919.409L1646.18 900.951L1630.46 923.417L1630.06 948.903L1644.67 924.438L1630 952.65L1629.78 966.822L1650.99 932.766L1629.7 971.766L1629.2 1003.28Z"
                   fill="#3F3D56"
                 />
@@ -1876,28 +1925,249 @@ class TrainCrash extends React.Component<
             <g id="trees_2" filter="url(#filter4_d_122_3315)">
               <g id="tree_2">
                 <path
-                  id="Vector_169"
+                  id="Vector_159"
                   d="M1552.55 906.893C1552.55 970.181 1514.93 992.279 1468.51 992.279C1422.1 992.279 1384.48 970.181 1384.48 906.893C1384.48 843.605 1468.51 763.092 1468.51 763.092C1468.51 763.092 1552.55 843.605 1552.55 906.893Z"
                   fill="#44A34E"
                 />
                 <path
-                  id="Vector_170"
+                  id="Vector_160"
                   d="M1465.45 982.598L1466.31 929.631L1502.13 864.104L1466.45 921.322L1466.84 897.507L1491.52 850.099L1466.94 891.204L1467.63 848.37L1494.07 810.627L1467.74 841.635L1468.18 763.093L1465.45 867.068L1465.67 862.779L1438.79 821.641L1465.24 871.013L1462.73 918.851L1462.66 917.581L1431.68 874.29L1462.57 922.067L1462.25 928.049L1462.2 928.139L1462.22 928.63L1455.87 1050H1464.36L1465.38 987.311L1496.19 939.651L1465.45 982.598Z"
                   fill="#3F3D56"
                 />
               </g>
               <g id="tree_3">
                 <path
-                  id="Vector_171"
+                  id="Vector_161"
                   d="M1377.76 857.222C1377.76 926.417 1336.62 950.577 1285.88 950.577C1235.14 950.577 1194 926.417 1194 857.222C1194 788.027 1285.88 700 1285.88 700C1285.88 700 1377.76 788.027 1377.76 857.222Z"
                   fill="#9AB967"
                 />
                 <path
-                  id="Vector_172"
+                  id="Vector_162"
                   d="M1282.53 939.993L1283.47 882.082L1322.63 810.44L1283.62 872.998L1284.04 846.96L1311.03 795.127L1284.15 840.069L1284.92 793.237L1313.82 751.971L1285.04 785.873L1285.51 700L1282.52 813.68L1282.77 808.99L1253.38 764.014L1282.3 817.993L1279.56 870.296L1279.48 868.907L1245.6 821.577L1279.38 873.812L1279.03 880.353L1278.97 880.452L1279 880.988L1272.05 1013.69H1281.33L1282.45 945.145L1316.14 893.037L1282.53 939.993Z"
                   fill="#3F3D56"
                 />
               </g>
+            </g>
+            <g
+              ref={this.secondTrain}
+              className={styles.second_train}
+              id="train-ns_2"
+            >
+              <g id="back">
+                <path
+                  id="path1178_2"
+                  d="M227.787 744.56L193.187 762.955H90.6316L46.9035 739.707L27.0562 706.225H104.508V715.734H182.929V706.225H253.604L227.787 744.56Z"
+                  fill="#151515"
+                />
+                <path
+                  id="path1049_2"
+                  d="M291.469 698.082L374.95 746.28V701.123"
+                  fill="#242424"
+                />
+                <path
+                  id="path1891_4"
+                  d="M374.938 711.128L373.113 586.989L347.555 508.49C347.555 508.49 307.393 461.025 245.323 437.292C183.254 413.56 133.964 413.56 133.964 413.56L-1594.85 414.929V705.651H-1262.59L-1226.08 753.116H-8.43052L24.4296 711.128H374.938Z"
+                  fill="#FFAE01"
+                />
+                <path
+                  id="path1039_2"
+                  d="M250.037 438.947H-1595.01V414.854L138.057 413C162.271 415.27 174.216 417.212 193.911 421.361C221.289 428.312 232.494 432.152 250.037 438.947Z"
+                  fill="#4B4B4B"
+                />
+                <path
+                  id="rect1062_2"
+                  d="M171.429 521.977C180.408 521.977 187.638 529.207 187.638 538.186V609.79C187.638 618.769 180.408 625.999 171.429 625.999H166.137H43.5709H27.3615V609.79V538.186V521.977H43.5709H166.137H171.429Z"
+                  fill="#003674"
+                />
+                <path
+                  id="path1076_2"
+                  d="M27.3594 521.977L-18.7526 596.928V698.689L27.3594 625.999V521.977Z"
+                  fill="#003674"
+                />
+                <path
+                  id="rect5637_2"
+                  d="M50.6871 515.668H160.256V691.872H50.6871V515.668Z"
+                  fill="#FFAE01"
+                  stroke="#4D4D4D"
+                  stroke-width="0.160927"
+                />
+                <path
+                  id="rect5641_2"
+                  d="M211.404 517.384H267.083V682.598H211.404V517.384Z"
+                  fill="#FFAE01"
+                  stroke="#4D4D4D"
+                  stroke-width="0.165"
+                />
+                <path
+                  id="rect5647_2"
+                  d="M211.298 680.379H267.38V701.243H211.298V680.379Z"
+                  fill="#313131"
+                  stroke="#4D4D4D"
+                  stroke-width="0.0588466"
+                />
+                <path
+                  id="path1140_2"
+                  d="M374.93 708.564H399.575V723.853H363.063L374.93 708.564Z"
+                  fill="#161616"
+                  stroke="#161616"
+                  stroke-width="0.264583"
+                />
+                <path
+                  id="path1142_2"
+                  d="M399.183 700.971C399.183 700.971 401.001 709.643 401.001 716.489C401.001 723.335 398.956 730.637 398.956 730.637"
+                  stroke="#141414"
+                  stroke-width="0.165"
+                />
+                <path
+                  id="rect1158_2"
+                  d="M234.934 539.544H243.535C248.879 539.544 253.211 543.876 253.211 549.22V600.826C253.211 606.17 248.879 610.502 243.535 610.502H234.934C229.59 610.502 225.258 606.17 225.258 600.826V549.22C225.258 543.876 229.59 539.544 234.934 539.544Z"
+                  fill="#5C7BA3"
+                  stroke="#4B4B4B"
+                  stroke-width="0.165"
+                />
+                <g id="path1160_2">
+                  <path d="M105.45 691.648V515.606Z" fill="#FFAE01" />
+                  <path
+                    d="M105.45 691.648V515.606"
+                    stroke="#4D4D4D"
+                    stroke-width="0.160602"
+                  />
+                </g>
+                <path
+                  id="rect1162_2"
+                  d="M128.454 539.544H137.055C142.399 539.544 146.731 543.876 146.731 549.22V600.826C146.731 606.17 142.399 610.502 137.055 610.502H128.454C123.11 610.502 118.778 606.17 118.778 600.826V549.22C118.778 543.876 123.11 539.544 128.454 539.544Z"
+                  fill="#5C7BA3"
+                  stroke="#4B4B4B"
+                  stroke-width="0.165"
+                />
+                <path
+                  id="rect1164_2"
+                  d="M72.9472 539.544H81.5481C86.892 539.544 91.2241 543.876 91.2241 549.22V600.826C91.2241 606.17 86.892 610.502 81.5481 610.502H72.9472C67.6033 610.502 63.2712 606.17 63.2712 600.826V549.22C63.2712 543.876 67.6033 539.544 72.9472 539.544Z"
+                  fill="#5C7BA3"
+                  stroke="#4B4B4B"
+                  stroke-width="0.165"
+                />
+                <path
+                  id="circle1180_2"
+                  d="M235.837 766.739C219.736 766.739 206.683 753.686 206.683 737.585C206.683 721.484 219.736 708.432 235.837 708.432C251.938 708.432 264.99 721.484 264.99 737.585C264.99 753.686 251.938 766.739 235.837 766.739Z"
+                  fill="#2D2D2D"
+                  stroke="#4B4B4B"
+                  stroke-width="0.527318"
+                />
+                <path
+                  id="circle1182_2"
+                  d="M43.9801 766.739C27.8789 766.739 14.8264 753.686 14.8264 737.585C14.8264 721.484 27.8789 708.432 43.9801 708.432C60.0812 708.432 73.1338 721.484 73.1338 737.585C73.1338 753.686 60.0812 766.739 43.9801 766.739Z"
+                  fill="#2D2D2D"
+                  stroke="#4B4B4B"
+                  stroke-width="0.527318"
+                />
+                <path
+                  id="rect1200_2"
+                  d="M50.1484 692.369H160.933V703.689H50.1484V692.369Z"
+                  fill="#282828"
+                />
+                <path
+                  id="rect1080_2"
+                  d="M372.323 658.258H374.538C375.921 658.258 377.042 659.379 377.042 660.761V672.859C377.042 674.242 375.921 675.363 374.538 675.363H372.323C370.941 675.363 369.82 674.242 369.82 672.859V660.761C369.82 659.379 370.941 658.258 372.323 658.258Z"
+                  fill="#FFAE01"
+                />
+                <path
+                  id="path1132_2"
+                  d="M90.1993 610.652L104.778 596.074V625.231L90.1993 610.652Z"
+                  fill="white"
+                />
+                <path
+                  id="path1134_2"
+                  d="M120.67 610.652L106.092 596.074V625.231L120.67 610.652Z"
+                  fill="white"
+                />
+                <path
+                  id="circle1136_2"
+                  d="M40.0251 615.092C37.7972 615.092 35.9911 613.286 35.9911 611.058C35.9911 608.83 37.7972 607.024 40.0251 607.024C42.253 607.024 44.0591 608.83 44.0591 611.058C44.0591 613.286 42.253 615.092 40.0251 615.092Z"
+                  fill="#4B4B4B"
+                />
+                <path
+                  id="circle1138_2"
+                  d="M40.2228 614.45C38.3513 614.45 36.8342 612.933 36.8342 611.062C36.8342 609.19 38.3513 607.673 40.2228 607.673C42.0942 607.673 43.6113 609.19 43.6113 611.062C43.6113 612.933 42.0942 614.45 40.2228 614.45Z"
+                  fill="#E7E7E7"
+                />
+                <path
+                  id="circle1140_2"
+                  d="M40.0863 612.228C39.443 612.228 38.9216 611.704 38.9216 611.058C38.9216 610.412 39.443 609.888 40.0863 609.888C40.7295 609.888 41.251 610.412 41.251 611.058C41.251 611.704 40.7295 612.228 40.0863 612.228Z"
+                  fill="#000D58"
+                />
+                <path
+                  id="path1151_2"
+                  d="M273.011 659.674V578.665"
+                  stroke="#4B4B4B"
+                  stroke-width="0.165"
+                />
+                <path
+                  id="path1153_2"
+                  d="M206.051 659.674V578.665"
+                  stroke="#4B4B4B"
+                  stroke-width="0.165"
+                />
+                <path
+                  id="rect1146_2"
+                  d="M-1242.89 731.695H8.30908L-8.11196 753.811H-1227.03L-1242.89 731.695Z"
+                  fill="#4B4B4B"
+                />
+              </g>
+            </g>
+            <g id="bush_3">
+              <path
+                id="Vector_163"
+                d="M457.147 927.279H297.538C297.538 927.279 294.303 879.827 313.445 879.288C332.587 878.749 330.43 900.318 354.426 870.66C378.421 841.003 407.539 842.621 411.313 860.146C415.088 877.67 404.034 891.69 424.255 887.376C444.475 883.063 473.593 894.386 457.147 927.279Z"
+                fill="#44A34E"
+              />
+              <path
+                id="Vector_164"
+                d="M374.648 927.29L374.11 927.268C375.366 896.026 381.909 875.953 387.177 864.616C392.896 852.305 398.408 847.322 398.463 847.273L398.821 847.676C398.767 847.724 393.319 852.658 387.646 864.885C382.407 876.175 375.9 896.166 374.648 927.29Z"
+                fill="#F2F2F2"
+              />
+              <path
+                id="Vector_165"
+                d="M432.415 927.354L431.897 927.203C438.13 905.809 452.809 892.301 452.956 892.167L453.319 892.566C453.172 892.699 438.604 906.111 432.415 927.354Z"
+                fill="#F2F2F2"
+              />
+              <path
+                id="Vector_166"
+                d="M322.677 927.316L322.143 927.241C324.258 911.989 320.438 900.156 316.861 892.915C312.988 885.075 308.568 880.793 308.524 880.75L308.897 880.361C308.942 880.404 313.43 884.752 317.344 892.676C320.955 899.985 324.811 911.928 322.677 927.316Z"
+                fill="#F2F2F2"
+              />
+              <path
+                id="Vector_167"
+                d="M478.809 928H280.323L280.277 927.328C280.163 925.655 277.631 886.201 290.415 872.124C293.272 868.977 296.715 867.325 300.646 867.214C308.979 866.977 314.216 870.099 318.439 872.604C326.4 877.327 331.659 880.447 350.781 856.813C371.496 831.21 393.846 825.702 406.694 828.765C414.996 830.744 420.718 836.338 422.392 844.113C423.978 851.475 423.473 858.392 423.067 863.95C422.633 869.897 422.29 874.595 424.732 876.723C426.771 878.499 430.841 878.661 437.539 877.231C451.164 874.325 470.174 876.812 479.716 889.141C484.85 895.773 488.894 907.83 479.008 927.601L478.809 928ZM281.677 926.557H477.916C485.282 911.612 485.512 898.987 478.575 890.024C469.822 878.714 451.457 875.737 437.84 878.642C430.563 880.195 426.226 879.939 423.785 877.811C420.798 875.209 421.165 870.194 421.628 863.845C422.027 858.379 422.524 851.576 420.982 844.416C419.429 837.207 414.1 832.013 406.36 830.168C393.921 827.201 372.195 832.639 351.902 857.72C331.997 882.323 326.001 878.767 317.704 873.845C313.428 871.309 308.573 868.433 300.687 868.656C297.163 868.756 294.066 870.249 291.482 873.094C279.993 885.745 281.396 921.223 281.677 926.557Z"
+                fill="#CFCCE0"
+              />
+            </g>
+            <g id="bush_4">
+              <path
+                id="Vector_168"
+                d="M229.576 1002.13H38.0456C38.0456 1002.13 34.1633 945.193 57.134 944.546C80.1048 943.899 77.5165 969.781 106.311 934.193C135.105 898.604 170.047 900.545 174.576 921.575C179.106 942.604 165.841 959.428 190.106 954.252C214.37 949.075 249.312 962.663 229.576 1002.13Z"
+                fill="#44A34E"
+              />
+              <path
+                id="Vector_169"
+                d="M130.578 1002.15L129.931 1002.12C131.439 964.632 139.291 940.544 145.612 926.939C152.475 912.166 159.089 906.186 159.155 906.127L159.585 906.611C159.52 906.669 152.983 912.59 146.175 927.262C139.889 940.81 132.08 964.799 130.578 1002.15Z"
+                fill="#F2F2F2"
+              />
+              <path
+                id="Vector_170"
+                d="M199.898 1002.22L199.277 1002.04C206.756 976.371 224.37 960.161 224.547 960L224.982 960.479C224.807 960.639 207.324 976.734 199.898 1002.22Z"
+                fill="#F2F2F2"
+              />
+              <path
+                id="Vector_171"
+                d="M68.2127 1002.18L67.5716 1002.09C70.1093 983.788 65.5254 969.587 61.2329 960.898C56.5851 951.49 51.2821 946.351 51.229 946.301L51.6767 945.833C51.7306 945.885 57.1156 951.103 61.813 960.612C66.1456 969.382 70.773 983.714 68.2127 1002.18Z"
+                fill="#F2F2F2"
+              />
+              <path
+                id="Vector_172"
+                d="M255.571 1003H17.3873L17.3324 1002.19C17.1954 1000.19 14.157 952.841 29.4974 935.949C32.9268 932.172 37.0578 930.19 41.7753 930.057C51.7748 929.773 58.0587 933.518 63.1271 936.525C72.6802 942.192 78.9912 945.936 101.937 917.576C126.795 886.852 153.615 880.242 169.033 883.918C178.995 886.293 185.861 893.006 187.871 902.335C189.773 911.17 189.167 919.47 188.681 926.14C188.159 933.277 187.748 938.913 190.679 941.468C193.126 943.599 198.009 943.793 206.047 942.078C222.396 938.59 245.209 941.574 256.659 956.369C262.82 964.328 267.673 978.796 255.81 1002.52L255.571 1003ZM19.0128 1001.27H254.499C263.339 983.335 263.615 968.184 255.29 957.428C244.786 943.857 222.749 940.285 206.408 943.771C197.675 945.634 192.472 945.327 189.542 942.773C185.958 939.651 186.397 933.633 186.954 926.014C187.433 919.455 188.029 911.291 186.179 902.7C184.315 894.048 177.92 887.816 168.632 885.602C153.706 882.041 127.635 888.567 103.283 918.664C79.3965 948.187 72.201 943.92 62.2442 938.014C57.1133 934.971 51.2875 931.519 41.8244 931.788C37.5954 931.907 33.8795 933.698 30.7789 937.112C16.9917 952.294 18.6751 994.868 19.0128 1001.27Z"
+                fill="#CFCCE0"
+              />
             </g>
           </g>
           <defs>
@@ -1908,9 +2178,9 @@ class TrainCrash extends React.Component<
               width="153"
               height="65.5811"
               filterUnits="userSpaceOnUse"
-              colorInterpolationFilters="sRGB"
+              color-interpolation-filters="sRGB"
             >
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -1943,9 +2213,9 @@ class TrainCrash extends React.Component<
               width="257.999"
               height="408.803"
               filterUnits="userSpaceOnUse"
-              colorInterpolationFilters="sRGB"
+              color-interpolation-filters="sRGB"
             >
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -1978,9 +2248,9 @@ class TrainCrash extends React.Component<
               width="158"
               height="212.543"
               filterUnits="userSpaceOnUse"
-              colorInterpolationFilters="sRGB"
+              color-interpolation-filters="sRGB"
             >
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2013,9 +2283,9 @@ class TrainCrash extends React.Component<
               width="108"
               height="144.362"
               filterUnits="userSpaceOnUse"
-              colorInterpolationFilters="sRGB"
+              color-interpolation-filters="sRGB"
             >
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2048,9 +2318,9 @@ class TrainCrash extends React.Component<
               width="366.55"
               height="358"
               filterUnits="userSpaceOnUse"
-              colorInterpolationFilters="sRGB"
+              color-interpolation-filters="sRGB"
             >
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2084,8 +2354,8 @@ class TrainCrash extends React.Component<
               gradientUnits="userSpaceOnUse"
               gradientTransform="translate(557.661 -453.966) rotate(103.128) scale(1194.03 3193.03)"
             >
-              <stop offset="0.23021" stopColor="#55ACFC" />
-              <stop offset="1" stopColor="white" />
+              <stop offset="0.23021" stop-color="#55ACFC" />
+              <stop offset="1" stop-color="white" />
             </radialGradient>
             <linearGradient
               id="paint1_linear_122_3315"
@@ -2095,9 +2365,9 @@ class TrainCrash extends React.Component<
               y2="4.41992"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stopColor="#808080" stopOpacity="0.25" />
-              <stop offset="0.54" stopColor="#808080" stopOpacity="0.12" />
-              <stop offset="1" stopColor="#808080" stopOpacity="0.1" />
+              <stop stop-color="#808080" stop-opacity="0.25" />
+              <stop offset="0.54" stop-color="#808080" stop-opacity="0.12" />
+              <stop offset="1" stop-color="#808080" stop-opacity="0.1" />
             </linearGradient>
             <linearGradient
               id="paint2_linear_122_3315"
@@ -2107,8 +2377,8 @@ class TrainCrash extends React.Component<
               y2="590.149"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.123398" stopColor="#9AB967" />
-              <stop offset="1" stopColor="white" />
+              <stop offset="0.123398" stop-color="#9AB967" />
+              <stop offset="1" stop-color="white" />
             </linearGradient>
             <linearGradient
               id="paint3_linear_122_3315"
@@ -2118,8 +2388,8 @@ class TrainCrash extends React.Component<
               y2="1395.37"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.171875" stopColor="white" />
-              <stop offset="0.869792" stopColor="#949494" />
+              <stop offset="0.171875" stop-color="white" />
+              <stop offset="0.869792" stop-color="#949494" />
             </linearGradient>
             <linearGradient
               id="paint4_linear_122_3315"
@@ -2129,19 +2399,30 @@ class TrainCrash extends React.Component<
               y2="997.353"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.123398" stopColor="#949494" />
-              <stop offset="1" stopColor="white" />
+              <stop offset="0.123398" stop-color="#949494" />
+              <stop offset="1" stop-color="white" />
             </linearGradient>
             <linearGradient
               id="paint5_linear_122_3315"
-              x1="2596.75"
+              x1="2410.75"
               y1="966.632"
-              x2="2596.75"
+              x2="2410.75"
               y2="727.681"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stopColor="#C4C4C4" stopOpacity="0" />
-              <stop offset="1" stopColor="#4B4B4B" />
+              <stop stop-color="#C4C4C4" stop-opacity="0" />
+              <stop offset="1" stop-color="#4B4B4B" />
+            </linearGradient>
+            <linearGradient
+              id="paint6_linear_122_3315"
+              x1="-676.155"
+              y1="967"
+              x2="-676.155"
+              y2="728"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#C4C4C4" stop-opacity="0" />
+              <stop offset="1" stop-color="#4B4B4B" />
             </linearGradient>
             <clipPath id="clip0_122_3315">
               <rect width="1920" height="1080" fill="white" />

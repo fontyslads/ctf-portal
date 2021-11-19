@@ -142,7 +142,10 @@ class Platform extends React.Component<
   }
 
   animateDoors(): void {
-    if (this.isFlagValid(0))
+    if (
+      this.props.flags.length &&
+      this.props.flags[0].status === FlagStatus.Valid
+    ) {
       this.tl
         .to(this.textBubble.current, {
           opacity: 1,
@@ -151,6 +154,7 @@ class Platform extends React.Component<
         .to(this.flagTwoButton.current, {
           opacity: 1,
         });
+    }
   }
   revertDoors(): void {
     this.tl.to(this.textBubble.current, {
