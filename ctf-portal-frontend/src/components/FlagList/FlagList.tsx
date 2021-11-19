@@ -2,8 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { listFlagsAsync } from "../SubmitFlag/FlagSlice";
 import styles from "./FlagList.module.scss";
-
 import isEqual from "lodash.isequal";
+
+//components
+import { Button } from "react-bootstrap";
 
 //models
 import Flag from "../../models/Flag";
@@ -78,7 +80,7 @@ class FlagList extends React.Component<
     return (
       <div className={styles.stage_selectors}>
         {this.state.allowedStage > this.state.activeStage ? (
-          <div
+          <Button
             className={styles.selector}
             onClick={() =>
               this.setState({
@@ -87,13 +89,13 @@ class FlagList extends React.Component<
               })
             }
           >
-            next stage
-          </div>
+            Next stage
+          </Button>
         ) : (
           <div></div>
         )}
         {this.state.activeStage > 0 ? (
-          <div
+          <Button
             className={styles.selector}
             onClick={() =>
               this.setState({
@@ -102,8 +104,8 @@ class FlagList extends React.Component<
               })
             }
           >
-            previous stage
-          </div>
+            Previous stage
+          </Button>
         ) : (
           <div></div>
         )}

@@ -12,12 +12,17 @@
   height: 100vh;
   display: flex;
   justify-content: space-between;
+  padding: 1em;
   align-items: center;
   pointer-events: none;
 }
 
 .selector {
-  background-color: red;
   pointer-events: initial;
   cursor: pointer;
+  opacity: 0.3;
+}
+
+.selector:hover {
+  opacity: 1;
 }
