@@ -74,40 +74,39 @@ class TrainCrash extends React.Component<
   }
 
   animateTrain(): void {
-    if (!this.isFlagValid(6))
-      this.tl
-        .to(this.train.current, {
+    this.tl
+      .to(this.train.current, {
+        x: 0,
+        ease: "linear",
+        duration: 1,
+      })
+      .to(
+        this.trainShadow.current,
+        {
           x: 0,
           ease: "linear",
           duration: 1,
-        })
-        .to(
-          this.trainShadow.current,
-          {
-            x: 0,
-            ease: "linear",
-            duration: 1,
-          },
-          "<"
-        )
-        .to(
-          this.secondTrain.current,
-          {
-            x: 0,
-            ease: "linear",
-            duration: 1,
-          },
-          "<"
-        )
-        .to(
-          this.secondTrainShadow.current,
-          {
-            x: 0,
-            ease: "linear",
-            duration: 1,
-          },
-          "<"
-        );
+        },
+        "<"
+      )
+      .to(
+        this.secondTrain.current,
+        {
+          x: 0,
+          ease: "linear",
+          duration: 1,
+        },
+        "<"
+      )
+      .to(
+        this.secondTrainShadow.current,
+        {
+          x: 0,
+          ease: "linear",
+          duration: 1,
+        },
+        "<"
+      );
     this.tl.to(this.flagSixButton.current, {
       opacity: 1,
     });
