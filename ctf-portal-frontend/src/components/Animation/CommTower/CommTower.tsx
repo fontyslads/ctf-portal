@@ -19,19 +19,34 @@ class CommTower extends React.Component<
 
   private train: RefObject<SVGGElement>;
   private trainShadow: RefObject<SVGGElement>;
+  private signal: RefObject<SVGGElement>;
+  private signalBarOne: RefObject<SVGPathElement>;
+  private signalBarTwo: RefObject<SVGPathElement>;
+  private signalBarThree: RefObject<SVGPathElement>;
+  private signalBarFour: RefObject<SVGPathElement>;
+  private signalBarFive: RefObject<SVGPathElement>;
+  private signalBarSix: RefObject<SVGPathElement>;
   private flagThreeButton: RefObject<SVGGElement>;
 
   constructor(props: any) {
     super(props);
     this.train = createRef();
     this.trainShadow = createRef();
+    this.signal = createRef();
+    this.signalBarOne = createRef();
+    this.signalBarTwo = createRef();
+    this.signalBarThree = createRef();
+    this.signalBarFour = createRef();
+    this.signalBarFive = createRef();
+    this.signalBarSix = createRef();
     this.flagThreeButton = createRef();
 
     this.state = { show: false, flag: 1 };
   }
 
   componentDidMount(): void {
-    // this.animateTrain();
+    this.animateTrain();
+    this.animateSignal();
   }
 
   componentDidUpdate(props: { flags: Flag[] }): void {
@@ -44,6 +59,7 @@ class CommTower extends React.Component<
     ) {
       this.closeFlagSubmitModal();
       this.runConfetti();
+      this.revertSignal();
     }
   }
 
@@ -69,18 +85,104 @@ class CommTower extends React.Component<
     this.tl
       .to(this.train.current, {
         x: 0,
-        ease: "easeOut",
-        duration: 3,
+        ease: "linear",
+        duration: 1,
       })
       .to(
         this.trainShadow.current,
         {
           x: 0,
-          ease: "easeOut",
-          duration: 3,
+          ease: "linear",
+          duration: 1,
         },
         "<"
       );
+  }
+
+  animateSignal(): void {
+    if (!this.isFlagValid(3))
+      this.tl
+        .to(this.signalBarOne.current, {
+          stroke: "red",
+        })
+        .to(
+          this.signalBarFour.current,
+          {
+            stroke: "red",
+          },
+          "<"
+        )
+        .to(this.signalBarTwo.current, {
+          stroke: "red",
+        })
+        .to(
+          this.signalBarFive.current,
+          {
+            stroke: "red",
+          },
+          "<"
+        )
+        .to(this.signalBarThree.current, {
+          stroke: "red",
+        })
+        .to(
+          this.signalBarSix.current,
+          {
+            stroke: "red",
+          },
+          "<"
+        )
+        .to(this.signal.current, {
+          opacity: 0,
+          repeat: 5,
+        });
+    this.tl.to(this.flagThreeButton.current, {
+      opacity: 1,
+    });
+  }
+  revertSignal() {
+    this.tl
+      .to(this.signalBarOne.current, {
+        stroke: "white",
+      })
+      .to(
+        this.signalBarFour.current,
+        {
+          stroke: "white",
+        },
+        "<"
+      )
+      .to(
+        this.signalBarTwo.current,
+        {
+          stroke: "white",
+        },
+        "<"
+      )
+      .to(
+        this.signalBarFive.current,
+        {
+          stroke: "white",
+        },
+        "<"
+      )
+      .to(
+        this.signalBarThree.current,
+        {
+          stroke: "white",
+        },
+        "<"
+      )
+      .to(
+        this.signalBarSix.current,
+        {
+          stroke: "white",
+        },
+        "<"
+      )
+      .to(this.signal.current, {
+        opacity: 1,
+      });
   }
 
   getBackgroundColor(): string {
@@ -844,9 +946,10 @@ class CommTower extends React.Component<
                   />
                 </g>
               </g>
-              <g id="signal">
+              <g id="signal" ref={this.signal}>
                 <g id="g3278">
                   <path
+                    ref={this.signalBarOne}
                     id="path3261"
                     d="M1144.48 212.598C1149.65 244.752 1165.66 262.521 1195.54 261.861"
                     fillOpacity="0"
@@ -854,6 +957,7 @@ class CommTower extends React.Component<
                     strokeWidth="8"
                   />
                   <path
+                    ref={this.signalBarTwo}
                     id="path3263"
                     d="M1101.07 220.137C1109.02 268.463 1130.89 303.789 1187.41 306.778"
                     fillOpacity="0"
@@ -861,6 +965,7 @@ class CommTower extends React.Component<
                     strokeWidth="8"
                   />
                   <path
+                    ref={this.signalBarThree}
                     id="path3265"
                     d="M1059.64 230.255C1071.36 290.841 1098.93 340.321 1180.64 351.855"
                     fillOpacity="0"
@@ -870,6 +975,7 @@ class CommTower extends React.Component<
                 </g>
                 <g id="g3273">
                   <path
+                    ref={this.signalBarFour}
                     id="path3267"
                     d="M1431.45 214.734C1422.96 238.87 1411.69 260.24 1381.9 263.08"
                     fillOpacity="0"
@@ -877,6 +983,7 @@ class CommTower extends React.Component<
                     strokeWidth="8"
                   />
                   <path
+                    ref={this.signalBarFive}
                     id="path3269"
                     d="M1471.27 218.676C1464.44 271.2 1440.49 304.866 1385.83 304.707"
                     fillOpacity="0"
@@ -884,6 +991,7 @@ class CommTower extends React.Component<
                     strokeWidth="8"
                   />
                   <path
+                    ref={this.signalBarSix}
                     id="path3271"
                     d="M1513.44 229.845C1505.81 300.244 1466.67 339.934 1394.28 347.207"
                     fillOpacity="0"
@@ -1397,7 +1505,7 @@ class CommTower extends React.Component<
                 />
               </g>
             </g>
-            <g id="train-ns">
+            <g ref={this.train} className={styles.train} id="train-ns">
               <g id="front">
                 <path
                   id="path1178"
@@ -1852,11 +1960,17 @@ class CommTower extends React.Component<
                 />
               </g>
             </g>
-            <path
-              id="path1891_2"
-              d="M852.494 759.68L877.561 846.707L914.13 913.751C914.13 913.751 912.453 933.23 974.523 949.931C1036.59 966.631 1085.88 966.631 1085.88 966.631L2950.6 966.632L2803.55 727.681H2445.93H1228.28H844.907L852.494 759.68Z"
-              fill="url(#paint5_linear_118_38)"
-            />
+            <g
+              ref={this.trainShadow}
+              className={styles.train_shadow}
+              id="train-shadow"
+            >
+              <path
+                id="path1891_2"
+                d="M852.494 759.68L877.561 846.707L914.13 913.751C914.13 913.751 912.453 933.23 974.523 949.931C1036.59 966.631 1085.88 966.631 1085.88 966.631L2950.6 966.632L2803.55 727.681H2445.93H1228.28H844.907L852.494 759.68Z"
+                fill="url(#paint5_linear_118_38)"
+              />
+            </g>
             <g id="bush_5">
               <path
                 id="Vector_126"
