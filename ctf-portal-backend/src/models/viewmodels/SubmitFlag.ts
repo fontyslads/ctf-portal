@@ -22,11 +22,6 @@ class SubmitFlag {
 	@IsNotEmpty()
 	@property()
 	token!: string;
-
-	@IsString()
-	@IsNotEmpty()
-	@property()
-	secretKey!: string;
 }
 
 export default SubmitFlag;

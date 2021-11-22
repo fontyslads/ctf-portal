@@ -4,14 +4,19 @@ import { connect } from "react-redux";
 import FlagStatus from "../../models/enums/FlagStatus";
 import Flag from "../../models/Flag";
 import { submitFlagAsync } from "./FlagSlice";
+import {IWithGoogleReCaptchaProps, useGoogleReCaptcha} from "react-google-recaptcha-v3";
+
+
+const SITE_KEY = "6LdeqJkcAAAAAFcW4LbVNriRt-fMTu0DZHBrYb-0";
 
 class SubmitFlag extends React.Component<
   {
-    submitFlagAsync: (arg0: { id: number; value: string }) => void;
+    submitFlagAsync: (arg0: { id: number; value: string;  token: string }) => void;
     flag: Flag;
   },
   { value: string }
 > {
+
   constructor(props: any) {
     super(props);
 
@@ -25,19 +30,33 @@ class SubmitFlag extends React.Component<
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event: { preventDefault: () => void }) {
+  handleSubmit(token: string) {
     const submittedFlag = {
       id: this.props.flag.id,
       value: this.state.value,
+      token: token
     };
 
     this.props.submitFlagAsync(submittedFlag);
-    event.preventDefault();
+
   }
+
+   handleSubmitRecaptcha = async () => {
+    try {
+        const { executeRecaptcha } = (this.props as unknown as IWithGoogleReCaptchaProps)
+            .googleReCaptchaProps;
+      if (executeRecaptcha) {
+        const newToken = await executeRecaptcha("MS_Pyme_DatosEmpresa");
+        this.handleSubmit(newToken);
+      }
+    } catch (err) {
+      throw new Error("Token error");
+    }
+  };
 
   render() {
     return (
-      <form className="flex gap-2" onSubmit={this.handleSubmit}>
+      <form className="flex gap-2" onSubmit={this.handleSubmitRecaptcha}>
         <div className="flex">
           <span className="text-sm text-black flex items-center rounded-l px-4 py-2 bg-yellow-300 whitespace-no-wrap">
             Flag:

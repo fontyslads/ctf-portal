@@ -14,7 +14,7 @@ class FlagController implements Controller {
 	path: string = "/flag";
 	router: Router = Router();
 	private axios = require('axios');
-
+	private SITE_KEY = "6LdeqJkcAAAAAFcW4LbVNriRt-fMTu0DZHBrYb-0";
 	private flagLogic: FlagLogic = new FlagLogic();
 
 	constructor() {
@@ -23,7 +23,7 @@ class FlagController implements Controller {
 
 	private initializeRoutes() {
 		// this.router.get("/test", validate(Check_reCAPTCHA_Variation),this.test);
-		this.router.get("/", this.listFlags);
+		this.router.get("/:team", this.listFlags);
 		this.router.post("/submit", validate(SubmitFlag), this.submitFlag);
 
 	}
@@ -33,7 +33,7 @@ class FlagController implements Controller {
 		res: Response,
 		next: NextFunction
 	) => {
-		const team = Team.Blue;
+		const team = req.params.team;
 		if (!isEnum(team, Team))
 			return next(new BadRequestException("team is invalid"));
 
@@ -46,7 +46,7 @@ class FlagController implements Controller {
 		res: Response,
 		next: NextFunction
 	) => {
-		if(this.checkToken(req.body.token, req.body.secretKey)){
+		if(this.checkToken(req.body.token, this.SITE_KEY)){
 			const flagSubmit: SubmitFlag = req.body;
 			await this.flagLogic
 				.submitFlag(flagSubmit.id, flagSubmit.hash)

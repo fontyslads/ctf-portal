@@ -8,7 +8,7 @@ import FlagStatus from "../models/enums/FlagStatus";
 
 class FlagLogic {
 	private repository: Repository<Flag>;
-	// private axios = require('axios');
+
 
 	constructor() {
 		this.repository = getConnection(process.env.ORM_CONFIG).getRepository(Flag);

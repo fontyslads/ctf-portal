@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import styles from './ReCaptchaCom.module.scss';
 import {useGoogleReCaptcha, GoogleReCaptcha} from "react-google-recaptcha-v3";
 
-const SITE_KEY = "6LdeqJkcAAAAAFcW4LbVNriRt-fMTu0DZHBrYb-0";
 
 function  ReCaptchaCom(){
     const { executeRecaptcha } = useGoogleReCaptcha();

@@ -22,8 +22,8 @@ export const listFlagsAsync = createAsyncThunk(
 
 export const submitFlagAsync = createAsyncThunk(
   "flag/submitFlag",
-  async (submittedFlag: { id: number; value: string }) => {
-    return await submitFlag(submittedFlag.id, submittedFlag.value);
+  async (submittedFlag: { id: number; value: string; token: string}) => {
+    return await submitFlag(submittedFlag.id, submittedFlag.value, submittedFlag.token);
   }
 );
 

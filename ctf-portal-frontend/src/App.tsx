@@ -7,6 +7,7 @@ import Flag from "./models/Flag";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import {Button} from "react-bootstrap";
 import ReCaptchaCom from "./components/ReCaptchaCom/ReCaptchaCom";
+import FlagList from "./components/FlagList/FlagList";
 
 
 function GoogleRecaptchaExample() {
@@ -18,7 +19,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        {/*<FlagList />*/}
+
 
         {/*<GoogleReCaptchaProvider*/}
         {/*    reCaptchaKey="6LdeqJkcAAAAAFcW4LbVNriRt-fMTu0DZHBrYb-0"*/}
@@ -30,7 +31,7 @@ class App extends React.Component {
           <GoogleReCaptchaProvider
               reCaptchaKey="6LdeqJkcAAAAAFcW4LbVNriRt-fMTu0DZHBrYb-0"
           >
-              <ReCaptchaCom/>
+              <FlagList />
           </GoogleReCaptchaProvider>,
       </div>
     );
