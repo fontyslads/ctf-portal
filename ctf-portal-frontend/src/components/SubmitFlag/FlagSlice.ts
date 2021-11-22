@@ -6,10 +6,12 @@ import Flag from "../../models/Flag";
 import { submitFlag, listFlags } from "./FlagAPI";
 
 export interface FlagState {
+  initialized: boolean;
   flags: Flag[];
 }
 
 const initialState: FlagState = {
+  initialized: false,
   flags: [],
 };
 
@@ -39,6 +41,7 @@ export const flagSlice = createSlice({
       })
       //submitFlagAsync
       .addCase(submitFlagAsync.pending, (state, action) => {
+        state.initialized = true;
         state.flags = state.flags.map((flag) => {
           if (flag.id === action.meta.arg.id) {
             flag = { ...flag, status: FlagStatus.Pending };
@@ -66,5 +69,6 @@ export const flagSlice = createSlice({
 });
 
 export const selectFlags = (state: RootState) => state.flag.flags;
+export const isInitialized = (state: RootState) => state.flag.initialized;
 
 export default flagSlice.reducer;

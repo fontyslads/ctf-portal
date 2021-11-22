@@ -3,5 +3,26 @@
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
+}
 
+.train,
+.train_shadow {
+  transform: translateX(100%);
+}
+
+.screen_background {
+  fill: white;
+}
+
+.screen_info {
+  opacity: 1;
+}
+
+.text_bubble {
+  opacity: 0;
+}
+
+.flag_button {
+  opacity: 0;
+  cursor: pointer;
 }

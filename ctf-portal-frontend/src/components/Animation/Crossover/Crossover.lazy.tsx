@@ -1,10 +1,13 @@
 import React, { lazy, Suspense } from "react";
+import Flag from "../../../models/Flag";
 
 const LazyCrossover = lazy(() => import("./Crossover"));
 
-const Crossover = (
-  props: JSX.IntrinsicAttributes & { children?: React.ReactNode }
-) => (
+interface Props extends JSX.IntrinsicAttributes {
+  flags: Flag[];
+}
+
+const Crossover = (props: Props & { children?: React.ReactNode }) => (
   <Suspense fallback={null}>
     <LazyCrossover {...props} />
   </Suspense>

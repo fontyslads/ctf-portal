@@ -1,0 +1,33 @@
+.background {
+  height: 100vh;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.train,
+.train_shadow {
+  transform: translateX(100%);
+}
+
+.second_train,
+.second_train_shadow {
+  transform: translateX(-100%);
+}
+
+.flag_button {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.arm {
+  transform-origin: 0 70px;
+  transform: rotateZ(-90deg);
+  transform-box: fill-box;
+}
+
+.track {
+  transform-origin: right;
+  transform: rotateZ(-24deg);
+  transform-box: fill-box;
+}

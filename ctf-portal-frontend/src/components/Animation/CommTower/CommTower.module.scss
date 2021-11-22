@@ -4,3 +4,13 @@
   max-width: 1920px;
   margin: 0 auto;
 }
+
+.train,
+.train_shadow {
+  transform: translateX(100%);
+}
+
+.flag_button {
+  opacity: 0;
+  cursor: pointer;
+}

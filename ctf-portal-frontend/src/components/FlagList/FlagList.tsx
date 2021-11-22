@@ -2,60 +2,138 @@ import React from "react";
 import { connect } from "react-redux";
 import { listFlagsAsync } from "../SubmitFlag/FlagSlice";
 import styles from "./FlagList.module.scss";
-import Flag from "../../models/Flag";
-import FlagCard from "../FlagCard/FlagCard";
+import isEqual from "lodash.isequal";
 
+//components
+import { Button } from "react-bootstrap";
+
+//models
+import Flag from "../../models/Flag";
+import FlagStatus from "../../models/enums/FlagStatus";
+
+//animation stages
 import Platform from "../Animation/Platform/Platform";
 import CommTower from "../Animation/CommTower/CommTower";
 import Crossover from "../Animation/Crossover/Crossover";
-import FlagStatus from "../../models/enums/FlagStatus";
+import TrainCrash from "../Animation/TrainCrash/TrainCrash";
 
-class FlagList extends React.Component<{
-  listFlagsAsync: () => void;
-  flags: Flag[];
-}> {
+class FlagList extends React.Component<
+  {
+    listFlagsAsync: () => void;
+    initialized: boolean;
+    flags: Flag[];
+  },
+  { allowedStage: number; activeStage: number }
+> {
+  private init: boolean;
+
   constructor(props: any) {
     super(props);
     this.props.listFlagsAsync();
+    this.state = { allowedStage: 0, activeStage: 0 };
+    this.init = false;
   }
 
-  getFlagCards() {
-    const html: JSX.Element[] = [];
+  componentDidUpdate(props: any) {
+    const oldFlags = props.flags || [];
     const flags = this.props.flags || [];
-    flags.forEach((flag, i) => {
-      html.push(<FlagCard key={i} flag={flag} />);
+    if (!isEqual(oldFlags, flags)) {
+      this.setStage();
+    }
+  }
+
+  setStage() {
+    this.setState((state, props) => {
+      const flags = props.flags || [];
+      const numberSubmitted = flags.filter(
+        (flag) => flag.status === FlagStatus.Valid
+      ).length;
+
+      let allowedStage = 0;
+      if (numberSubmitted < 2) allowedStage = 0;
+      else if (numberSubmitted < 3) allowedStage = 1;
+      else if (numberSubmitted < 5) allowedStage = 2;
+      else allowedStage = 3;
+
+      if (!this.props.initialized)
+        return { ...state, allowedStage, activeStage: allowedStage };
+      else return { ...state, allowedStage };
     });
-
-    return html;
   }
 
-  getBackgroundStage() {
-    const flags = this.props.flags || [];
+  getBackgroundStage(flags: Flag[]) {
+    switch (this.state.activeStage) {
+      case 0:
+        return <Platform flags={flags} />;
+      case 1:
+        return <CommTower flags={flags} />;
+      case 2:
+        return <Crossover flags={flags} />;
+      case 3:
+        return <TrainCrash flags={flags} />;
+      default:
+        return <Platform flags={flags} />;
+    }
+  }
 
-    console.log(flags);
-    console.log(typeof flags);
-
-    const numberSubmitted = flags.filter(
-      (flag) => flag.status === FlagStatus.Valid
-    ).length;
-
-    if (numberSubmitted < 2) return <Platform />;
-    else if (numberSubmitted < 3) return <CommTower />;
-    else return <Crossover />;
+  getStageSelectors() {
+    return (
+      <div className={styles.stage_selectors}>
+        {this.state.allowedStage > this.state.activeStage ? (
+          <Button
+            className={styles.selector}
+            onClick={() =>
+              this.setState({
+                ...this.state,
+                activeStage: this.state.activeStage + 1,
+              })
+            }
+          >
+            Next stage
+          </Button>
+        ) : (
+          <div></div>
+        )}
+        {this.state.activeStage > 0 ? (
+          <Button
+            className={styles.selector}
+            onClick={() =>
+              this.setState({
+                ...this.state,
+                activeStage: this.state.activeStage - 1,
+              })
+            }
+          >
+            Previous stage
+          </Button>
+        ) : (
+          <div></div>
+        )}
+      </div>
+    );
   }
 
   render() {
+    const flags = this.props.flags || [];
+    if (!flags.length) return <div></div>;
+
     return (
-      <div className={styles.background_container}>
-        {this.getBackgroundStage()}
+      <div>
+        <div className={styles.background_container}>
+          {this.getBackgroundStage(flags)}
+        </div>
+        {this.getStageSelectors()}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: { flag: { flags: any } }) => {
+const mapStateToProps = (state: {
+  flag: { initialized: boolean; flags: Flag[] };
+}) => {
   return {
     flags: state.flag.flags,
+    initialized: state.flag.initialized,
   };
 };
 
