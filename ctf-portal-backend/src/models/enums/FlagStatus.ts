@@ -1,7 +1,8 @@
 enum FlagStatus {
 	Valid = "Valid",
 	Invalid = "Invalid",
-	NotSubmitted = "NotSubmitted"
+	NotSubmitted = "NotSubmitted",
+	TimedOut = "TimedOut"
 }
 
 export default FlagStatus;

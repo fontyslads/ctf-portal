@@ -7,6 +7,9 @@ export default class Flag {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
+	@Column()
+	flagNumber!: number;
+
 	@Column({ type: "enum", enum: Team, default: Team.Blue })
 	team!: Team;
 
@@ -24,4 +27,11 @@ export default class Flag {
 
 	@Column({ default: 0 })
 	attempts!: number;
+
+	//in seconds, default: 10 minutes
+	@Column({ default: 600 })
+	timeLimit!: number;
+
+	@Column({ nullable: true })
+	startTime!: Date;
 }

@@ -1,5 +1,6 @@
 import { Repository, getConnection } from "typeorm";
 import bcrypt from "bcrypt";
+import dayjs from "dayjs";
 
 import Flag from "../models/entities/Flag";
 import Team from "../models/enums/Team";
@@ -28,27 +29,50 @@ class FlagLogic {
 		hash: string,
 		team: Team = Team.Blue
 	): Promise<Flag> {
-		let validFlag = null;
+		let isValid = false;
 
 		const flag: Flag = (await this.repository.findOne({
 			where: { id }
 		})) as Flag;
 
 		if (!flag) throw new BadRequestException("Invalid id");
+		if (flag.team !== team)
+			throw new BadRequestException("This flag does not belong to your team");
 		if (flag.status === FlagStatus.Valid)
 			throw new BadRequestException("Flag is already submitted");
 
+		const startTime = dayjs(flag.startTime);
+		const endTime = startTime.second(startTime.second() + flag.timeLimit);
+		if (dayjs().isAfter(endTime))
+			throw new BadRequestException("Time limit exceeded");
+
 		if (bcrypt.compareSync(hash, flag.hash as string)) {
-			validFlag = flag;
+			isValid = true;
 			flag.status = FlagStatus.Valid;
 			await this.repository.save(flag);
+
+			//set startTime on next flag
+			const flagNumber = flag.flagNumber;
+			const newFlag = await this.repository.findOne({
+				where: { flagNumber: flagNumber + 1 }
+			});
+			if (newFlag && newFlag.team === team) {
+				newFlag.startTime = new Date(new Date().getTime() + 0 * 60 * 60 * 1000);
+				newFlag.status = FlagStatus.NotSubmitted;
+				newFlag.attempts = 0;
+				await this.repository.save(newFlag);
+			}
 		} else {
 			flag.status = FlagStatus.Invalid;
 			flag.attempts += 1;
 			await this.repository.save(flag);
 		}
 
-		return validFlag || flag;
+		delete flag.hash;
+		if (!isValid) {
+			delete flag.story;
+		}
+		return flag;
 	}
 }
 
