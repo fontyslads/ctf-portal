@@ -46,6 +46,8 @@ class FlagController implements Controller {
 		res: Response,
 		next: NextFunction
 	) => {
+		console.log(this.checkToken(req.body.token, this.SITE_KEY));
+		console.log('sdfsdf');
 		if(this.checkToken(req.body.token, this.SITE_KEY)){
 			const flagSubmit: SubmitFlag = req.body;
 			await this.flagLogic

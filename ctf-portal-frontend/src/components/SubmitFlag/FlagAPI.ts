@@ -24,7 +24,6 @@ export async function submitFlag(
   token: string,
   team: string = "Blue",
 ) {
-
         return AxiosRequestHandler.post("/flag/submit", {id, hash, team, token})
             .then((valid: boolean) => {
                 return valid;

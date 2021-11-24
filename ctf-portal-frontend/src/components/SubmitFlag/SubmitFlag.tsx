@@ -4,26 +4,31 @@ import { connect } from "react-redux";
 import FlagStatus from "../../models/enums/FlagStatus";
 import Flag from "../../models/Flag";
 import { submitFlagAsync } from "./FlagSlice";
-import {IWithGoogleReCaptchaProps, useGoogleReCaptcha} from "react-google-recaptcha-v3";
+import {IWithGoogleReCaptchaProps, useGoogleReCaptcha, withGoogleReCaptcha} from "react-google-recaptcha-v3";
+import {IGoogleReCaptchaConsumerProps} from "react-google-recaptcha-v3/dist/types/google-recaptcha-provider";
+import {submitFlag} from "./FlagAPI";
+
 
 
 const SITE_KEY = "6LdeqJkcAAAAAFcW4LbVNriRt-fMTu0DZHBrYb-0";
 
 class SubmitFlag extends React.Component<
   {
-    submitFlagAsync: (arg0: { id: number; value: string;  token: string }) => void;
-    flag: Flag;
+      submitFlagAsync: (arg0: { id: number; value: string;  token: string }) => void;
+      flag: Flag;
+
   },
-  { value: string }
-> {
+  { value: string;
+      token?: string;
+  }
+>
+{
 
   constructor(props: any) {
     super(props);
-
-    this.state = { value: "" };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+      this.state = {value: "", token: undefined };
   }
 
   handleChange(event: { target: { value: string } }) {
@@ -38,25 +43,34 @@ class SubmitFlag extends React.Component<
     };
 
     this.props.submitFlagAsync(submittedFlag);
-
   }
 
-   handleSubmitRecaptcha = async () => {
-    try {
-        const { executeRecaptcha } = (this.props as unknown as IWithGoogleReCaptchaProps)
-            .googleReCaptchaProps;
-      if (executeRecaptcha) {
-        const newToken = await executeRecaptcha("MS_Pyme_DatosEmpresa");
-        this.handleSubmit(newToken);
+
+    handleVerifyRecaptcha = async () => {
+
+      try {
+          const { executeRecaptcha } = (this.props as IWithGoogleReCaptchaProps)
+              .googleReCaptchaProps;
+
+          if (!executeRecaptcha) {
+              console.log('Recaptcha has not been loaded');
+
+              return;
+          }
+
+          const token = await executeRecaptcha('homepage');
+
+          this.setState({ token });
+      }catch (e){
+          throw e;
       }
-    } catch (err) {
-      throw new Error("Token error");
-    }
-  };
+
+    };
 
   render() {
+      const { token } = this.state;
     return (
-      <form className="flex gap-2" onSubmit={this.handleSubmitRecaptcha}>
+      <form className="flex gap-2" onSubmit={this.handleVerifyRecaptcha}>
         <div className="flex">
           <span className="text-sm text-black flex items-center rounded-l px-4 py-2 bg-yellow-300 whitespace-no-wrap">
             Flag:
@@ -71,6 +85,7 @@ class SubmitFlag extends React.Component<
           />
         </div>
         <Button type="submit">Validate</Button>
+          <p>Token: {token}</p>
         {this.props.flag.status === FlagStatus.Pending ? (
           <div className="p-0 text-black">
             <i className="fas fa-circle-notch fa-spin fa-2x"></i>
@@ -81,6 +96,5 @@ class SubmitFlag extends React.Component<
       </form>
     );
   }
-}
-
-export default connect(null, { submitFlagAsync })(SubmitFlag);
+} const SubmitFlagRe = withGoogleReCaptcha(SubmitFlag);
+export default connect(null, { submitFlagAsync })(SubmitFlagRe);

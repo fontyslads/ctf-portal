@@ -22,12 +22,26 @@ function  ReCaptchaCom(){
         try {
             if (executeRecaptcha) {
                 const newToken = await executeRecaptcha("MS_Pyme_DatosEmpresa");
+                console.log(newToken);
                 return newToken
             }
         } catch (err) {
             throw new Error("Token error");
         }
     };
+    useEffect( () => {
+        async function fetchMyAPI() {
+            try {
+                if (executeRecaptcha) {
+                    const newToken = await executeRecaptcha("MS_Pyme_DatosEmpresa");
+                    console.log(newToken);
+                    return newToken
+                }
+            } catch (err) {
+                throw new Error("Token error");
+            }
+        }
+    });
 
     return (
       <button onClick={handleSubmit}>test</button>

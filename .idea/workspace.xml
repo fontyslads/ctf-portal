@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="reCAPTCHA">
-      <change afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/utils/ReCaptchaHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c32e0bdd-8e08-499a-bc1d-d00e08086005.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c32e0bdd-8e08-499a-bc1d-d00e08086005.xml" afterDir="false" />
+    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="new reCAPTCHA">
+      <change afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/SubmitFlag2.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/wer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/flagController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/flagController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/logic/flagLogic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/logic/flagLogic.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/models/viewmodels/SubmitFlag.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/models/viewmodels/SubmitFlag.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/build/static/js/main.de87dad9.chunk.js" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/build/static/js/main.de87dad9.chunk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/FlagCard/FlagCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/FlagCard/FlagCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/ReCaptchaCom/ReCaptchaCom.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/ReCaptchaCom/ReCaptchaCom.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/FlagAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/FlagAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/FlagSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/FlagSlice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/SubmitFlag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag/SubmitFlag.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,14 +42,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ctf-portal-frontend/src/components/ReCaptchaCom" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ctf-portal-frontend/src/components/SubmitFlag" />
     <property name="nodejs_interpreter_path" value="$APPLICATION_CONFIG_DIR$/node/node-v14.15.0-win-x64/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
-    <property name="ts.external.directory.path" value="D:\Document\ctf-portal\ctf-portal-frontend\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="D:\Document\ctf-portal\ctf-portal-backend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Document\ctf-portal\ctf-portal-frontend\src\components\SubmitFlag" />
       <recent name="D:\Document\ctf-portal\ctf-portal-frontend\src\components\ReCaptchaCom" />
       <recent name="D:\Document\ctf-portal\ctf-portal-backend\src\models\viewmodels" />
     </key>
@@ -130,7 +131,9 @@
       <workItem from="1636710525125" duration="8189000" />
       <workItem from="1637224510285" duration="5687000" />
       <workItem from="1637322650540" duration="6182000" />
-      <workItem from="1637574325258" duration="4555000" />
+      <workItem from="1637574325258" duration="12012000" />
+      <workItem from="1637654011787" duration="21474000" />
+      <workItem from="1637687428923" duration="1249000" />
     </task>
     <task id="LOCAL-00001" summary="Add timeline">
       <created>1633085736483</created>
@@ -153,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636621980376</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="new reCAPTCHA">
+      <created>1637579246153</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1637579246153</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,7 +185,8 @@
     <MESSAGE value="Add timeline" />
     <MESSAGE value="Animation" />
     <MESSAGE value="reCAPTCHA" />
-    <option name="LAST_COMMIT_MESSAGE" value="reCAPTCHA" />
+    <MESSAGE value="new reCAPTCHA" />
+    <option name="LAST_COMMIT_MESSAGE" value="new reCAPTCHA" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

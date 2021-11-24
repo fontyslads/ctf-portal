@@ -8,6 +8,7 @@ import SubmitFlag from "../SubmitFlag/SubmitFlag";
 //models
 import Flag from "../../models/Flag";
 import FlagStatus from "../../models/enums/FlagStatus";
+import SubmitFlagRe from "../SubmitFlag/SubmitFlag";
 
 class FlagCard extends React.Component<{
   flag: Flag;
@@ -42,7 +43,8 @@ class FlagCard extends React.Component<{
           </div>
           <Collapse in={this.allowSubmit()}>
             <div>
-              <SubmitFlag flag={this.props.flag} />
+              {/*<SubmitFlag flag={this.props.flag} />*/}
+              <SubmitFlagRe  flag={this.props.flag} />
             </div>
           </Collapse>
         </div>
