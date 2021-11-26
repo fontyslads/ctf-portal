@@ -11,28 +11,36 @@ import {
 } from "react-router-dom";
 import Welcome from "./components/Auth demo/Welcome/Welcome";
 import Secured from "./components/Auth demo/Secured/Secured";
+import Keycloak from "keycloak-js";
+import AuhtGuard from "./components/Auth demo/AuhtGuard/AuhtGuard";
 
 
 
 
-class App extends React.Component {
+class App extends React.Component<any,any> {
+
   render() {
-    return (
 
-      <div className="App">
-          <BrowserRouter>
-              <div className="container">
-                  <ul>
-                      <li><Link to="/">public component</Link></li>
-                      <li><Link to="/secured">secured component</Link></li>
-                  </ul>
-                  <Route exact path="/" component={Welcome} />
-                  <Route path="/secured" component={Secured} />
-              </div>
-          </BrowserRouter>
-      </div>
-    );
+      return (
+         <AuhtGuard/>
+      );
+
   }
 }
 
 export default App;
+
+// <div className="App">
+//
+//
+//     <BrowserRouter>
+//         <div className="container">
+//             <ul>
+//                 <li><Link to="/">public component</Link></li>
+//                 <li><Link to="/secured">secured component</Link></li>
+//             </ul>
+//             <Route exact path="/" component={FlagList} />
+//             <Route path="/secured" component={Secured} />
+//         </div>
+//     </BrowserRouter>
+// </div>
