@@ -51,7 +51,7 @@ class FlagCard extends React.Component<{
   }
 }
 
-const mapStateToProps = (state: { flag: { flags: any } }) => {
+const mapStateToProps = (state: { flag: { flags: Flag[] } }) => {
   return {
     flags: state.flag.flags,
   };
