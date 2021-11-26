@@ -16,15 +16,8 @@ import Team from "./models/enums/Team";
 import FlagStatus from "./models/enums/FlagStatus";
 
 
-function GoogleRecaptchaExample() {
-  return null;
-}
-
 class App extends React.Component {
 
-    componentDidMount() {
-        loadReCaptcha();
-    }
   render() {
     return (
       <div className="App">
