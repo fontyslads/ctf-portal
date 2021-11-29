@@ -4,23 +4,19 @@ import Flag from "../../models/Flag";
 import { useTimer } from "react-timer-hook";
 
 import { selectFlags } from "../SubmitFlag/FlagSlice";
-import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Timer() {
   const flags = useAppSelector(selectFlags);
 
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-
-  const timer = useTimer({
+  const { seconds, minutes, isRunning, restart } = useTimer({
     expiryTimestamp: getExpiryTime(flags),
+    autoStart: false,
     onExpire: () => {
+      //TODO: request to API for updated flags
       console.warn("onExpire called");
     },
   });
-
-  setSeconds(timer.seconds);
-  setMinutes(timer.minutes);
 
   function getActiveFlag(flags: Flag[]) {
     let activeFlag = flags[0];
@@ -38,21 +34,26 @@ export default function Timer() {
 
   function getExpiryTime(flags: Flag[]) {
     if (flags) {
-      console.log(flags);
       const flag = getActiveFlag(flags);
-      console.log(flag);
 
       if (flag) {
         const start = new Date(flag.startTime);
         const end = start;
         end.setSeconds(end.getSeconds() + flag.timeLimit);
-        console.log(end);
-
         return end;
       }
     }
     return new Date();
   }
+
+  useEffect(() => {
+    if (flags) {
+      if (!isRunning) {
+        const time = getExpiryTime(flags);
+        restart(time);
+      }
+    }
+  });
 
   return (
     <div className="absolute top-10 right-10 bg-white rounded p-4 text-8xl bg-opacity-50">
