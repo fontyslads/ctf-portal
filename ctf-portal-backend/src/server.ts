@@ -7,6 +7,7 @@ import DatabaseFactory from "./factories/databaseFactory";
 
 //controllers
 import FlagController from "./controllers/flagController";
+import TeacherController from "./controllers/teacherController";
 
 const main = async () => {
 	const databaseFactory: DatabaseFactory = new DatabaseFactory();
@@ -15,7 +16,10 @@ const main = async () => {
 		.connectDatabase()
 		.then(() => {
 			const app = new App();
-			app.initializeControllers([new FlagController()]);
+			app.initializeControllers([
+				new FlagController(),
+				new TeacherController()
+			]);
 			app.initializeErrorHandling();
 			app.listen();
 		})

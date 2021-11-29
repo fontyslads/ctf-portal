@@ -24,8 +24,13 @@ export const listFlagsAsync = createAsyncThunk(
 
 export const submitFlagAsync = createAsyncThunk(
   "flag/submitFlag",
-  async (submittedFlag: { id: number; value: string }) => {
-    return await submitFlag(submittedFlag.id, submittedFlag.value);
+  async (submittedFlag: { id: number; value: string }, { rejectWithValue }) => {
+    return await submitFlag(submittedFlag.id, submittedFlag.value).catch(
+      (err) => {
+        console.log(err);
+        return rejectWithValue(err.data);
+      }
+    );
   }
 );
 
@@ -60,6 +65,8 @@ export const flagSlice = createSlice({
       .addCase(submitFlagAsync.rejected, (state, action) => {
         state.flags = state.flags.map((flag) => {
           if (flag.id === action.meta.arg.id) {
+            console.log(action);
+            console.log(flag);
             flag = { ...flag, status: FlagStatus.Errored };
           }
           return flag;

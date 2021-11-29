@@ -2,6 +2,7 @@ import React, {ReactNode} from "react";
 import "./App.scss";
 
 //components
+import Timer from "./components/Timer/Timer";
 import FlagList from "./components/FlagList/FlagList";
 import {BrowserRouter, Link, Switch} from "react-router-dom";
 
