@@ -20,6 +20,8 @@
 		"dotenv": "^8.2.0",
 		"envalid": "^6.0.2",
 		"express": "^4.17.1",
+		"express-session": "^1.17.2",
+		"keycloak-connect": "^15.0.2",
 		"mysql": "^2.18.1",
 		"reflect-metadata": "^0.1.13",
 		"typeorm": "^0.2.29"
@@ -29,6 +31,7 @@
 		"@types/cookie-parser": "^1.4.2",
 		"@types/cors": "^2.8.9",
 		"@types/express": "^4.17.9",
+		"@types/keycloak-js": "^3.4.1",
 		"@types/mysql": "^2.15.16",
 		"@types/node": "^13.13.36",
 		"nodemon": "^2.0.6",

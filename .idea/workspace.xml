@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="from class to function">
-      <change afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/AuhtGuard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/Secured.lazy.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/Secured.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c32e0bdd-8e08-499a-bc1d-d00e08086005.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c32e0bdd-8e08-499a-bc1d-d00e08086005.xml" afterDir="false" />
+    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="timer">
+      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ctf-portal-backend/src/config/keycloak-config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ctf-portal-backend/src/keycloak.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/teacherController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/teacherController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/Secured/Secured.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/Secured/Secured.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/AuhtGuard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/AuhtGuard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,6 +30,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="60d6a8c5-fd9a-47fb-8cd5-4f4e5cf116d1" />
+        <option name="url" value="https://github.com/fontyslads/ctf-portal.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="ProjectId" id="1ytmJbxWzVU9ovzyNwBX2RXxAt1" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -40,10 +50,13 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="$APPLICATION_CONFIG_DIR$/node/node-v14.15.0-win-x64/node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
-    <property name="ts.external.directory.path" value="D:\Document\ctf-portal\ctf-portal-frontend\node_modules\typescript\lib" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="D:\Document\ctf-portal\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="ts.external.directory.path" value="D:\Document\ctf-portal\ctf-portal-backend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -161,7 +174,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add timeline" />
     <MESSAGE value="Animation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Animation" />
+    <MESSAGE value="timer" />
+    <option name="LAST_COMMIT_MESSAGE" value="timer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

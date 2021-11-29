@@ -18,6 +18,9 @@ class App {
 	private initializeMiddlewares() {
 		const allowedOrigins: string[] = [this.frontendHost];
 
+		const keycloak = require("./config/keycloak-config.js").initKeycloak();
+		this.app.use(keycloak.middleware());
+
 		this.app.use(
 			cors({
 				origin: (origin, callback) => {

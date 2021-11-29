@@ -4,13 +4,17 @@ import Controller from "./controller";
 class TeacherController implements Controller {
 	path: string = "/teacher";
 	router: Router = Router();
-
+	keycloak = require("../config/keycloak-config.js").getKeycloak();
 	constructor() {
 		this.initializeRoutes();
 	}
 
 	private initializeRoutes() {
-		this.router.get("/start", this.startWorkshop);
+		this.router.get(
+			"/start",
+			this.keycloak.protect("realm:teacher"),
+			this.startWorkshop
+		);
 	}
 
 	private startWorkshop = async (
