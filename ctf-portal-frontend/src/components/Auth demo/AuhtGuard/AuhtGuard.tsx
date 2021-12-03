@@ -28,31 +28,30 @@ class AuhtGuard extends React.Component<any, any> {
     this.state.keycloak.logout({ redirectUri: "http://localhost:3000" });
   }
   render() {
-    console.log(this.state.keycloak);
-    if (this.state.keycloak) console.log(this.state.keycloak.authenticated);
-    console.log(this.state.isTeacher);
-
-    if (this.state.keycloak) {
-      if (this.state.authenticated && this.state.isTeacher)
-        return (
-          <div>
-            <Secured />
-          </div>
-        );
-      else if (this.state.authenticated && !this.state.isTeacher)
-        return (
-          <div>
-            <Timer />
-            <FlagList />
-          </div>
-        );
-      else
-        return (
-          <div>
-            <div>Unable to authenticate!</div>
-          </div>
-        );
-    }
+    if (this.state.keycloak)
+      if (this.state.keycloak) {
+        if (this.state.authenticated)
+          localStorage.setItem("token", this.state.keycloak.token);
+        if (this.state.authenticated && this.state.isTeacher)
+          return (
+            <div>
+              <Secured />
+            </div>
+          );
+        else if (this.state.authenticated && !this.state.isTeacher)
+          return (
+            <div>
+              <Timer />
+              <FlagList />
+            </div>
+          );
+        else
+          return (
+            <div>
+              <div>Unable to authenticate!</div>
+            </div>
+          );
+      }
     return <div>Initializing Keycloak...</div>;
   }
 }

@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="timer">
-      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ctf-portal-backend/src/config/keycloak-config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ctf-portal-backend/src/keycloak.json" afterDir="false" />
+    <list default="true" id="58ff8176-193f-4d63-a84f-67b6d9f66563" name="Changes" comment="Auth for backend">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c32e0bdd-8e08-499a-bc1d-d00e08086005.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c32e0bdd-8e08-499a-bc1d-d00e08086005.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/teacherController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/teacherController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/flagController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/flagController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/AuhtGuard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/AuhtGuard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/utils/axiosRequestHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/utils/axiosRequestHandler.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +133,7 @@
       <workItem from="1636111795148" duration="9186000" />
       <workItem from="1637758594781" duration="3807000" />
       <workItem from="1637922491310" duration="6593000" />
+      <workItem from="1638523638639" duration="9746000" />
     </task>
     <task id="LOCAL-00001" summary="Add timeline">
       <created>1633085736483</created>
@@ -153,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633334030444</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Auth for backend">
+      <created>1638194865111</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638194865111</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,7 +178,8 @@
     <MESSAGE value="Add timeline" />
     <MESSAGE value="Animation" />
     <MESSAGE value="timer" />
-    <option name="LAST_COMMIT_MESSAGE" value="timer" />
+    <MESSAGE value="Auth for backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="Auth for backend" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
