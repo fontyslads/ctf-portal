@@ -70,7 +70,6 @@ export default function Timer() {
   return (
     <div className="absolute top-10 right-10 bg-white rounded p-4 text-8xl bg-opacity-50">
       <div style={{ fontSize: "100px" }}>
-        <span>{days.toString()}</span>:<span>{hours.toString()}</span>:
         <span>{minutes.toString().length === 1 ? `0${minutes}` : minutes}</span>
         :
         <span>{seconds.toString().length === 1 ? `0${seconds}` : seconds}</span>
