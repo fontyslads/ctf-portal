@@ -16,6 +16,7 @@
     "axios": "^0.22.0",
     "bootstrap": "^5.1.1",
     "canvas-confetti": "^1.4.0",
+    "dayjs": "^1.10.7",
     "generate-react-cli": "^7.0.4",
     "gsap": "^3.8.0",
     "keycloak-js": "^15.0.2",

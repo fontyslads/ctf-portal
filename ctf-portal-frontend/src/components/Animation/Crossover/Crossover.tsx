@@ -47,27 +47,42 @@ class Crossover extends React.Component<
 
     const flagFour = 4;
     const flagFive = 5;
+    const oldFlagFour = props.flags[flagFour - 1];
+    const oldFlagFive = props.flags[flagFive - 1];
     if (
-      this.isFlagValid(flagFour) &&
-      props.flags[flagFour - 1].status !== FlagStatus.Valid
+      this.isFlagSubmitted(flagFour) &&
+      oldFlagFour.status !== FlagStatus.Valid &&
+      oldFlagFour.status !== FlagStatus.TimedOut
     ) {
       this.closeFlagSubmitModal();
-      this.runConfetti();
-      this.revertBariers();
+      if (this.isFlagValid(flagFour)) {
+        this.runConfetti();
+        this.revertBariers();
+      }
       this.animateSpeedup();
     }
     if (
-      this.isFlagValid(flagFive) &&
-      props.flags[flagFive - 1].status !== FlagStatus.Valid
+      this.isFlagSubmitted(flagFive) &&
+      oldFlagFive.status !== FlagStatus.Valid &&
+      oldFlagFive.status !== FlagStatus.TimedOut
     ) {
       this.closeFlagSubmitModal();
-      this.runConfetti();
+      if (this.isFlagValid(flagFive)) this.runConfetti();
     }
   }
 
   isFlagValid(id: number): boolean {
     if (!this.props.flags.length) return false;
-    return this.props.flags[id - 1].status === FlagStatus.Valid;
+    const flag = this.props.flags[id - 1];
+    return flag.status === FlagStatus.Valid;
+  }
+
+  isFlagSubmitted(id: number): boolean {
+    if (!this.props.flags.length) return false;
+    const flag = this.props.flags[id - 1];
+    return (
+      flag.status === FlagStatus.Valid || flag.status === FlagStatus.TimedOut
+    );
   }
 
   runConfetti() {
@@ -137,7 +152,7 @@ class Crossover extends React.Component<
   }
 
   animateSpeedup(): void {
-    if (this.isFlagValid(4))
+    if (this.isFlagSubmitted(4))
       this.tl.to(this.flagFiveButton.current, {
         opacity: 1,
       });
@@ -146,8 +161,7 @@ class Crossover extends React.Component<
   getBackgroundColor(): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[this.state.flag - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "bg-red-500";
       case FlagStatus.Valid:
         return "bg-green-500";
@@ -159,8 +173,7 @@ class Crossover extends React.Component<
   getFillColor(id: number): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[id - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "#ef4444";
       case FlagStatus.Valid:
         return "#10b981";

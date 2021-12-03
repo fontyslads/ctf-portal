@@ -15,7 +15,25 @@ class FlagLogic {
 	}
 
 	public async listFlags(team: Team = Team.Blue): Promise<Flag[]> {
-		const flags: Flag[] = await this.repository.find({ where: { team } });
+		let flags: Flag[] = await this.repository.find({ where: { team } });
+
+		for (let i = 0; i < flags.length; i++) {
+			const flag = flags[i];
+			if (flag.startTime) {
+				const start = dayjs(flag.startTime);
+				const end = start.second(start.second() + flag.timeLimit);
+				if (
+					dayjs().isAfter(end) &&
+					flag.status !== FlagStatus.Valid &&
+					flag.status !== FlagStatus.TimedOut
+				) {
+					flag.status = FlagStatus.TimedOut;
+					await this.repository.save(flag);
+				}
+			}
+		}
+
+		flags = await this.repository.find({ where: { team } });
 
 		return flags.map((flag) => {
 			delete flag.hash;
@@ -35,6 +53,15 @@ class FlagLogic {
 			where: { id }
 		})) as Flag;
 
+		const previousFlag: Flag = (await this.repository.findOne({
+			where: { flagNumber: flag.flagNumber - 1 }
+		})) as Flag;
+		if (
+			previousFlag &&
+			previousFlag.status !== FlagStatus.Valid &&
+			previousFlag.status !== FlagStatus.TimedOut
+		)
+			throw new BadRequestException("Submit the previous flag first");
 		if (!flag) throw new BadRequestException("Invalid id");
 		if (flag.team !== team)
 			throw new BadRequestException("This flag does not belong to your team");
@@ -50,18 +77,6 @@ class FlagLogic {
 			isValid = true;
 			flag.status = FlagStatus.Valid;
 			await this.repository.save(flag);
-
-			//set startTime on next flag
-			const flagNumber = flag.flagNumber;
-			const newFlag = await this.repository.findOne({
-				where: { flagNumber: flagNumber + 1 }
-			});
-			if (newFlag && newFlag.team === team) {
-				newFlag.startTime = new Date(new Date().getTime() + 0 * 60 * 60 * 1000);
-				newFlag.status = FlagStatus.NotSubmitted;
-				newFlag.attempts = 0;
-				await this.repository.save(newFlag);
-			}
 		} else {
 			flag.status = FlagStatus.Invalid;
 			flag.attempts += 1;

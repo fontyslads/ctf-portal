@@ -1,9 +1,13 @@
 import { Request, Response, NextFunction, Router } from "express";
 import Controller from "./controller";
+import TeacherLogic from "../logic/teacherLogic";
 
 class TeacherController implements Controller {
 	path: string = "/teacher";
 	router: Router = Router();
+
+	private teacherLogic: TeacherLogic = new TeacherLogic();
+
 	keycloak = require("../config/keycloak-config.js").getKeycloak();
 	constructor() {
 		this.initializeRoutes();
@@ -22,7 +26,8 @@ class TeacherController implements Controller {
 		res: Response,
 		next: NextFunction
 	) => {
-		return res.status(200).send("Dit is een test endpoint voor de docent.");
+		const started = await this.teacherLogic.startGame();
+		return res.status(200).send({ started });
 	};
 }
 

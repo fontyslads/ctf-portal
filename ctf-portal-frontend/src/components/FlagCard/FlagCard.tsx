@@ -14,12 +14,19 @@ class FlagCard extends React.Component<{
   flags: Flag[];
 }> {
   allowSubmit() {
-    if (this.props.flag.status === FlagStatus.Valid) return false;
+    if (
+      this.props.flag.status === FlagStatus.Valid ||
+      this.props.flag.status === FlagStatus.TimedOut
+    )
+      return false;
     else if (this.props.flag.id === 1) return true;
 
     let allow = false;
     this.props.flags.forEach((f) => {
-      if (f.id === this.props.flag.id - 1 && f.status === FlagStatus.Valid)
+      if (
+        f.id === this.props.flag.id - 1 &&
+        (f.status === FlagStatus.Valid || f.status === FlagStatus.TimedOut)
+      )
         allow = true;
     });
     return allow;

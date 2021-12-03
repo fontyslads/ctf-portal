@@ -49,28 +49,45 @@ class Platform extends React.Component<
 
     const flagOne = 1;
     const flagTwo = 2;
-
+    const oldFlagOne = props.flags[flagOne - 1];
+    const oldFlagTwo = props.flags[flagTwo - 1];
     if (
-      this.isFlagValid(flagOne) &&
-      props.flags[flagOne - 1].status !== FlagStatus.Valid
+      this.isFlagSubmitted(flagOne) &&
+      oldFlagOne.status !== FlagStatus.Valid &&
+      oldFlagOne.status !== FlagStatus.TimedOut
     ) {
       this.closeFlagSubmitModal();
-      this.runConfetti();
-      this.revertScreen();
+      if (this.isFlagValid(flagOne)) {
+        this.runConfetti();
+        this.revertScreen();
+      }
       this.animateDoors();
-    } else if (
-      this.isFlagValid(flagTwo) &&
-      props.flags[flagTwo - 1].status !== FlagStatus.Valid
+    }
+    if (
+      this.isFlagSubmitted(flagTwo) &&
+      oldFlagTwo.status !== FlagStatus.Valid &&
+      oldFlagTwo.status !== FlagStatus.TimedOut
     ) {
       this.closeFlagSubmitModal();
-      this.runConfetti();
-      this.revertDoors();
+      if (this.isFlagValid(flagTwo)) {
+        this.runConfetti();
+        this.revertDoors();
+      }
     }
   }
 
   isFlagValid(id: number): boolean {
     if (!this.props.flags.length) return false;
-    return this.props.flags[id - 1].status === FlagStatus.Valid;
+    const flag = this.props.flags[id - 1];
+    return flag.status === FlagStatus.Valid;
+  }
+
+  isFlagSubmitted(id: number): boolean {
+    if (!this.props.flags.length) return false;
+    const flag = this.props.flags[id - 1];
+    return (
+      flag.status === FlagStatus.Valid || flag.status === FlagStatus.TimedOut
+    );
   }
 
   runConfetti() {
@@ -142,10 +159,7 @@ class Platform extends React.Component<
   }
 
   animateDoors(): void {
-    if (
-      this.props.flags.length &&
-      this.props.flags[0].status === FlagStatus.Valid
-    ) {
+    if (this.isFlagSubmitted(1)) {
       this.tl
         .to(this.textBubble.current, {
           opacity: 1,
@@ -165,8 +179,7 @@ class Platform extends React.Component<
   getBackgroundColor(): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[this.state.flag - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "bg-red-500";
       case FlagStatus.Valid:
         return "bg-green-500";
@@ -178,8 +191,7 @@ class Platform extends React.Component<
   getFillColor(id: number): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[id - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "#ef4444";
       case FlagStatus.Valid:
         return "#10b981";

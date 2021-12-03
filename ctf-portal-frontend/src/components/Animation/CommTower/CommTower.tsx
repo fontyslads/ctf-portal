@@ -53,19 +53,32 @@ class CommTower extends React.Component<
     if (!props || !props.flags.length) return;
 
     const flag = 3;
+    const oldFlag = props.flags[flag - 1];
     if (
-      this.isFlagValid(flag) &&
-      props.flags[flag - 1].status !== FlagStatus.Valid
+      this.isFlagSubmitted(flag) &&
+      oldFlag.status !== FlagStatus.Valid &&
+      oldFlag.status !== FlagStatus.TimedOut
     ) {
       this.closeFlagSubmitModal();
-      this.runConfetti();
-      this.revertSignal();
+      if (this.isFlagValid(flag)) {
+        this.runConfetti();
+        this.revertSignal();
+      }
     }
   }
 
   isFlagValid(id: number): boolean {
     if (!this.props.flags.length) return false;
-    return this.props.flags[id - 1].status === FlagStatus.Valid;
+    const flag = this.props.flags[id - 1];
+    return flag.status === FlagStatus.Valid;
+  }
+
+  isFlagSubmitted(id: number): boolean {
+    if (!this.props.flags.length) return false;
+    const flag = this.props.flags[id - 1];
+    return (
+      flag.status === FlagStatus.Valid || flag.status === FlagStatus.TimedOut
+    );
   }
 
   runConfetti() {
@@ -188,8 +201,7 @@ class CommTower extends React.Component<
   getBackgroundColor(): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[this.state.flag - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "bg-red-500";
       case FlagStatus.Valid:
         return "bg-green-500";
@@ -201,8 +213,7 @@ class CommTower extends React.Component<
   getFillColor(id: number): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[id - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "#ef4444";
       case FlagStatus.Valid:
         return "#10b981";

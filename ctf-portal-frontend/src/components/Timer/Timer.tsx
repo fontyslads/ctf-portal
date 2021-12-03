@@ -1,34 +1,47 @@
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import FlagStatus from "../../models/enums/FlagStatus";
 import Flag from "../../models/Flag";
 import { useTimer } from "react-timer-hook";
+import dayjs from "dayjs";
 
-import { selectFlags } from "../SubmitFlag/FlagSlice";
+import { listFlagsAsync, selectFlags } from "../SubmitFlag/FlagSlice";
 import { useEffect } from "react";
 
 export default function Timer() {
+  const dispatch = useAppDispatch();
   const flags = useAppSelector(selectFlags);
 
-  const { seconds, minutes, isRunning, restart } = useTimer({
-    expiryTimestamp: getExpiryTime(flags),
-    autoStart: false,
-    onExpire: () => {
-      //TODO: request to API for updated flags
-      console.warn("onExpire called");
-    },
-  });
+  const { seconds, minutes, hours, days, isRunning, restart, pause } = useTimer(
+    {
+      expiryTimestamp: getExpiryTime(flags),
+      autoStart: false,
+      onExpire: () => {
+        dispatch(listFlagsAsync());
+        if (
+          flags.filter(
+            (f) =>
+              f.status === FlagStatus.Valid || f.status === FlagStatus.TimedOut
+          ).length === flags.length
+        )
+          pause();
+      },
+    }
+  );
 
   function getActiveFlag(flags: Flag[]) {
     let activeFlag = flags[0];
-    flags.forEach((flag: Flag) => {
-      if (
-        flag.startTime &&
-        flag.status !== FlagStatus.Valid &&
-        flag.status !== FlagStatus.TimedOut
-      ) {
-        activeFlag = flag;
-      }
-    });
+    flags
+      .slice(0)
+      .reverse()
+      .forEach((flag: Flag) => {
+        if (
+          flag.startTime &&
+          flag.status !== FlagStatus.Valid &&
+          flag.status !== FlagStatus.TimedOut
+        ) {
+          activeFlag = flag;
+        }
+      });
     return activeFlag;
   }
 
@@ -37,10 +50,9 @@ export default function Timer() {
       const flag = getActiveFlag(flags);
 
       if (flag) {
-        const start = new Date(flag.startTime);
-        const end = start;
-        end.setSeconds(end.getSeconds() + flag.timeLimit);
-        return end;
+        const start = dayjs(flag.startTime);
+        const end = start.second(start.second() + flag.timeLimit);
+        return new Date(end.toISOString());
       }
     }
     return new Date();
@@ -58,6 +70,7 @@ export default function Timer() {
   return (
     <div className="absolute top-10 right-10 bg-white rounded p-4 text-8xl bg-opacity-50">
       <div style={{ fontSize: "100px" }}>
+        <span>{days.toString()}</span>:<span>{hours.toString()}</span>:
         <span>{minutes.toString().length === 1 ? `0${minutes}` : minutes}</span>
         :
         <span>{seconds.toString().length === 1 ? `0${seconds}` : seconds}</span>
