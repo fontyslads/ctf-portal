@@ -46,7 +46,9 @@ class FlagList extends React.Component<
     this.setState((state, props) => {
       const flags = props.flags || [];
       const numberSubmitted = flags.filter(
-        (flag) => flag.status === FlagStatus.Valid
+        (flag) =>
+          flag.status === FlagStatus.Valid ||
+          flag.status === FlagStatus.TimedOut
       ).length;
 
       let allowedStage = 0;

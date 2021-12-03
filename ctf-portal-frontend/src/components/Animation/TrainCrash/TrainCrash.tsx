@@ -45,19 +45,30 @@ class TrainCrash extends React.Component<
   componentDidUpdate(props: { flags: Flag[] }): void {
     if (!props || !props.flags.length) return;
 
-    const flagSix = 6;
+    const flag = 6;
+    const oldFlag = props.flags[flag - 1];
     if (
-      this.isFlagValid(flagSix) &&
-      props.flags[flagSix - 1].status !== FlagStatus.Valid
+      this.isFlagSubmitted(flag) &&
+      oldFlag.status !== FlagStatus.Valid &&
+      oldFlag.status !== FlagStatus.TimedOut
     ) {
       this.closeFlagSubmitModal();
-      this.runConfetti();
+      if (this.isFlagValid(flag)) this.runConfetti();
     }
   }
 
   isFlagValid(id: number): boolean {
     if (!this.props.flags.length) return false;
-    return this.props.flags[id - 1].status === FlagStatus.Valid;
+    const flag = this.props.flags[id - 1];
+    return flag.status === FlagStatus.Valid;
+  }
+
+  isFlagSubmitted(id: number): boolean {
+    if (!this.props.flags.length) return false;
+    const flag = this.props.flags[id - 1];
+    return (
+      flag.status === FlagStatus.Valid || flag.status === FlagStatus.TimedOut
+    );
   }
 
   runConfetti() {
@@ -115,8 +126,7 @@ class TrainCrash extends React.Component<
   getBackgroundColor(): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[this.state.flag - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "bg-red-500";
       case FlagStatus.Valid:
         return "bg-green-500";
@@ -128,8 +138,7 @@ class TrainCrash extends React.Component<
   getFillColor(id: number): string {
     if (!this.props.flags.length) return "";
     switch (this.props.flags[id - 1].status) {
-      case FlagStatus.Invalid:
-      case FlagStatus.Errored:
+      case FlagStatus.TimedOut:
         return "#ef4444";
       case FlagStatus.Valid:
         return "#10b981";
@@ -180,7 +189,7 @@ class TrainCrash extends React.Component<
         />
         {this.renderFlagSubmit()}
         <svg className={styles.background} viewBox="0 0 1920 1080">
-          <g id="collision (6)" clip-path="url(#clip0_122_3315)">
+          <g id="collision (6)" clipPath="url(#clip0_122_3315)">
             <rect width="1920" height="1080" fill="white" />
             <g id="sky">
               <rect
@@ -199,73 +208,73 @@ class TrainCrash extends React.Component<
                   id="Vector_2"
                   d="M1010.07 29.3298H829.134C823.633 29.3298 819.174 33.7891 819.174 39.2898V41.0598C819.174 46.5606 823.633 51.0198 829.134 51.0198H1010.07C1015.57 51.0198 1020.03 46.5606 1020.03 41.0598V39.2898C1020.03 33.7891 1015.57 29.3298 1010.07 29.3298Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_3"
                   d="M1055.06 47.8098H874.124C868.623 47.8098 864.164 52.2691 864.164 57.7698V59.5398C864.164 65.0406 868.623 69.4998 874.124 69.4998H1055.06C1060.56 69.4998 1065.02 65.0406 1065.02 59.5398V57.7698C1065.02 52.2691 1060.56 47.8098 1055.06 47.8098Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_4"
                   d="M978.734 63.8799H797.794C792.293 63.8799 787.834 68.3391 787.834 73.8399V75.6099C787.834 81.1106 792.293 85.5699 797.794 85.5699H978.734C984.235 85.5699 988.694 81.1106 988.694 75.6099V73.8399C988.694 68.3391 984.235 63.8799 978.734 63.8799Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_5"
                   d="M666.194 277.6H485.254C479.753 277.6 475.294 282.059 475.294 287.56V289.33C475.294 294.831 479.753 299.29 485.254 299.29H666.194C671.695 299.29 676.154 294.831 676.154 289.33V287.56C676.154 282.059 671.695 277.6 666.194 277.6Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_6"
                   d="M1640.02 82.7646H1459.08C1453.58 82.7646 1449.12 87.2239 1449.12 92.7247V94.4947C1449.12 99.9954 1453.58 104.455 1459.08 104.455H1640.02C1645.52 104.455 1649.98 99.9954 1649.98 94.4947V92.7247C1649.98 87.2239 1645.52 82.7646 1640.02 82.7646Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_7"
                   d="M711.184 296.08H530.244C524.743 296.08 520.284 300.539 520.284 306.04V307.81C520.284 313.311 524.743 317.77 530.244 317.77H711.184C716.685 317.77 721.144 313.311 721.144 307.81V306.04C721.144 300.539 716.685 296.08 711.184 296.08Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_8"
                   d="M1685.01 101.245H1504.07C1498.57 101.245 1494.11 105.704 1494.11 111.205V112.975C1494.11 118.476 1498.57 122.935 1504.07 122.935H1685.01C1690.51 122.935 1694.97 118.476 1694.97 112.975V111.205C1694.97 105.704 1690.51 101.245 1685.01 101.245Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_9"
                   d="M634.854 312.14H453.914C448.413 312.14 443.954 316.599 443.954 322.1V323.87C443.954 329.371 448.413 333.83 453.914 333.83H634.854C640.355 333.83 644.814 329.371 644.814 323.87V322.1C644.814 316.599 640.355 312.14 634.854 312.14Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_10"
                   d="M1608.68 117.305H1427.74C1422.24 117.305 1417.78 121.764 1417.78 127.265V129.035C1417.78 134.535 1422.24 138.995 1427.74 138.995H1608.68C1614.18 138.995 1618.64 134.535 1618.64 129.035V127.265C1618.64 121.764 1614.18 117.305 1608.68 117.305Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_11"
                   d="M465.324 128.15H284.384C278.883 128.15 274.424 132.609 274.424 138.11V139.88C274.424 145.381 278.883 149.84 284.384 149.84H465.324C470.825 149.84 475.284 145.381 475.284 139.88V138.11C475.284 132.609 470.825 128.15 465.324 128.15Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_12"
                   d="M510.324 146.63H329.384C323.883 146.63 319.424 151.089 319.424 156.59V158.36C319.424 163.861 323.883 168.32 329.384 168.32H510.324C515.825 168.32 520.284 163.861 520.284 158.36V156.59C520.284 151.089 515.825 146.63 510.324 146.63Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <path
                   id="Vector_13"
                   d="M433.994 162.7H253.054C247.553 162.7 243.094 167.159 243.094 172.66V174.43C243.094 179.931 247.553 184.39 253.054 184.39H433.994C439.495 184.39 443.954 179.931 443.954 174.43V172.66C443.954 167.159 439.495 162.7 433.994 162.7Z"
                   fill="#F2F2F2"
-                  fill-opacity="0.7"
+                  fillOpacity="0.7"
                 />
                 <g id="Group" opacity="0.5">
                   <path
@@ -931,7 +940,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14"
                     d="M1686.87 723.497H1707.64L1711 797.216H1683.11L1686.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13"
@@ -944,7 +953,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_2"
                     d="M1398.87 723.497H1419.64L1423 797.216H1395.11L1398.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_2"
@@ -957,7 +966,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_3"
                     d="M1110.87 723.497H1131.64L1135 797.216H1107.11L1110.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_3"
@@ -970,7 +979,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_4"
                     d="M822.87 723.497H843.641L845 779H820.5L822.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_4"
@@ -983,7 +992,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_5"
                     d="M534.87 723.497H555.641L559 797.216H531.112L534.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_5"
@@ -996,7 +1005,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_6"
                     d="M246.87 723.497H267.641L271 797.216H243.112L246.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_6"
@@ -1009,7 +1018,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_7"
                     d="M1830.87 723.497H1851.64L1855 797.216H1827.11L1830.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_7"
@@ -1022,7 +1031,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_8"
                     d="M1542.87 723.497H1563.64L1567 797.216H1539.11L1542.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_8"
@@ -1035,7 +1044,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_9"
                     d="M1254.87 723.497H1275.64L1279 797.216H1251.11L1254.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_9"
@@ -1048,7 +1057,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_10"
                     d="M966.87 723.497H987.641L991 797.216H963.112L966.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_10"
@@ -1061,7 +1070,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_11"
                     d="M894.87 723.92H915.641L919 822H891.112L894.87 723.92Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_11"
@@ -1074,7 +1083,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_12"
                     d="M678.87 723.497H699.641L703 797.216H675.112L678.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_12"
@@ -1087,7 +1096,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_13"
                     d="M390.87 723.497H411.641L415 797.216H387.112L390.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_13"
@@ -1100,7 +1109,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_14"
                     d="M102.87 723.497H123.641L127 797.216H99.1123L102.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_14"
@@ -1113,7 +1122,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_15"
                     d="M1902.87 723.497H1923.64L1927 797.216H1899.11L1902.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_15"
@@ -1126,7 +1135,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_16"
                     d="M1614.87 723.497H1635.64L1639 797.216H1611.11L1614.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_16"
@@ -1139,7 +1148,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_17"
                     d="M1326.87 723.497H1347.64L1351 797.216H1323.11L1326.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_17"
@@ -1152,7 +1161,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_18"
                     d="M1038.87 723.497H1059.64L1063 797.216H1035.11L1038.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_18"
@@ -1165,7 +1174,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_19"
                     d="M750.87 723.497H771.641L775 797.216H747.112L750.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_19"
@@ -1178,7 +1187,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_20"
                     d="M462.87 723.497H483.641L487 797.216H459.112L462.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_20"
@@ -1191,7 +1200,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_21"
                     d="M174.87 723.497H195.641L199 797.216H171.112L174.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_21"
@@ -1204,7 +1213,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_22"
                     d="M1758.87 723.497H1779.64L1783 797.216H1755.11L1758.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_22"
@@ -1217,7 +1226,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_23"
                     d="M1470.87 723.497H1491.64L1495 797.216H1467.11L1470.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_23"
@@ -1230,7 +1239,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_24"
                     d="M1182.87 723.497H1203.64L1207 797.216H1179.11L1182.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_24"
@@ -1243,7 +1252,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_25"
                     d="M606.87 723.497H627.641L631 797.216H603.112L606.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_25"
@@ -1256,7 +1265,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_26"
                     d="M318.87 723.497H339.641L343 797.216H315.112L318.87 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_26"
@@ -1269,7 +1278,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_27"
                     d="M30.8697 723.497H51.6412L55 797.216H27.1123L30.8697 723.497Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_27"
@@ -1282,7 +1291,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_28"
                     d="M727.177 820.466L746.002 811.688L780.201 877.081L754.927 888.866L727.177 820.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_28"
@@ -1295,7 +1304,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_29"
                     d="M664.177 850.466L683.002 841.688L717.201 907.081L691.927 918.866L664.177 850.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_29"
@@ -1308,7 +1317,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_30"
                     d="M790.177 793.466L809.002 784.688L843.201 850.081L817.927 861.866L790.177 793.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_30"
@@ -1321,7 +1330,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_31"
                     d="M606.177 876.466L625.002 867.688L659.201 933.081L633.927 944.866L606.177 876.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_31"
@@ -1334,7 +1343,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_32"
                     d="M542.177 904.466L561.002 895.688L595.201 961.081L569.927 972.866L542.177 904.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_32"
@@ -1347,7 +1356,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_33"
                     d="M478.177 934.466L497.002 925.688L531.201 991.081L505.927 1002.87L478.177 934.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_33"
@@ -1360,7 +1369,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_34"
                     d="M418.177 961.466L437.002 952.688L471.201 1018.08L445.927 1029.87L418.177 961.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_34"
@@ -1373,7 +1382,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_35"
                     d="M353.177 994.466L372.002 985.688L406.201 1051.08L380.927 1062.87L353.177 994.466Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_35"
@@ -1386,7 +1395,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_36"
                     d="M290.177 1024.47L309.002 1015.69L343.201 1081.08L317.927 1092.87L290.177 1024.47Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_36"
@@ -1399,7 +1408,7 @@ class TrainCrash extends React.Component<
                     id="Rectangle 14_37"
                     d="M227.177 1051.47L246.002 1042.69L280.201 1108.08L254.927 1119.87L227.177 1051.47Z"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                   <path
                     id="Rectangle 13_37"
@@ -1427,7 +1436,7 @@ class TrainCrash extends React.Component<
                     height="8"
                     transform="rotate(-25 190.44 1083.31)"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                 </g>
                 <g id="track_4">
@@ -1448,7 +1457,7 @@ class TrainCrash extends React.Component<
                     height="10"
                     transform="rotate(-25 280.524 1084.32)"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                 </g>
               </g>
@@ -1467,7 +1476,7 @@ class TrainCrash extends React.Component<
                     width="1920"
                     height="8"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                 </g>
                 <g id="track_7">
@@ -1486,7 +1495,7 @@ class TrainCrash extends React.Component<
                     width="1600.14"
                     height="10"
                     fill="black"
-                    fill-opacity="0.5"
+                    fillOpacity="0.5"
                   />
                 </g>
               </g>
@@ -1506,7 +1515,7 @@ class TrainCrash extends React.Component<
                   width="866"
                   height="10"
                   fill="black"
-                  fill-opacity="0.5"
+                  fillOpacity="0.5"
                 />
               </g>
               <g
@@ -1529,7 +1538,7 @@ class TrainCrash extends React.Component<
                   width="85.0691"
                   height="10"
                   fill="black"
-                  fill-opacity="0.5"
+                  fillOpacity="0.5"
                 />
               </g>
             </g>
@@ -1601,7 +1610,7 @@ class TrainCrash extends React.Component<
                   rx="9"
                   fill={`${this.getFillColor(6)}`}
                   stroke="white"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
                 <path
                   id="Vector_145"
@@ -1657,14 +1666,14 @@ class TrainCrash extends React.Component<
                   d="M1822.95 474.035H1783.54C1776.53 474.035 1770.84 479.721 1770.84 486.735V505.148C1770.84 512.162 1776.53 517.849 1783.54 517.849H1822.95C1829.96 517.849 1835.65 512.162 1835.65 505.148V486.735C1835.65 479.721 1829.96 474.035 1822.95 474.035Z"
                   fill="#5C7BA3"
                   stroke="#4D4D4D"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect1895"
                   d="M1945.4 474.146H1878.71C1871.73 474.146 1866.08 479.802 1866.08 486.78V505.097C1866.08 512.074 1871.73 517.731 1878.71 517.731H1945.4C1952.38 517.731 1958.04 512.074 1958.04 505.097V486.78C1958.04 479.802 1952.38 474.146 1945.4 474.146Z"
                   fill="#5C7BA3"
                   stroke="#4D4D4D"
-                  stroke-width="0.196037"
+                  strokeWidth="0.196037"
                 />
                 <path
                   id="path1076"
@@ -1676,55 +1685,55 @@ class TrainCrash extends React.Component<
                   d="M1821.18 611.113H1785.27C1777.4 611.113 1771.02 617.492 1771.02 625.361V674.963C1771.02 682.831 1777.4 689.21 1785.27 689.21H1821.18C1829.05 689.21 1835.43 682.831 1835.43 674.963V625.361C1835.43 617.492 1829.05 611.113 1821.18 611.113Z"
                   fill="#5C7BA3"
                   stroke="#4D4D4D"
-                  stroke-width="0.219605"
+                  strokeWidth="0.219605"
                 />
                 <path
                   id="rect5637"
                   d="M1682.32 515.668H1572.75V691.872H1682.32V515.668Z"
                   fill="#FFAE01"
                   stroke="#4D4D4D"
-                  stroke-width="0.160927"
+                  strokeWidth="0.160927"
                 />
                 <path
                   id="rect5641"
                   d="M1521.6 517.384H1465.92V682.598H1521.6V517.384Z"
                   fill="#FFAE01"
                   stroke="#4D4D4D"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect5647"
                   d="M1521.81 680.379H1465.73V701.243H1521.81V680.379Z"
                   fill="#313131"
                   stroke="#4D4D4D"
-                  stroke-width="0.0588466"
+                  strokeWidth="0.0588466"
                 />
                 <path
                   id="path1140"
                   d="M1358.19 708.564H1333.54V723.853H1370.05L1358.19 708.564Z"
                   fill="#161616"
                   stroke="#161616"
-                  stroke-width="0.264583"
+                  strokeWidth="0.264583"
                 />
                 <path
                   id="path1142"
                   d="M1333.83 700.971C1333.83 700.971 1332 709.643 1332 716.489C1332 723.335 1334.05 730.637 1334.05 730.637"
                   stroke="#141414"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect1158"
                   d="M1498.07 539.544H1489.47C1484.12 539.544 1479.79 543.876 1479.79 549.22V600.826C1479.79 606.17 1484.12 610.502 1489.47 610.502H1498.07C1503.41 610.502 1507.74 606.17 1507.74 600.826V549.22C1507.74 543.876 1503.41 539.544 1498.07 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <g id="path1160">
                   <path d="M1627.44 691.648V515.606V691.648Z" fill="#FFAE01" />
                   <path
                     d="M1627.44 691.648V515.606"
                     stroke="#4D4D4D"
-                    stroke-width="0.160602"
+                    strokeWidth="0.160602"
                   />
                 </g>
                 <path
@@ -1732,28 +1741,28 @@ class TrainCrash extends React.Component<
                   d="M1604.43 539.544H1595.83C1590.49 539.544 1586.16 543.876 1586.16 549.22V600.826C1586.16 606.17 1590.49 610.502 1595.83 610.502H1604.43C1609.78 610.502 1614.11 606.17 1614.11 600.826V549.22C1614.11 543.876 1609.78 539.544 1604.43 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect1164"
                   d="M1659.94 539.544H1651.34C1645.99 539.544 1641.66 543.876 1641.66 549.22V600.826C1641.66 606.17 1645.99 610.502 1651.34 610.502H1659.94C1665.28 610.502 1669.61 606.17 1669.61 600.826V549.22C1669.61 543.876 1665.28 539.544 1659.94 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="circle1180"
                   d="M1497.16 766.739C1513.27 766.739 1526.32 753.686 1526.32 737.585C1526.32 721.484 1513.27 708.432 1497.16 708.432C1481.06 708.432 1468.01 721.484 1468.01 737.585C1468.01 753.686 1481.06 766.739 1497.16 766.739Z"
                   fill="#2D2D2D"
                   stroke="#4B4B4B"
-                  stroke-width="0.527318"
+                  strokeWidth="0.527318"
                 />
                 <path
                   id="circle1182"
                   d="M1689.02 766.739C1705.12 766.739 1718.17 753.686 1718.17 737.585C1718.17 721.484 1705.12 708.432 1689.02 708.432C1672.92 708.432 1659.87 721.484 1659.87 737.585C1659.87 753.686 1672.92 766.739 1689.02 766.739Z"
                   fill="#2D2D2D"
                   stroke="#4B4B4B"
-                  stroke-width="0.527318"
+                  strokeWidth="0.527318"
                 />
                 <path
                   id="rect1200"
@@ -1770,7 +1779,7 @@ class TrainCrash extends React.Component<
                   d="M1944.2 611.268H1880.15C1872.69 611.268 1866.64 617.315 1866.64 624.775V675.555C1866.64 683.015 1872.69 689.062 1880.15 689.062H1944.2C1951.66 689.062 1957.71 683.015 1957.71 675.555V624.775C1957.71 617.315 1951.66 611.268 1944.2 611.268Z"
                   fill="#5C7BA3"
                   stroke="#4D4D4D"
-                  stroke-width="0.260628"
+                  strokeWidth="0.260628"
                 />
                 <path
                   id="1"
@@ -1811,13 +1820,13 @@ class TrainCrash extends React.Component<
                   id="path1151"
                   d="M1459.99 659.674V578.665"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="path1153"
                   d="M1526.95 659.674V578.665"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect1146"
@@ -1988,48 +1997,48 @@ class TrainCrash extends React.Component<
                   d="M50.6871 515.668H160.256V691.872H50.6871V515.668Z"
                   fill="#FFAE01"
                   stroke="#4D4D4D"
-                  stroke-width="0.160927"
+                  strokeWidth="0.160927"
                 />
                 <path
                   id="rect5641_2"
                   d="M211.404 517.384H267.083V682.598H211.404V517.384Z"
                   fill="#FFAE01"
                   stroke="#4D4D4D"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect5647_2"
                   d="M211.298 680.379H267.38V701.243H211.298V680.379Z"
                   fill="#313131"
                   stroke="#4D4D4D"
-                  stroke-width="0.0588466"
+                  strokeWidth="0.0588466"
                 />
                 <path
                   id="path1140_2"
                   d="M374.93 708.564H399.575V723.853H363.063L374.93 708.564Z"
                   fill="#161616"
                   stroke="#161616"
-                  stroke-width="0.264583"
+                  strokeWidth="0.264583"
                 />
                 <path
                   id="path1142_2"
                   d="M399.183 700.971C399.183 700.971 401.001 709.643 401.001 716.489C401.001 723.335 398.956 730.637 398.956 730.637"
                   stroke="#141414"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect1158_2"
                   d="M234.934 539.544H243.535C248.879 539.544 253.211 543.876 253.211 549.22V600.826C253.211 606.17 248.879 610.502 243.535 610.502H234.934C229.59 610.502 225.258 606.17 225.258 600.826V549.22C225.258 543.876 229.59 539.544 234.934 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <g id="path1160_2">
                   <path d="M105.45 691.648V515.606Z" fill="#FFAE01" />
                   <path
                     d="M105.45 691.648V515.606"
                     stroke="#4D4D4D"
-                    stroke-width="0.160602"
+                    strokeWidth="0.160602"
                   />
                 </g>
                 <path
@@ -2037,28 +2046,28 @@ class TrainCrash extends React.Component<
                   d="M128.454 539.544H137.055C142.399 539.544 146.731 543.876 146.731 549.22V600.826C146.731 606.17 142.399 610.502 137.055 610.502H128.454C123.11 610.502 118.778 606.17 118.778 600.826V549.22C118.778 543.876 123.11 539.544 128.454 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect1164_2"
                   d="M72.9472 539.544H81.5481C86.892 539.544 91.2241 543.876 91.2241 549.22V600.826C91.2241 606.17 86.892 610.502 81.5481 610.502H72.9472C67.6033 610.502 63.2712 606.17 63.2712 600.826V549.22C63.2712 543.876 67.6033 539.544 72.9472 539.544Z"
                   fill="#5C7BA3"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="circle1180_2"
                   d="M235.837 766.739C219.736 766.739 206.683 753.686 206.683 737.585C206.683 721.484 219.736 708.432 235.837 708.432C251.938 708.432 264.99 721.484 264.99 737.585C264.99 753.686 251.938 766.739 235.837 766.739Z"
                   fill="#2D2D2D"
                   stroke="#4B4B4B"
-                  stroke-width="0.527318"
+                  strokeWidth="0.527318"
                 />
                 <path
                   id="circle1182_2"
                   d="M43.9801 766.739C27.8789 766.739 14.8264 753.686 14.8264 737.585C14.8264 721.484 27.8789 708.432 43.9801 708.432C60.0812 708.432 73.1338 721.484 73.1338 737.585C73.1338 753.686 60.0812 766.739 43.9801 766.739Z"
                   fill="#2D2D2D"
                   stroke="#4B4B4B"
-                  stroke-width="0.527318"
+                  strokeWidth="0.527318"
                 />
                 <path
                   id="rect1200_2"
@@ -2099,13 +2108,13 @@ class TrainCrash extends React.Component<
                   id="path1151_2"
                   d="M273.011 659.674V578.665"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="path1153_2"
                   d="M206.051 659.674V578.665"
                   stroke="#4B4B4B"
-                  stroke-width="0.165"
+                  strokeWidth="0.165"
                 />
                 <path
                   id="rect1146_2"
@@ -2177,9 +2186,9 @@ class TrainCrash extends React.Component<
               width="153"
               height="65.5811"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2212,9 +2221,9 @@ class TrainCrash extends React.Component<
               width="257.999"
               height="408.803"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2247,9 +2256,9 @@ class TrainCrash extends React.Component<
               width="158"
               height="212.543"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2282,9 +2291,9 @@ class TrainCrash extends React.Component<
               width="108"
               height="144.362"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2317,9 +2326,9 @@ class TrainCrash extends React.Component<
               width="366.55"
               height="358"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -2353,8 +2362,8 @@ class TrainCrash extends React.Component<
               gradientUnits="userSpaceOnUse"
               gradientTransform="translate(557.661 -453.966) rotate(103.128) scale(1194.03 3193.03)"
             >
-              <stop offset="0.23021" stop-color="#55ACFC" />
-              <stop offset="1" stop-color="white" />
+              <stop offset="0.23021" stopColor="#55ACFC" />
+              <stop offset="1" stopColor="white" />
             </radialGradient>
             <linearGradient
               id="paint1_linear_122_3315"
@@ -2364,9 +2373,9 @@ class TrainCrash extends React.Component<
               y2="4.41992"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#808080" stop-opacity="0.25" />
-              <stop offset="0.54" stop-color="#808080" stop-opacity="0.12" />
-              <stop offset="1" stop-color="#808080" stop-opacity="0.1" />
+              <stop stopColor="#808080" stopOpacity="0.25" />
+              <stop offset="0.54" stopColor="#808080" stopOpacity="0.12" />
+              <stop offset="1" stopColor="#808080" stopOpacity="0.1" />
             </linearGradient>
             <linearGradient
               id="paint2_linear_122_3315"
@@ -2376,8 +2385,8 @@ class TrainCrash extends React.Component<
               y2="590.149"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.123398" stop-color="#9AB967" />
-              <stop offset="1" stop-color="white" />
+              <stop offset="0.123398" stopColor="#9AB967" />
+              <stop offset="1" stopColor="white" />
             </linearGradient>
             <linearGradient
               id="paint3_linear_122_3315"
@@ -2387,8 +2396,8 @@ class TrainCrash extends React.Component<
               y2="1395.37"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.171875" stop-color="white" />
-              <stop offset="0.869792" stop-color="#949494" />
+              <stop offset="0.171875" stopColor="white" />
+              <stop offset="0.869792" stopColor="#949494" />
             </linearGradient>
             <linearGradient
               id="paint4_linear_122_3315"
@@ -2398,8 +2407,8 @@ class TrainCrash extends React.Component<
               y2="997.353"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.123398" stop-color="#949494" />
-              <stop offset="1" stop-color="white" />
+              <stop offset="0.123398" stopColor="#949494" />
+              <stop offset="1" stopColor="white" />
             </linearGradient>
             <linearGradient
               id="paint5_linear_122_3315"
@@ -2409,8 +2418,8 @@ class TrainCrash extends React.Component<
               y2="727.681"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#C4C4C4" stop-opacity="0" />
-              <stop offset="1" stop-color="#4B4B4B" />
+              <stop stopColor="#C4C4C4" stopOpacity="0" />
+              <stop offset="1" stopColor="#4B4B4B" />
             </linearGradient>
             <linearGradient
               id="paint6_linear_122_3315"
@@ -2420,8 +2429,8 @@ class TrainCrash extends React.Component<
               y2="728"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#C4C4C4" stop-opacity="0" />
-              <stop offset="1" stop-color="#4B4B4B" />
+              <stop stopColor="#C4C4C4" stopOpacity="0" />
+              <stop offset="1" stopColor="#4B4B4B" />
             </linearGradient>
             <clipPath id="clip0_122_3315">
               <rect width="1920" height="1080" fill="white" />
