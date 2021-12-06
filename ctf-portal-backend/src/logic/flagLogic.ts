@@ -68,7 +68,9 @@ class FlagLogic {
 		if (flag.status === FlagStatus.Valid)
 			throw new BadRequestException("Flag is already submitted");
 
+		const now = dayjs();
 		const startTime = dayjs(flag.startTime);
+		const timeTaken = now.diff(startTime, "second");
 		const endTime = startTime.second(startTime.second() + flag.timeLimit);
 		if (dayjs().isAfter(endTime))
 			throw new BadRequestException("Time limit exceeded");
@@ -76,6 +78,7 @@ class FlagLogic {
 		if (bcrypt.compareSync(hash, flag.hash as string)) {
 			isValid = true;
 			flag.status = FlagStatus.Valid;
+			flag.timeTaken = timeTaken;
 			await this.repository.save(flag);
 		} else {
 			flag.status = FlagStatus.Invalid;

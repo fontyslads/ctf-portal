@@ -6,6 +6,7 @@ import isEqual from "lodash.isequal";
 
 //components
 import { Button } from "react-bootstrap";
+import Scoreboard from "../Scoreboard/Scoreboard";
 
 //models
 import Flag from "../../models/Flag";
@@ -55,7 +56,8 @@ class FlagList extends React.Component<
       if (numberSubmitted < 2) allowedStage = 0;
       else if (numberSubmitted < 3) allowedStage = 1;
       else if (numberSubmitted < 5) allowedStage = 2;
-      else allowedStage = 3;
+      else if (numberSubmitted < 6) allowedStage = 3;
+      else allowedStage = 4;
 
       if (!this.props.initialized)
         return { ...state, allowedStage, activeStage: allowedStage };
@@ -73,6 +75,8 @@ class FlagList extends React.Component<
         return <Crossover flags={flags} />;
       case 3:
         return <TrainCrash flags={flags} />;
+      case 4:
+        return <Scoreboard flags={flags} />;
       default:
         return <Platform flags={flags} />;
     }

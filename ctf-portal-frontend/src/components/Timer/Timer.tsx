@@ -10,26 +10,31 @@ import { useEffect } from "react";
 export default function Timer() {
   const dispatch = useAppDispatch();
   const flags = useAppSelector(selectFlags);
+  let activeFlag: Flag | undefined = undefined;
 
-  const { seconds, minutes, hours, days, isRunning, restart, pause } = useTimer(
-    {
-      expiryTimestamp: getExpiryTime(flags),
-      autoStart: false,
-      onExpire: () => {
-        dispatch(listFlagsAsync());
-        if (
-          flags.filter(
-            (f) =>
-              f.status === FlagStatus.Valid || f.status === FlagStatus.TimedOut
-          ).length === flags.length
-        )
-          pause();
-      },
-    }
-  );
+  const { seconds, minutes, isRunning, restart, pause } = useTimer({
+    expiryTimestamp: getExpiryTime(flags),
+    autoStart: false,
+    onExpire: () => {
+      dispatch(listFlagsAsync());
+      if (
+        flags.filter(
+          (f) =>
+            f.status === FlagStatus.Valid || f.status === FlagStatus.TimedOut
+        ).length === flags.length
+      )
+        pause();
+    },
+  });
 
   function getActiveFlag(flags: Flag[]) {
-    let activeFlag = flags[0];
+    if (
+      flags.filter(
+        (f) => f.status === FlagStatus.Valid || f.status === FlagStatus.TimedOut
+      ).length === 6
+    )
+      activeFlag = undefined;
+
     flags
       .slice(0)
       .reverse()
@@ -67,7 +72,7 @@ export default function Timer() {
     }
   });
 
-  return (
+  return activeFlag ? (
     <div className="absolute top-10 right-10 bg-white rounded p-4 text-8xl bg-opacity-50">
       <div style={{ fontSize: "100px" }}>
         <span>{minutes.toString().length === 1 ? `0${minutes}` : minutes}</span>
@@ -75,5 +80,7 @@ export default function Timer() {
         <span>{seconds.toString().length === 1 ? `0${seconds}` : seconds}</span>
       </div>
     </div>
+  ) : (
+    <div></div>
   );
 }
