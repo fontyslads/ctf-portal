@@ -54,7 +54,6 @@ class Crossover extends React.Component<
       oldFlagFour.status !== FlagStatus.Valid &&
       oldFlagFour.status !== FlagStatus.TimedOut
     ) {
-      this.closeFlagSubmitModal();
       if (this.isFlagValid(flagFour)) {
         this.runConfetti();
         this.revertBariers();
@@ -66,7 +65,6 @@ class Crossover extends React.Component<
       oldFlagFive.status !== FlagStatus.Valid &&
       oldFlagFive.status !== FlagStatus.TimedOut
     ) {
-      this.closeFlagSubmitModal();
       if (this.isFlagValid(flagFive)) this.runConfetti();
     }
   }

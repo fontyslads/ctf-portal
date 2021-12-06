@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 export default function Timer() {
   const dispatch = useAppDispatch();
-  const flags = useAppSelector(selectFlags);
+  const flags = useAppSelector(selectFlags) || [];
   let activeFlag: Flag | undefined = undefined;
 
   const { seconds, minutes, isRunning, restart, pause } = useTimer({

@@ -11,9 +11,9 @@ class TeacherLogic {
 	}
 
 	public async startGame() {
-		let now = dayjs();
+		const now = dayjs();
 		let timeLimit = 0;
-		let flags = await this.repository.find({ order: { flagNumber: "ASC" } });
+		const flags = await this.repository.find({ order: { flagNumber: "ASC" } });
 
 		flags.forEach((flag, index) => {
 			if (index > 0) timeLimit += flag.timeLimit;
