@@ -106,7 +106,6 @@ class FlagLogic {
 	private async updateNextFlags(flags: Flag[], flag: Flag): Promise<Flag[]> {
 		const nextFlag = flags.find((f) => f.flagNumber === flag.flagNumber + 1);
 		if (nextFlag) {
-			console.log(flag.flagNumber, nextFlag.flagNumber);
 			const now = dayjs();
 			let timeLimit = 0;
 			flags = flags.map((f) => {
