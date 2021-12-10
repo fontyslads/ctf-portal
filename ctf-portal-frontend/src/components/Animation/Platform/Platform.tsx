@@ -56,7 +56,6 @@ class Platform extends React.Component<
       oldFlagOne.status !== FlagStatus.Valid &&
       oldFlagOne.status !== FlagStatus.TimedOut
     ) {
-      this.closeFlagSubmitModal();
       if (this.isFlagValid(flagOne)) {
         this.runConfetti();
         this.revertScreen();
@@ -68,7 +67,6 @@ class Platform extends React.Component<
       oldFlagTwo.status !== FlagStatus.Valid &&
       oldFlagTwo.status !== FlagStatus.TimedOut
     ) {
-      this.closeFlagSubmitModal();
       if (this.isFlagValid(flagTwo)) {
         this.runConfetti();
         this.revertDoors();

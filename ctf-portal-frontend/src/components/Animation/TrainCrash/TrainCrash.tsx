@@ -52,7 +52,6 @@ class TrainCrash extends React.Component<
       oldFlag.status !== FlagStatus.Valid &&
       oldFlag.status !== FlagStatus.TimedOut
     ) {
-      this.closeFlagSubmitModal();
       if (this.isFlagValid(flag)) this.runConfetti();
     }
   }

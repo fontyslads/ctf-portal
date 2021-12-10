@@ -34,4 +34,7 @@ export default class Flag {
 
 	@Column({ nullable: true })
 	startTime!: Date;
+
+	@Column({ default: 900 })
+	timeTaken!: number;
 }

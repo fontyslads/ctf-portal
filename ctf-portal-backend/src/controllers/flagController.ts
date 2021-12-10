@@ -55,8 +55,8 @@ class FlagController implements Controller {
 		const flagSubmit: SubmitFlag = req.body;
 		await this.flagLogic
 			.submitFlag(flagSubmit.id, flagSubmit.hash)
-			.then((flag: Flag) => {
-				return res.status(200).send(flag);
+			.then((flags: Flag[]) => {
+				return res.status(200).send(flags);
 			})
 			.catch((err) => next(err));
 	};

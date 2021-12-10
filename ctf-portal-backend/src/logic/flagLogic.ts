@@ -28,16 +28,18 @@ class FlagLogic {
 					flag.status !== FlagStatus.TimedOut
 				) {
 					flag.status = FlagStatus.TimedOut;
-					await this.repository.save(flag);
+					flags = await this.updateNextFlags(flags, flag);
 				}
 			}
 		}
 
-		flags = await this.repository.find({ where: { team } });
-
 		return flags.map((flag) => {
 			delete flag.hash;
-			delete flag.story;
+			if (
+				flag.status !== FlagStatus.Valid &&
+				flag.status !== FlagStatus.TimedOut
+			)
+				delete flag.story;
 			return flag;
 		});
 	}
@@ -46,16 +48,18 @@ class FlagLogic {
 		id: number,
 		hash: string,
 		team: Team = Team.Blue
-	): Promise<Flag> {
+	): Promise<Flag[]> {
 		let isValid = false;
 
-		const flag: Flag = (await this.repository.findOne({
-			where: { id }
-		})) as Flag;
+		let flags = await this.repository.find({ where: { team } });
 
-		const previousFlag: Flag = (await this.repository.findOne({
-			where: { flagNumber: flag.flagNumber - 1 }
-		})) as Flag;
+		const flag = flags.find((f) => f.id === id);
+		if (!flag)
+			throw new BadRequestException(`Flag with id ${id} does not exits`);
+
+		const previousFlag = flags.find(
+			(f) => f.flagNumber === flag.flagNumber - 1
+		);
 		if (
 			previousFlag &&
 			previousFlag.status !== FlagStatus.Valid &&
@@ -68,7 +72,9 @@ class FlagLogic {
 		if (flag.status === FlagStatus.Valid)
 			throw new BadRequestException("Flag is already submitted");
 
+		const now = dayjs();
 		const startTime = dayjs(flag.startTime);
+		const timeTaken = now.diff(startTime, "second");
 		const endTime = startTime.second(startTime.second() + flag.timeLimit);
 		if (dayjs().isAfter(endTime))
 			throw new BadRequestException("Time limit exceeded");
@@ -76,18 +82,45 @@ class FlagLogic {
 		if (bcrypt.compareSync(hash, flag.hash as string)) {
 			isValid = true;
 			flag.status = FlagStatus.Valid;
-			await this.repository.save(flag);
+			flag.timeTaken = timeTaken;
+			flags = await this.updateNextFlags(flags, flag);
 		} else {
 			flag.status = FlagStatus.Invalid;
 			flag.attempts += 1;
 			await this.repository.save(flag);
 		}
 
-		delete flag.hash;
-		if (!isValid) {
-			delete flag.story;
+		flags = await this.repository.find({ where: { team } });
+
+		return flags.map((flag) => {
+			delete flag.hash;
+			if (
+				flag.status !== FlagStatus.Valid &&
+				flag.status !== FlagStatus.TimedOut
+			)
+				delete flag.story;
+			return flag;
+		});
+	}
+
+	private async updateNextFlags(flags: Flag[], flag: Flag): Promise<Flag[]> {
+		const nextFlag = flags.find((f) => f.flagNumber === flag.flagNumber + 1);
+		if (nextFlag) {
+			const now = dayjs();
+			let timeLimit = 0;
+			flags = flags.map((f) => {
+				if (f.flagNumber > flag.flagNumber) {
+					if (f.flagNumber > flag.flagNumber + 1) timeLimit += f.timeLimit;
+					const startTime = now.second(now.second() + timeLimit);
+					f.startTime = new Date(startTime.toISOString());
+					f.status = FlagStatus.NotSubmitted;
+					f.attempts = 0;
+					f.timeTaken = Math.ceil(f.timeLimit * 1.5);
+				}
+				return f;
+			});
 		}
-		return flag;
+		return await this.repository.save(flags);
 	}
 }
 

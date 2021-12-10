@@ -43,14 +43,21 @@ class FlagCard extends React.Component<{
             <h1 className="font-semibold text-2xl">
               Flag {this.props.flag.id}
             </h1>
-            <p className="leading-tight text-justify w-full">
-              {this.props.flag.description}
-            </p>
+            <Collapse in={this.allowSubmit()}>
+              <p className="leading-tight text-justify w-full">
+                {this.props.flag.description}
+              </p>
+            </Collapse>
           </div>
           <Collapse in={this.allowSubmit()}>
             <div>
               <SubmitFlag flag={this.props.flag} />
             </div>
+          </Collapse>
+          <Collapse in={!this.allowSubmit()}>
+            <p className="leading-tight text-justify w-full">
+              {this.props.flag.story}
+            </p>
           </Collapse>
         </div>
       </div>

@@ -18,8 +18,8 @@ export async function submitFlag(
   team: string = "Blue"
 ) {
   return AxiosRequestHandler.post("/flag/submit", { id, hash, team })
-    .then((valid: boolean) => {
-      return valid;
+    .then((flags: Flag[]) => {
+      return flags;
     })
     .catch((err: any) => {
       throw err;

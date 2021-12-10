@@ -13,4 +13,5 @@ export default interface Flag {
   attempts: number;
   timeLimit: number;
   startTime: string;
+  timeTaken: number;
 }
