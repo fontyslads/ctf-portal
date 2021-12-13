@@ -2,7 +2,7 @@ import React from "react";
 import "./App.scss";
 
 //components
-import AuhtGuard from "./components/Auth demo/AuhtGuard/AuhtGuard";
+import AuhtGuard from "./components/Auth/AuhtGuard/AuhtGuard";
 
 class App extends React.Component {
   render() {
