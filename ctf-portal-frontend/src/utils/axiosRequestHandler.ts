@@ -14,7 +14,7 @@ class AxiosRequestHandler {
       // origin: "*",
       // Accept: "*/*",
       // "Content-Type": "application/json",
-      Authorization: `Bearer ` + `${AxiosRequestHandler.token}`,
+      Authorization: `Bearer ${AxiosRequestHandler.token}`,
       // "Access-Control-Allow-Origin": `*`,
 
       // header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');

@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import Keycloak from "keycloak-js";
-import { flatten } from "@reduxjs/toolkit/dist/query/utils";
 import Secured from "../Secured/Secured";
-import { BrowserRouter, Route } from "react-router-dom";
 import FlagList from "../../FlagList/FlagList";
 import Timer from "../../Timer/Timer";
 

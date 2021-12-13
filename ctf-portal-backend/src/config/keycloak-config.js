@@ -4,7 +4,7 @@ var Keycloak = require("keycloak-connect");
 let _keycloak;
 
 var keycloakConfig = {
-	clientId: "Backend",
+	clientId: "BackEnd",
 	bearerOnly: true,
 	serverUrl: "http://localhost:8080/auth",
 	realm: "CTF-portal",
