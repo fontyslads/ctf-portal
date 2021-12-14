@@ -42,8 +42,8 @@ class TeacherController implements Controller {
 		res: Response,
 		next: NextFunction
 	) => {
-		const started = await this.teacherLogic.startGame();
-		return res.send({ started });
+		await this.teacherLogic.startGame();
+		return res.send(200);
 	};
 }
 

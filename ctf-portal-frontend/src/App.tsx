@@ -2,11 +2,11 @@ import React from "react";
 import "./App.scss";
 
 //components
-import FlagList from "./components/FlagList/FlagList";
+import Login from "./components/Login/Login";
 
 class App extends React.Component {
   render() {
-    return <FlagList />;
+    return <Login />;
   }
 }
 
