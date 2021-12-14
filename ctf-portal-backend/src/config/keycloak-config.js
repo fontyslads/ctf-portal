@@ -4,12 +4,12 @@ var Keycloak = require("keycloak-connect");
 let _keycloak;
 
 var keycloakConfig = {
-	clientId: "BackEnd",
+	clientId: "ctf-react",
 	bearerOnly: true,
 	serverUrl: "http://localhost:8080/auth",
 	realm: "CTF-portal",
 	credentials: {
-		secret: "dc0d2904-8544-4d68-9529-eed3f32d36e5"
+		secret: "viybzodg2me5BizVgdalnN4z8AWF3tqL"
 	}
 };
 
