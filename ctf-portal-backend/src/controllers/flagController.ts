@@ -21,15 +21,11 @@ class FlagController implements Controller {
 	}
 
 	private initializeRoutes() {
-		this.router.get(
-			"/:team",
-			this.keycloak.protect("realm:Blue group"),
-			this.listFlags
-		);
+		this.router.get("/:team", this.keycloak.protect("blue"), this.listFlags);
 		this.router.post(
 			"/submit",
 			validate(SubmitFlag),
-			this.keycloak.protect("realm:Blue group"),
+			this.keycloak.protect("blue"),
 			this.submitFlag
 		);
 	}

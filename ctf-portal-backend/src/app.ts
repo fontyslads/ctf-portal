@@ -16,8 +16,9 @@ class App {
 	}
 
 	private initializeMiddlewares() {
-		require("./config/keycloak-config.js").initKeycloak();
 		this.app.use(cors());
+		const keycloak = require("./config/keycloak-config.js").initKeycloak();
+		this.app.use(keycloak.middleware());
 		this.app.use(express.json());
 		this.app.use(cookieParser());
 	}

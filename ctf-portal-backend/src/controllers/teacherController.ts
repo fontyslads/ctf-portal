@@ -16,7 +16,7 @@ class TeacherController implements Controller {
 	private initializeRoutes() {
 		this.router.get(
 			"/start",
-			this.keycloak.protect("realm:teacher"),
+			this.keycloak.protect("teacher"),
 			this.startWorkshop
 		);
 	}
