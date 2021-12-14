@@ -11,7 +11,8 @@ function validateEnv() {
 		DB_PASSWORD: str(),
 		DB_DATABASE: str(),
 		DB_ENTITIES: str(),
-		FRONTEND_HOST: str()
+		JWT_SECRET: str(),
+		TEACHER_PASSWORD: str()
 	});
 }
 

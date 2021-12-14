@@ -12,7 +12,6 @@ import Flag from "../models/entities/Flag";
 class FlagController implements Controller {
 	path: string = "/flag";
 	router: Router = Router();
-	keycloak = require("../config/keycloak-config.js").getKeycloak();
 
 	private flagLogic: FlagLogic = new FlagLogic();
 
@@ -21,13 +20,8 @@ class FlagController implements Controller {
 	}
 
 	private initializeRoutes() {
-		this.router.get("/:team", this.keycloak.protect("blue"), this.listFlags);
-		this.router.post(
-			"/submit",
-			validate(SubmitFlag),
-			this.keycloak.protect("blue"),
-			this.submitFlag
-		);
+		this.router.get("/:team", this.listFlags);
+		this.router.post("/submit", validate(SubmitFlag), this.submitFlag);
 	}
 
 	private listFlags = async (

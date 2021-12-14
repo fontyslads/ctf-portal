@@ -19,7 +19,6 @@
     "dayjs": "^1.10.7",
     "generate-react-cli": "^7.0.4",
     "gsap": "^3.8.0",
-    "keycloak-js": "^15.0.2",
     "lodash.isequal": "^4.5.0",
     "react-bootstrap": "^2.0.0-rc.0",
     "react-confetti": "^6.0.1",

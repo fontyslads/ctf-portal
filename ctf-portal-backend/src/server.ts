@@ -14,13 +14,14 @@ const main = async () => {
 
 	await databaseFactory
 		.connectDatabase()
-		.then(() => {
+		.then(async () => {
 			const app = new App();
 			app.initializeControllers([
 				new FlagController(),
 				new TeacherController()
 			]);
 			app.initializeErrorHandling();
+			await app.createTeacherAccount();
 			app.listen();
 		})
 		.catch((err) => {

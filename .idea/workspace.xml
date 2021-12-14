@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/flagController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-backend/src/controllers/flagController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/AuhtGuard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo/AuhtGuard/AuhtGuard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctf-portal-frontend/src/utils/axiosRequestHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ctf-portal-frontend/src/utils/axiosRequestHandler.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +43,6 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ctf-portal-frontend/src/components/Auth demo" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="$APPLICATION_CONFIG_DIR$/node/node-v14.15.0-win-x64/node" />
@@ -52,16 +50,6 @@
     <property name="prettierjs.PrettierConfiguration.Package" value="D:\Document\ctf-portal\node_modules\prettier" />
     <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
     <property name="ts.external.directory.path" value="D:\Document\ctf-portal\ctf-portal-backend\node_modules\typescript\lib" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Document\ctf-portal\ctf-portal-frontend\src\components\Auth demo" />
-      <recent name="D:\Document\ctf-portal\ctf-portal-frontend\src\components\Auth demo\welcome" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Document\ctf-portal\ctf-portal-frontend\src\components\Auth demo" />
-      <recent name="D:\Document\ctf-portal\ctf-portal-backend" />
-    </key>
   </component>
   <component name="RunManager" selected="npm.start">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">

@@ -4,21 +4,23 @@ import cookieParser from "cookie-parser";
 import Controller from "./controllers/controller";
 import { validationError } from "./utils/validation/validateBody";
 import errorMiddleware from "./utils/exceptions/errorMiddleware";
+import TeacherLogic from "./logic/teacherLogic";
 
 class App {
 	private app: Application;
-
-	private frontendHost: string = process.env.FRONTEND_HOST!;
 
 	constructor() {
 		this.app = express();
 		this.initializeMiddlewares();
 	}
 
+	public async createTeacherAccount() {
+		const teacherLogic = new TeacherLogic();
+		return await teacherLogic.register();
+	}
+
 	private initializeMiddlewares() {
 		this.app.use(cors());
-		const keycloak = require("./config/keycloak-config.js").initKeycloak();
-		this.app.use(keycloak.middleware());
 		this.app.use(express.json());
 		this.app.use(cookieParser());
 	}
