@@ -49,8 +49,6 @@ class FlagLogic {
 		hash: string,
 		team: Team = Team.Blue
 	): Promise<Flag[]> {
-		let isValid = false;
-
 		let flags = await this.repository.find({ where: { team } });
 
 		const flag = flags.find((f) => f.id === id);
@@ -80,7 +78,6 @@ class FlagLogic {
 			throw new BadRequestException("Time limit exceeded");
 
 		if (bcrypt.compareSync(hash, flag.hash as string)) {
-			isValid = true;
 			flag.status = FlagStatus.Valid;
 			flag.timeTaken = timeTaken;
 			flags = await this.updateNextFlags(flags, flag);
