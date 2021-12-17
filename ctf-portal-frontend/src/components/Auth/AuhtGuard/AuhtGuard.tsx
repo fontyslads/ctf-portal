@@ -1,6 +1,6 @@
 import React from "react";
 import Keycloak from "keycloak-js";
-import Secured from "../Secured/Secured";
+import TeacherPanel from "../TeacherPanel/TeacherPanel";
 import FlagList from "../../FlagList/FlagList";
 import Timer from "../../Timer/Timer";
 import styles from "./AuthGuard.module.scss";
@@ -35,7 +35,7 @@ class AuhtGuard extends React.Component<any, any> {
       if (this.state.authenticated && this.state.isTeacher)
         return (
           <div>
-            <Secured />
+            <TeacherPanel />
           </div>
         );
       else if (this.state.authenticated && !this.state.isTeacher)
