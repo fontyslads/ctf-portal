@@ -1,7 +1,10 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import { Repository, getConnection } from "typeorm";
 import Flag from "../models/entities/Flag";
 import FlagStatus from "../models/enums/FlagStatus";
+
+dayjs.extend(utc);
 
 class TeacherLogic {
 	private repository: Repository<Flag>;
@@ -11,7 +14,7 @@ class TeacherLogic {
 	}
 
 	public async startGame() {
-		const now = dayjs();
+		const now = dayjs.utc();
 		let timeLimit = 0;
 		const flags = await this.repository.find({ order: { flagNumber: "ASC" } });
 

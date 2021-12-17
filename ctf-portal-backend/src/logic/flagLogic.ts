@@ -1,11 +1,14 @@
 import { Repository, getConnection } from "typeorm";
 import bcrypt from "bcrypt";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import Flag from "../models/entities/Flag";
 import Team from "../models/enums/Team";
 import BadRequestException from "../utils/exceptions/httpExceptions/badRequestException";
 import FlagStatus from "../models/enums/FlagStatus";
+
+dayjs.extend(utc);
 
 class FlagLogic {
 	private repository: Repository<Flag>;
@@ -20,10 +23,10 @@ class FlagLogic {
 		for (let i = 0; i < flags.length; i++) {
 			const flag = flags[i];
 			if (flag.startTime) {
-				const start = dayjs(flag.startTime);
+				const start = dayjs.utc(flag.startTime);
 				const end = start.second(start.second() + flag.timeLimit);
 				if (
-					dayjs().isAfter(end) &&
+					dayjs.utc().isAfter(end) &&
 					flag.status !== FlagStatus.Valid &&
 					flag.status !== FlagStatus.TimedOut
 				) {
@@ -70,11 +73,11 @@ class FlagLogic {
 		if (flag.status === FlagStatus.Valid)
 			throw new BadRequestException("Flag is already submitted");
 
-		const now = dayjs();
-		const startTime = dayjs(flag.startTime);
+		const now = dayjs.utc();
+		const startTime = dayjs.utc(flag.startTime);
 		const timeTaken = now.diff(startTime, "second");
 		const endTime = startTime.second(startTime.second() + flag.timeLimit);
-		if (dayjs().isAfter(endTime))
+		if (dayjs.utc().isAfter(endTime))
 			throw new BadRequestException("Time limit exceeded");
 
 		if (bcrypt.compareSync(hash, flag.hash as string)) {
@@ -103,7 +106,7 @@ class FlagLogic {
 	private async updateNextFlags(flags: Flag[], flag: Flag): Promise<Flag[]> {
 		const nextFlag = flags.find((f) => f.flagNumber === flag.flagNumber + 1);
 		if (nextFlag) {
-			const now = dayjs();
+			const now = dayjs.utc();
 			let timeLimit = 0;
 			flags = flags.map((f) => {
 				if (f.flagNumber > flag.flagNumber) {

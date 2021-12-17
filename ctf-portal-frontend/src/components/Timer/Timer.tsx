@@ -3,9 +3,12 @@ import FlagStatus from "../../models/enums/FlagStatus";
 import Flag from "../../models/Flag";
 import { useTimer } from "react-timer-hook";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import { listFlagsAsync, selectFlags } from "../SubmitFlag/FlagSlice";
 import { useEffect } from "react";
+
+dayjs.extend(utc);
 
 export default function Timer() {
   const dispatch = useAppDispatch();
@@ -55,7 +58,7 @@ export default function Timer() {
       const flag = getActiveFlag(flags);
 
       if (flag) {
-        const start = dayjs(flag.startTime);
+        const start = dayjs.utc(flag.startTime);
         const end = start.second(start.second() + flag.timeLimit);
         return new Date(end.toISOString());
       }
