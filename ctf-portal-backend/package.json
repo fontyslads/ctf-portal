@@ -34,6 +34,7 @@
 		"@types/keycloak-js": "^3.4.1",
 		"@types/mysql": "^2.15.16",
 		"@types/node": "^13.13.36",
+		"@types/validator": "^13.7.0",
 		"nodemon": "^2.0.6",
 		"ts-node": "^8.10.2",
 		"typescript": "^3.9.7"
