@@ -26,7 +26,7 @@ class AuhtGuard extends React.Component<any, any> {
   }
 
   logOut() {
-    this.state.keycloak.logout({ redirectUri: "http://localhost:3000" });
+    this.state.keycloak.logout({ redirectUri: "http://172.16.1.27:3000" });
   }
 
   render() {
