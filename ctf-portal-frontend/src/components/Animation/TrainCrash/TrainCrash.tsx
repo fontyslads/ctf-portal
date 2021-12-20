@@ -42,7 +42,7 @@ class TrainCrash extends React.Component<
 
   componentDidMount(): void {
     this.animateTrain();
-    this.explosionAni();
+    this.explosionAnimation();
   }
 
   componentDidUpdate(props: { flags: Flag[] }): void {
@@ -125,12 +125,51 @@ class TrainCrash extends React.Component<
     });
   }
 
-  explosionAni(): void {
-    this.tl.to(this.explosion.current, {
-      ease: "ease",
-      scale: 4,
-      opacity: 1,
-    });
+  explosionAnimation(): void {
+    this.tl
+      .to(this.train.current, {
+        x: -500,
+        ease: "linear",
+        duration: 0.25,
+      })
+      .to(
+        this.trainShadow.current,
+        {
+          x: -500,
+          ease: "linear",
+          duration: 0.25,
+        },
+        "<"
+      )
+      .to(
+        this.secondTrain.current,
+        {
+          x: 500,
+          ease: "linear",
+          duration: 0.25,
+        },
+        "<"
+      )
+      .to(
+        this.secondTrainShadow.current,
+        {
+          x: 500,
+          ease: "linear",
+          duration: 0.25,
+        },
+        "<"
+      )
+      .to(this.explosion.current, {
+        ease: "easeIn",
+        scale: 4,
+        opacity: 1,
+      })
+      .to(this.explosion.current, {
+        ease: "easeIn",
+        opacity: 0,
+        duration: 3,
+        delay: 3,
+      });
   }
 
   getBackgroundColor(): string {
@@ -195,9 +234,10 @@ class TrainCrash extends React.Component<
       <div>
         <canvas
           id="canvas"
-          className="z-10 fixed top-0 left-0 w-full h-full pointer-events-none"
+          className="fixed top-0 left-0 z-10 w-full h-full pointer-events-none"
         />
         {this.renderFlagSubmit()}
+
         <svg
           ref={this.explosion}
           className={styles.explosion}

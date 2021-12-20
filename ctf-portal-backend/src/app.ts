@@ -27,8 +27,8 @@ class App {
 				}
 			})
 		);
-		const keycloak = require("./config/keycloak-config.js").initKeycloak();
-		this.app.use(keycloak.middleware());
+		// const keycloak = require("./config/keycloak-config.js").initKeycloak();
+		// this.app.use(keycloak.middleware());
 		this.app.use(express.json());
 		this.app.use(cookieParser());
 	}
