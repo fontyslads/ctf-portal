@@ -3,16 +3,19 @@ import FlagStatus from "../../models/enums/FlagStatus";
 import Flag from "../../models/Flag";
 import { useTimer } from "react-timer-hook";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import { listFlagsAsync, selectFlags } from "../SubmitFlag/FlagSlice";
 import { useEffect } from "react";
+
+dayjs.extend(utc);
 
 export default function Timer() {
   const dispatch = useAppDispatch();
   const flags = useAppSelector(selectFlags) || [];
   let activeFlag: Flag | undefined = undefined;
 
-  const { seconds, minutes, isRunning, restart, pause } = useTimer({
+  const { seconds, minutes, restart, pause } = useTimer({
     expiryTimestamp: getExpiryTime(flags),
     autoStart: false,
     onExpire: () => {
@@ -55,7 +58,7 @@ export default function Timer() {
       const flag = getActiveFlag(flags);
 
       if (flag) {
-        const start = dayjs(flag.startTime);
+        const start = dayjs.utc(flag.startTime);
         const end = start.second(start.second() + flag.timeLimit);
         return new Date(end.toISOString());
       }
@@ -65,15 +68,13 @@ export default function Timer() {
 
   useEffect(() => {
     if (flags) {
-      if (!isRunning) {
-        const time = getExpiryTime(flags);
-        restart(time);
-      }
+      const time = getExpiryTime(flags);
+      restart(time);
     }
-  });
+  }, [flags]);
 
   return activeFlag ? (
-    <div className="absolute top-10 right-10 bg-white rounded p-4 text-8xl bg-opacity-50">
+    <div className="absolute p-4 bg-white bg-opacity-50 rounded top-10 right-10 text-8xl">
       <div style={{ fontSize: "100px" }}>
         <span>{minutes.toString().length === 1 ? `0${minutes}` : minutes}</span>
         :

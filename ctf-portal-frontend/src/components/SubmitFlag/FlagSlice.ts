@@ -59,7 +59,15 @@ export const flagSlice = createSlice({
       .addCase(submitFlagAsync.rejected, (state, action) => {
         state.flags = state.flags.map((flag) => {
           if (flag.id === action.meta.arg.id) {
-            flag = { ...flag, status: FlagStatus.Errored };
+            const error = action.payload as any;
+            const constraint = error.errors[0].constraints;
+            let errorMsg = "";
+            console.log(constraint);
+            Object.keys(constraint).forEach((c) => {
+              console.log(c);
+              errorMsg = constraint[c];
+            });
+            flag = { ...flag, status: FlagStatus.Errored, errorMsg };
           }
           return flag;
         });

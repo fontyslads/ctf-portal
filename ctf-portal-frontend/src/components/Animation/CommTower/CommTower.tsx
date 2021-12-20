@@ -259,7 +259,7 @@ class CommTower extends React.Component<
       <div>
         <canvas
           id="canvas"
-          className="z-10 fixed top-0 left-0 w-full h-full pointer-events-none"
+          className="fixed top-0 left-0 z-10 w-full h-full pointer-events-none"
         />
         {this.renderFlagSubmit()}
         <svg className={styles.background} viewBox="0 0 1920 1080">
