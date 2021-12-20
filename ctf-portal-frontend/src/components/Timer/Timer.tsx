@@ -15,7 +15,7 @@ export default function Timer() {
   const flags = useAppSelector(selectFlags) || [];
   let activeFlag: Flag | undefined = undefined;
 
-  const { seconds, minutes, isRunning, restart, pause } = useTimer({
+  const { seconds, minutes, restart, pause } = useTimer({
     expiryTimestamp: getExpiryTime(flags),
     autoStart: false,
     onExpire: () => {
