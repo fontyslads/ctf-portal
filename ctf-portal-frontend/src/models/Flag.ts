@@ -11,6 +11,7 @@ export default interface Flag {
   hint: string[];
   submitted: boolean;
   status: FlagStatus;
+  errorMsg: string;
   attempts: number;
   timeLimit: number;
   startTime: string;
