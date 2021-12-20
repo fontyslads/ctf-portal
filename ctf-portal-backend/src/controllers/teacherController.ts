@@ -8,7 +8,7 @@ class TeacherController implements Controller {
 
 	private teacherLogic: TeacherLogic = new TeacherLogic();
 
-	// keycloak = require("../config/keycloak-config.js").getKeycloak();
+	keycloak = require("../config/keycloak-config.js").getKeycloak();
 	constructor() {
 		this.initializeRoutes();
 	}
@@ -16,7 +16,7 @@ class TeacherController implements Controller {
 	private initializeRoutes() {
 		this.router.get(
 			"/start",
-			// this.keycloak.protect("realm:teacher"),
+			this.keycloak.protect("realm:teacher"),
 			this.startWorkshop
 		);
 	}
