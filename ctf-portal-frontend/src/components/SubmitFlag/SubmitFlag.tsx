@@ -39,12 +39,12 @@ class SubmitFlag extends React.Component<
     return (
       <form className="flex gap-2" onSubmit={this.handleSubmit}>
         <div className="flex">
-          <span className="text-sm text-black flex items-center rounded-l px-4 py-2 bg-yellow-300 whitespace-no-wrap">
+          <span className="flex items-center px-4 py-2 text-sm text-black whitespace-no-wrap bg-yellow-300 rounded-l">
             Flag:
           </span>
           <input
             name="field_name"
-            className="text-black rounded-r px-4 py-2 w-full"
+            className="w-full px-4 py-2 text-black rounded-r"
             type="text"
             placeholder="Enter your flag..."
             onChange={this.handleChange}

@@ -22,6 +22,9 @@ export default class Flag {
 	@Column()
 	story?: string;
 
+	@Column()
+	hint!: string;
+
 	@Column({ type: "enum", enum: FlagStatus, default: FlagStatus.NotSubmitted })
 	status!: FlagStatus;
 

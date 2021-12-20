@@ -8,6 +8,7 @@ export default interface Flag {
   hash: string;
   description: string;
   story: string;
+  hint: string[];
   submitted: boolean;
   status: FlagStatus;
   attempts: number;
