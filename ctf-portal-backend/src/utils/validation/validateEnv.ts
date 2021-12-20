@@ -10,7 +10,8 @@ function validateEnv() {
 		DB_USERNAME: str(),
 		DB_PASSWORD: str(),
 		DB_DATABASE: str(),
-		DB_ENTITIES: str()
+		DB_ENTITIES: str(),
+		FRONTEND_HOST: str()
 	});
 }
 

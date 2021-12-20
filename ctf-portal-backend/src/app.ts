@@ -16,7 +16,17 @@ class App {
 	}
 
 	private initializeMiddlewares() {
-		this.app.use(cors());
+		const allowedOrigins = [this.frontendHost];
+		this.app.use(
+			cors({
+				origin: (origin, callback) => {
+					if (allowedOrigins.indexOf(origin!) !== -1) {
+						return callback(null, true);
+					}
+					return callback(new Error("Not allowed by CORS"), false);
+				}
+			})
+		);
 		const keycloak = require("./config/keycloak-config.js").initKeycloak();
 		this.app.use(keycloak.middleware());
 		this.app.use(express.json());
