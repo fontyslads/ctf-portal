@@ -1,6 +1,3 @@
-* {
-  overflow: hidden;
-}
 .background {
   height: 100vh;
   width: 100%;
@@ -36,7 +33,7 @@
 }
 
 .explosion {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.01);
