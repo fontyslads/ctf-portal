@@ -146,7 +146,7 @@ class CommTower extends React.Component<
         )
         .to(this.signal.current, {
           opacity: 0,
-          repeat: 5,
+          repeat: 3,
         });
     this.tl.to(this.flagThreeButton.current, {
       opacity: 1,
