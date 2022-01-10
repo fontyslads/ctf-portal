@@ -24,12 +24,10 @@
     "react-bootstrap": "^2.0.0-rc.0",
     "react-confetti": "^6.0.1",
     "react-dom": "^17.0.2",
-    "react-markdown": "^7.1.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "4.0.3",
     "react-timer-hook": "^3.0.5",
-    "remark-gfm": "^3.0.1",
     "typescript": "~4.1.5"
   },
   "scripts": {
