@@ -64,7 +64,7 @@ class TrainCrash extends React.Component<
         this.props.flags.filter((f) => f.status === FlagStatus.Valid).length >=
         5
       ) {
-        //krantenkop
+        this.newspaperAnimation();
       } else this.explosionAnimation();
     }
   }
